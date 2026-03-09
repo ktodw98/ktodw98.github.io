@@ -37,6 +37,7 @@ Open: `http://127.0.0.1:4000`
 ---
 title: "Post title"
 date: 2026-03-09 22:00:00 +0900
+categories: ["engineering"]
 tags: ["tag1", "tag2"]
 description: "One-line summary"
 draft: false
@@ -75,7 +76,7 @@ During build, wikilinks are converted to internal links and backlinks are genera
 - `/resume/` Resume / profile page
 - `/about/` legacy alias to resume
 - Header search input for global search
-- Left sidebar for tags and navigation
+- Left sidebar for categories, tags, and recent posts
 - Right sidebar (post/note) for TOC, related posts, backlinks
 - `/feed.xml` Atom feed
 

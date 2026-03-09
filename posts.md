@@ -11,9 +11,14 @@ description: Published posts sorted by date.
 {% if visible_posts.size > 0 %}
   <ul id="post-archive-list" class="post-archive-list">
     {% for post in visible_posts %}
-      <li class="card" data-tags="{{ post.tags | join: '|' | downcase }}">
+      {% assign primary_category = post.categories | first %}
+      <li class="card" data-tags="{{ post.tags | join: '|' | downcase }}" data-category="{{ primary_category | downcase }}">
         <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-        <p class="meta">{{ post.date | date: "%Y-%m-%d" }} · {{ post.tags | join: ", " }}</p>
+        <p class="meta">
+          {{ post.date | date: "%Y-%m-%d" }}
+          {% if primary_category %} · {{ primary_category }}{% endif %}
+          {% if post.tags and post.tags.size > 0 %} · {{ post.tags | join: ", " }}{% endif %}
+        </p>
         <p>{{ post.description }}</p>
       </li>
     {% endfor %}

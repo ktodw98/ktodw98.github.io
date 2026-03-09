@@ -109,8 +109,10 @@
       items
         .map(function (item) {
           return (
-            "<li class=\"toc-" +
+            "<li class=\"toc-entry toc-" +
             item.level +
+            "\" data-target=\"" +
+            item.id +
             "\"><a href=\"#" +
             item.id +
             "\">" +
@@ -120,33 +122,74 @@
         })
         .join("") +
       "</ul>";
+
+    var tocEntries = toc.querySelectorAll("li.toc-entry[data-target]");
+    function setActiveToc(targetId) {
+      Array.prototype.forEach.call(tocEntries, function (entry) {
+        entry.classList.toggle("active", entry.getAttribute("data-target") === targetId);
+      });
+    }
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        var visible = entries
+          .filter(function (entry) {
+            return entry.isIntersecting;
+          })
+          .sort(function (a, b) {
+            return a.boundingClientRect.top - b.boundingClientRect.top;
+          });
+
+        if (visible.length > 0) {
+          setActiveToc(visible[0].target.id);
+        }
+      },
+      { rootMargin: "-18% 0px -72% 0px", threshold: [0, 1] }
+    );
+
+    Array.prototype.forEach.call(headings, function (heading) {
+      observer.observe(heading);
+    });
+
+    if (items.length > 0) {
+      setActiveToc(items[0].id);
+    }
   }
 
-  function filterPostsByTagQuery() {
+  function filterPostsByQuery() {
     var postList = document.getElementById("post-archive-list");
     if (!postList) return;
 
     var filterNotice = document.getElementById("active-tag-filter");
-    var tag = new URLSearchParams(window.location.search).get("tag");
-    if (!tag) return;
+    var params = new URLSearchParams(window.location.search);
+    var tag = params.get("tag");
+    var category = params.get("category");
+    if (!tag && !category) return;
 
-    var normalized = tag.toLowerCase();
+    var normalizedTag = tag ? tag.toLowerCase() : "";
+    var normalizedCategory = category ? category.toLowerCase() : "";
     var visibleCount = 0;
     var items = postList.querySelectorAll("li[data-tags]");
     Array.prototype.forEach.call(items, function (item) {
       var rawTags = item.getAttribute("data-tags") || "";
       var tags = rawTags.split("|");
-      var matched = tags.indexOf(normalized) !== -1;
+      var rawCategory = (item.getAttribute("data-category") || "").toLowerCase();
+      var tagMatched = !normalizedTag || tags.indexOf(normalizedTag) !== -1;
+      var categoryMatched = !normalizedCategory || rawCategory === normalizedCategory;
+      var matched = tagMatched && categoryMatched;
       item.hidden = !matched;
       if (matched) visibleCount += 1;
     });
 
     if (filterNotice) {
       filterNotice.hidden = false;
-      filterNotice.textContent = "Filtered by #" + tag + " (" + visibleCount + ")";
+      var labels = [];
+      if (tag) labels.push("#" + tag);
+      if (category) labels.push("category:" + category);
+      filterNotice.textContent = "Filtered by " + labels.join(" + ") + " (" + visibleCount + ")";
     }
   }
 
   buildToc();
-  filterPostsByTagQuery();
+  filterPostsByQuery();
 })();

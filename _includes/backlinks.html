@@ -6,9 +6,13 @@
 {% if backlinks and backlinks.size > 0 %}
   <section class="sidebar-panel">
     <h2>Backlinks</h2>
-    <ul class="sidebar-list">
+    <ul class="sidebar-list sidebar-list-rich">
       {% for backlink in backlinks %}
-        <li><a href="{{ backlink.url | relative_url }}">{{ backlink.title }}</a></li>
+        <li>
+          <a href="{{ backlink.url | relative_url }}">
+            <span class="item-title">{{ backlink.title }}</span>
+          </a>
+        </li>
       {% endfor %}
     </ul>
   </section>

@@ -20,7 +20,12 @@ layout: default
         <li>
           <article class="card">
             <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-            <p class="meta">{{ post.date | date: "%Y-%m-%d" }} · {{ post.tags | join: ", " }}</p>
+            {% assign primary_category = post.categories | first %}
+            <p class="meta">
+              {{ post.date | date: "%Y-%m-%d" }}
+              {% if primary_category %} · {{ primary_category }}{% endif %}
+              {% if post.tags and post.tags.size > 0 %} · {{ post.tags | join: ", " }}{% endif %}
+            </p>
             <p>{{ post.description }}</p>
           </article>
         </li>

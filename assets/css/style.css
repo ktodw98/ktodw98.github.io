@@ -231,7 +231,6 @@ a {
   gap: 0.8rem;
 }
 
-.sidebar-panel,
 .hero,
 .card,
 .post,
@@ -243,6 +242,10 @@ a {
 }
 
 .sidebar-panel {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+  box-shadow: none;
   padding: 0.95rem;
 }
 
@@ -276,6 +279,42 @@ a {
 .sidebar-panel a:hover,
 .toc-list a:hover {
   text-decoration: underline;
+}
+
+.sidebar-list li {
+  margin: 0;
+}
+
+.sidebar-list-rich {
+  gap: 0.5rem;
+}
+
+.sidebar-list-rich a {
+  display: grid;
+  gap: 0.1rem;
+  padding: 0.5rem 0.58rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.sidebar-list-rich a:hover {
+  background: var(--surface);
+  border-color: color-mix(in srgb, var(--brand) 34%, var(--line));
+  text-decoration: none;
+}
+
+.item-title {
+  color: var(--text);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.item-meta {
+  color: var(--muted);
+  font-size: 0.76rem;
 }
 
 .profile-head {
@@ -435,11 +474,37 @@ a {
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 0.35rem;
+  gap: 0.4rem;
 }
 
-.toc-h3 {
-  padding-left: 0.7rem;
+.toc-items li {
+  margin: 0;
+}
+
+.toc-items li a {
+  display: block;
+  padding: 0.42rem 0.55rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.toc-items li a:hover {
+  color: var(--text);
+  background: var(--surface);
+  border-color: var(--line);
+  text-decoration: none;
+}
+
+.toc-items li.active a {
+  color: var(--text);
+  background: var(--surface);
+  border-color: color-mix(in srgb, var(--brand) 36%, var(--line));
+}
+
+.toc-h3 a {
+  padding-left: 1rem;
 }
 
 .comments {
@@ -509,6 +574,15 @@ a {
     display: grid;
   }
 
+  .sidebar-left {
+    position: sticky;
+    top: 90px;
+    align-self: start;
+    max-height: calc(100vh - 108px);
+    overflow: auto;
+    padding-right: 0.1rem;
+  }
+
   .sidebar-right,
   .mobile-only,
   .menu-toggle,
@@ -524,6 +598,12 @@ a {
 
   .sidebar-right {
     display: grid !important;
+    position: sticky;
+    top: 90px;
+    align-self: start;
+    max-height: calc(100vh - 108px);
+    overflow: auto;
+    padding-right: 0.1rem;
   }
 }
 

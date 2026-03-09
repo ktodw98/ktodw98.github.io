@@ -48,6 +48,25 @@
 </section>
 
 <section class="sidebar-panel">
+  <h2>Categories</h2>
+  {% assign sorted_categories = site.categories | sort %}
+  {% if sorted_categories.size > 0 %}
+  <ul class="sidebar-list sidebar-list-rich">
+    {% for category in sorted_categories %}
+    <li>
+      <a href="{{ '/posts/' | relative_url }}?category={{ category[0] | url_encode }}">
+        <span class="item-title">{{ category[0] }}</span>
+        <span class="item-meta">{{ category[1].size }} posts</span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="meta">No categories yet.</p>
+  {% endif %}
+</section>
+
+<section class="sidebar-panel">
   <h2>Tags</h2>
   {% assign sorted_tags = site.tags | sort %}
   {% if sorted_tags.size > 0 %}
@@ -65,10 +84,19 @@
 
 <section class="sidebar-panel">
   <h2>Recent Posts</h2>
-  <ul class="sidebar-list">
+  <ul class="sidebar-list sidebar-list-rich">
     {% assign latest_posts = site.posts | where_exp: "item", "item.draft != true" | slice: 0, 6 %}
     {% for post in latest_posts %}
-    <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+    {% assign primary_category = post.categories | first %}
+    <li>
+      <a href="{{ post.url | relative_url }}">
+        <span class="item-title">{{ post.title }}</span>
+        <span class="item-meta">
+          {{ post.date | date: "%m-%d" }}
+          {% if primary_category %} · {{ primary_category }}{% endif %}
+        </span>
+      </a>
+    </li>
     {% endfor %}
   </ul>
 </section>

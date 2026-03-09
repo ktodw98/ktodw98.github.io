@@ -1,6 +1,7 @@
 ---
 title: "Welcome to My Dev Blog"
 date: 2026-03-09 21:30:00 +0900
+categories: ["blogging"]
 tags: ["intro", "blogging", "workflow"]
 description: "Why this blog exists and how posts are managed with Markdown and GitHub."
 draft: false

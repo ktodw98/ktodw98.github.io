@@ -43,12 +43,17 @@
       .slice(0, maxResults)
       .map(function (post) {
         var tags = (post.tags || []).join(", ");
+        var category = post.category ? String(post.category) : "";
         var badge = post.type === "note" ? "Note" : "Post";
         return (
           "<li>" +
           "<a class=\"search-hit\" href=\"" + escapeHtml(post.url) + "\">" +
           "<span class=\"search-hit-title\">" + escapeHtml(post.title) + "</span>" +
-          "<span class=\"search-hit-meta\">" + badge + (post.date ? " · " + escapeHtml(post.date) : "") + "</span>" +
+          "<span class=\"search-hit-meta\">" +
+          badge +
+          (post.date ? " · " + escapeHtml(post.date) : "") +
+          (category ? " · " + escapeHtml(category) : "") +
+          "</span>" +
           (tags ? "<span class=\"search-hit-tags\">" + escapeHtml(tags) + "</span>" : "") +
           "</a>" +
           "</li>"
@@ -72,6 +77,7 @@
         post.title,
         post.description,
         (post.tags || []).join(" "),
+        post.category || "",
         post.type
       ]
         .join(" ")

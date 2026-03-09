@@ -12,9 +12,18 @@
     {% if related_posts.size > 0 %}
       <section class="sidebar-panel">
         <h2>Related</h2>
-        <ul class="sidebar-list">
+        <ul class="sidebar-list sidebar-list-rich">
           {% for post in related_posts %}
-            <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+            {% assign primary_category = post.categories | first %}
+            <li>
+              <a href="{{ post.url | relative_url }}">
+                <span class="item-title">{{ post.title }}</span>
+                <span class="item-meta">
+                  {{ post.date | date: "%m-%d" }}
+                  {% if primary_category %} · {{ primary_category }}{% endif %}
+                </span>
+              </a>
+            </li>
           {% endfor %}
         </ul>
       </section>

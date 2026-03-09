@@ -5,7 +5,12 @@ layout: default
   <header class="post-header">
     <p class="eyebrow">Post</p>
     <h1>{{ page.title }}</h1>
-    <p class="meta">{{ page.date | date: "%Y-%m-%d %H:%M" }} · {{ page.tags | join: ", " }}</p>
+    {% assign primary_category = page.categories | first %}
+    <p class="meta">
+      {{ page.date | date: "%Y-%m-%d %H:%M" }}
+      {% if primary_category %} · {{ primary_category }}{% endif %}
+      {% if page.tags and page.tags.size > 0 %} · {{ page.tags | join: ", " }}{% endif %}
+    </p>
     <p>{{ page.description }}</p>
   </header>
   <div class="content-body js-rich-content">

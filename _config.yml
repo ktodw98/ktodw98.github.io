@@ -7,14 +7,15 @@ baseurl: ""
 permalink: /:year/:month/:day/:title/
 
 author:
-  name: "Your Name"
+  name: "Kai Lee"
   headline: "Software Engineer"
   bio: "Building reliable products with clear architecture and practical execution."
-  avatar: "/assets/images/profile-placeholder.svg"
+  avatar: "/assets/images/gopher.png"
   location: "Seoul, South Korea"
-  email: "you@example.com"
+  email: "contact@kailee.dev"
   github_url: "https://github.com/ktodw98"
-  contact_url: "mailto:you@example.com"
+  linkedin_url: "https://www.linkedin.com/in/your-id"
+  contact_url: "mailto:contact@kailee.dev"
 
 markdown: kramdown
 highlighter: rouge

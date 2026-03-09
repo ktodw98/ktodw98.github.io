@@ -10,13 +10,18 @@
     <div class="header-actions">
       <div class="search-shell">
         <label for="global-search-input" class="sr-only">Search posts and notes</label>
-        <input
-          id="global-search-input"
-          class="global-search-input"
-          type="search"
-          placeholder="Search posts and notes"
-          data-search-json="{{ '/search.json' | relative_url }}"
-          autocomplete="off">
+        <div class="search-inline">
+          <input
+            id="global-search-input"
+            class="global-search-input"
+            type="search"
+            placeholder="Search posts and notes"
+            data-search-json="{{ '/search.json' | relative_url }}"
+            autocomplete="off">
+          <button id="global-search-button" class="search-button" type="button" aria-label="Search">
+            Search
+          </button>
+        </div>
         <ul id="global-search-results" class="global-search-results" hidden></ul>
       </div>
       <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Open menu">

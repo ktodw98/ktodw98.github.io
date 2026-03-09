@@ -1,6 +1,7 @@
 (function () {
   var input = document.getElementById("global-search-input");
   var results = document.getElementById("global-search-results");
+  var searchButton = document.getElementById("global-search-button");
   if (!input || !results) return;
 
   var sourceUrl = input.getAttribute("data-search-json");
@@ -91,6 +92,24 @@
       docs = data;
       input.addEventListener("input", function (event) {
         filter(event.target.value);
+      });
+
+      if (searchButton) {
+        searchButton.addEventListener("click", function () {
+          filter(input.value);
+          input.focus();
+        });
+      }
+
+      input.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          filter(input.value);
+          var first = results.querySelector("a.search-hit");
+          if (first) {
+            window.location.href = first.getAttribute("href");
+          }
+        }
       });
 
       input.addEventListener("focus", function () {

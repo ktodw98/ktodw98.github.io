@@ -132,6 +132,12 @@ a {
   position: relative;
 }
 
+.search-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
 .global-search-input {
   width: min(280px, 48vw);
   border: 1px solid var(--line);
@@ -139,6 +145,16 @@ a {
   color: var(--text);
   border-radius: 12px;
   padding: 0.56rem 0.8rem;
+}
+
+.search-button {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  padding: 0.5rem 0.78rem;
+  cursor: pointer;
+  font-weight: 600;
 }
 
 .global-search-results {
@@ -157,6 +173,10 @@ a {
   box-shadow: var(--shadow);
   display: grid;
   gap: 0.35rem;
+}
+
+.global-search-results[hidden] {
+  display: none;
 }
 
 .search-hit {
@@ -279,6 +299,25 @@ a {
   display: grid;
   gap: 0.2rem;
   font-size: 0.9rem;
+}
+
+.profile-links {
+  margin-top: 0.7rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.profile-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+}
+
+.profile-links svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
 }
 
 .tag-cloud {
@@ -509,6 +548,11 @@ a {
 
   .global-search-input {
     width: min(170px, 45vw);
+  }
+
+  .search-button {
+    padding: 0.45rem 0.62rem;
+    font-size: 0.8rem;
   }
 
   .hero,

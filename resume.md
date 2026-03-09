@@ -19,6 +19,7 @@ description: Profile, experience, skills, and contact information.
 - Location: {{ profile.location | default: "Seoul, South Korea" }}
 - Email: {% if profile.email %}[{{ profile.email }}](mailto:{{ profile.email }}){% else %}you@example.com{% endif %}
 - GitHub: {% if profile.github_url %}[{{ profile.github_url }}]({{ profile.github_url }}){% else %}https://github.com/your-id{% endif %}
+- LinkedIn: {% if profile.linkedin_url %}[{{ profile.linkedin_url }}]({{ profile.linkedin_url }}){% else %}https://www.linkedin.com/in/your-id{% endif %}
 
 ## Experience
 

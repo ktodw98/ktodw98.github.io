@@ -2,7 +2,7 @@ title: Dev Blog
 description: Development notes, architecture choices, and shipping logs.
 lang: ko
 timezone: Asia/Seoul
-url: "https://YOUR_GITHUB_ID.github.io"
+url: "https://blog.kailee.dev"
 baseurl: ""
 permalink: /:year/:month/:day/:title/
 
@@ -24,18 +24,18 @@ defaults:
       layout: "post"
       draft: false
 
-ga4_measurement_id: "G-XXXXXXXXXX"
+ga4_measurement_id: "G-QL119RJM33"
 
 github:
-  owner: "YOUR_GITHUB_ID"
-  repo: "YOUR_GITHUB_ID.github.io"
+  owner: "ktodw98"
+  repo: "ktodw98.github.io"
   branch: "main"
 
 giscus:
-  repo: "YOUR_GITHUB_ID/YOUR_GITHUB_ID.github.io"
-  repo_id: "REPLACE_WITH_GISCUS_REPO_ID"
+  repo: "ktodw98/ktodw98.github.io"
+  repo_id: "R_kgDORiXTrA"
   category: "General"
-  category_id: "REPLACE_WITH_GISCUS_CATEGORY_ID"
+  category_id: "DIC_kwDORiXTrM4C4BMK"
   mapping: "pathname"
   strict: "0"
   reactions_enabled: "1"

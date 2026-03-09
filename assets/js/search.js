@@ -1,25 +1,55 @@
 (function () {
-  var input = document.getElementById("search-input");
-  var results = document.getElementById("search-results");
+  var input = document.getElementById("global-search-input");
+  var results = document.getElementById("global-search-results");
   if (!input || !results) return;
 
   var sourceUrl = input.getAttribute("data-search-json");
-  var posts = [];
+  var docs = [];
+  var maxResults = 8;
+
+  function escapeHtml(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function closeResults() {
+    results.hidden = true;
+    results.innerHTML = "";
+  }
+
+  function openResults() {
+    results.hidden = false;
+  }
 
   function render(list) {
+    if (!input.value.trim()) {
+      closeResults();
+      return;
+    }
+
+    openResults();
+
     if (!list.length) {
-      results.innerHTML = "<li>No matching posts.</li>";
+      results.innerHTML = "<li class=\"search-empty\">No matching results.</li>";
       return;
     }
 
     results.innerHTML = list
+      .slice(0, maxResults)
       .map(function (post) {
         var tags = (post.tags || []).join(", ");
+        var badge = post.type === "note" ? "Note" : "Post";
         return (
-          "<li class=\"card\">" +
-          "<h3><a href=\"" + post.url + "\">" + post.title + "</a></h3>" +
-          "<p class=\"meta\">" + post.date + (tags ? " · " + tags : "") + "</p>" +
-          "<p>" + post.description + "</p>" +
+          "<li>" +
+          "<a class=\"search-hit\" href=\"" + escapeHtml(post.url) + "\">" +
+          "<span class=\"search-hit-title\">" + escapeHtml(post.title) + "</span>" +
+          "<span class=\"search-hit-meta\">" + badge + (post.date ? " · " + escapeHtml(post.date) : "") + "</span>" +
+          (tags ? "<span class=\"search-hit-tags\">" + escapeHtml(tags) + "</span>" : "") +
+          "</a>" +
           "</li>"
         );
       })
@@ -33,14 +63,15 @@
   function filter(query) {
     var keyword = normalize(query).trim();
     if (!keyword) {
-      render(posts);
+      render(docs);
       return;
     }
-    var filtered = posts.filter(function (post) {
+    var filtered = docs.filter(function (post) {
       var haystack = [
         post.title,
         post.description,
-        (post.tags || []).join(" ")
+        (post.tags || []).join(" "),
+        post.type
       ]
         .join(" ")
         .toLowerCase();
@@ -57,13 +88,31 @@
       return response.json();
     })
     .then(function (data) {
-      posts = data;
-      render(posts);
+      docs = data;
       input.addEventListener("input", function (event) {
         filter(event.target.value);
       });
+
+      input.addEventListener("focus", function () {
+        if (input.value.trim()) {
+          filter(input.value);
+        }
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!event.target.closest(".search-shell")) {
+          closeResults();
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closeResults();
+        }
+      });
     })
     .catch(function (error) {
-      results.innerHTML = "<li>" + error.message + "</li>";
+      openResults();
+      results.innerHTML = "<li class=\"search-empty\">" + escapeHtml(error.message) + "</li>";
     });
 })();

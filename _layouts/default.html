@@ -3,13 +3,25 @@
   <head>
     {% include head.html %}
   </head>
-  <body>
+  <body class="layout-{{ page.layout | default: 'default' }}">
     <div class="bg-layer"></div>
     {% include header.html %}
-    <main class="container">
-      {{ content }}
-    </main>
+    <div class="container layout-shell">
+      <aside class="sidebar sidebar-left desktop-only">
+        {% include sidebar-left.html %}
+      </aside>
+      <main class="content-column" id="main-content">
+        {{ content }}
+      </main>
+      <aside class="sidebar sidebar-right desktop-only">
+        {% if page.layout == "post" or page.layout == "note" %}
+          {% include sidebar-right.html %}
+        {% endif %}
+      </aside>
+    </div>
+    {% include mobile-drawer.html %}
     {% include footer.html %}
     <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
   </body>
 </html>

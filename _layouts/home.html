@@ -6,8 +6,8 @@ layout: default
   <h1>{{ site.title }}</h1>
   <p>{{ site.description }}</p>
   <div class="hero-actions">
-    <a class="btn" href="{{ '/search/' | relative_url }}">Search Posts</a>
-    <a class="btn btn-outline" href="{{ '/about/' | relative_url }}">About</a>
+    <a class="btn" href="{{ '/posts/' | relative_url }}">Browse Posts</a>
+    <a class="btn btn-outline" href="{{ '/notes/' | relative_url }}">Browse Notes</a>
   </div>
 </section>
 
@@ -28,5 +28,25 @@ layout: default
     </ul>
   {% else %}
     <p>No posts yet.</p>
+  {% endif %}
+</section>
+
+<section class="post-list">
+  <h2>Latest Notes</h2>
+  {% assign visible_notes = site.notes | where_exp: "item", "item.draft != true" %}
+  {% if visible_notes.size > 0 %}
+    <ul>
+      {% for note in visible_notes limit: 6 %}
+        <li>
+          <article class="card">
+            <h3><a href="{{ note.url | relative_url }}">{{ note.title }}</a></h3>
+            <p class="meta">{{ note.tags | join: ", " }}</p>
+            <p>{{ note.description | default: note.excerpt | strip_html | truncate: 120 }}</p>
+          </article>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No notes yet.</p>
   {% endif %}
 </section>

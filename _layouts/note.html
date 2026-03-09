@@ -1,12 +1,16 @@
 ---
 layout: default
 ---
-<article class="post">
+<article class="post note">
   <header class="post-header">
-    <p class="eyebrow">Post</p>
+    <p class="eyebrow">Note</p>
     <h1>{{ page.title }}</h1>
-    <p class="meta">{{ page.date | date: "%Y-%m-%d %H:%M" }} · {{ page.tags | join: ", " }}</p>
-    <p>{{ page.description }}</p>
+    {% if page.tags and page.tags.size > 0 %}
+      <p class="meta">{{ page.tags | join: ", " }}</p>
+    {% endif %}
+    {% if page.description %}
+      <p>{{ page.description }}</p>
+    {% endif %}
   </header>
   <div class="content-body js-rich-content">
     {{ content }}
@@ -15,5 +19,4 @@ layout: default
   <div class="mobile-only">
     {% include backlinks.html %}
   </div>
-  {% include giscus.html %}
 </article>

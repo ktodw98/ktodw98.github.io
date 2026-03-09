@@ -15,3 +15,5 @@ The writing workflow is intentionally simple:
 3. Push to the `main` branch and let GitHub Pages deploy.
 
 This setup keeps content in Git history, easy to review, and easy to roll back.
+
+If you want quick definitions and reference pointers, check [[Development Glossary]].

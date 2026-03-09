@@ -4,7 +4,8 @@ This repository is a Markdown-first development blog template designed for:
 
 - GitHub Pages deployment from `main`
 - Custom domain support via `CNAME`
-- Built-in search, dark mode, comments (Giscus), and analytics (GA4)
+- Built-in global search, sidebars, dark mode, comments (Giscus), and analytics (GA4)
+- Obsidian-style `[[wikilink]]` and automatic backlinks
 
 ## Quick start
 
@@ -44,12 +45,37 @@ draft: false
 
 4. Push to `main` to publish.
 
+## Write a note (knowledge graph style)
+
+1. Create a file in `_notes/` (for example: `_notes/my-note.md`)
+2. Use front matter:
+
+```yaml
+---
+title: "My Note"
+tags: ["notes", "reference"]
+description: "Quick summary"
+draft: false
+---
+```
+
+3. Reference other documents with wikilinks:
+
+```md
+See [[Welcome to My Dev Blog]] and [[Development Glossary]].
+```
+
+During build, wikilinks are converted to internal links and backlinks are generated automatically.
+
 ## Site structure
 
-- `/` Home list
+- `/` Home dashboard
+- `/posts/` Post archive
+- `/notes/` Note archive
 - `/about/` About page
-- `/tags/` Tag index
-- `/search/` Client-side search
+- Header search input for global search
+- Left sidebar for tags and navigation
+- Right sidebar (post/note) for TOC, related posts, backlinks
 - `/feed.xml` Atom feed
 
 ## Feature notes
@@ -57,3 +83,4 @@ draft: false
 - **Comments**: Giscus renders only after `giscus.repo_id` and `giscus.category_id` are configured.
 - **Analytics**: GA4 script loads only when `ga4_measurement_id` is replaced from default placeholder.
 - **Edit on GitHub**: every page/post includes an edit link based on `_config.yml` GitHub settings.
+- **Wikilinks**: `[[Page Title]]` and `[[Page Title|Alias]]` are supported for posts/notes/pages.

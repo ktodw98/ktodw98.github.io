@@ -1,0 +1,49 @@
+<section class="sidebar-panel profile-panel">
+  <p class="eyebrow">Navigator</p>
+  <h2>{{ site.title }}</h2>
+  <p>{{ site.description }}</p>
+</section>
+
+<section class="sidebar-panel">
+  <h2>Navigate</h2>
+  <ul class="sidebar-list">
+    <li><a href="{{ '/' | relative_url }}">Home</a></li>
+    <li><a href="{{ '/posts/' | relative_url }}">Posts</a></li>
+    <li><a href="{{ '/notes/' | relative_url }}">Notes</a></li>
+    <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+  </ul>
+</section>
+
+<section class="sidebar-panel">
+  <h2>Tags</h2>
+  {% assign sorted_tags = site.tags | sort %}
+  {% if sorted_tags.size > 0 %}
+    <div class="tag-cloud">
+      {% for tag in sorted_tags %}
+        <a class="tag-chip" href="{{ '/posts/' | relative_url }}?tag={{ tag[0] | url_encode }}">
+          #{{ tag[0] }} <span>{{ tag[1].size }}</span>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="meta">No tags yet.</p>
+  {% endif %}
+</section>
+
+<section class="sidebar-panel">
+  <h2>Recent Posts</h2>
+  <ul class="sidebar-list">
+    {% assign latest_posts = site.posts | where_exp: "item", "item.draft != true" | slice: 0, 6 %}
+    {% for post in latest_posts %}
+      <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section class="sidebar-panel">
+  <h2>Links</h2>
+  <ul class="sidebar-list">
+    <li><a href="{{ '/feed.xml' | relative_url }}">RSS Feed</a></li>
+    <li><a href="https://github.com/{{ site.github.owner }}/{{ site.github.repo }}" target="_blank" rel="noopener noreferrer">GitHub Repo</a></li>
+  </ul>
+</section>

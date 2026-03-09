@@ -1,0 +1,15 @@
+{% assign backlinks_map = site.backlinks %}
+{% assign backlinks = nil %}
+{% if backlinks_map %}
+  {% assign backlinks = backlinks_map[page.url] %}
+{% endif %}
+{% if backlinks and backlinks.size > 0 %}
+  <section class="sidebar-panel">
+    <h2>Backlinks</h2>
+    <ul class="sidebar-list">
+      {% for backlink in backlinks %}
+        <li><a href="{{ backlink.url | relative_url }}">{{ backlink.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endif %}

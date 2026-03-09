@@ -23,3 +23,5 @@ When I publish technical notes, speed and consistency matter more than fancy too
 - Verify domain and HTTPS.
 
 This is the baseline process this blog uses for every post.
+
+For a quick reference map, open [[Development Glossary|the glossary note]].

@@ -1,0 +1,25 @@
+{% if page.layout == "post" or page.layout == "note" %}
+  <section class="sidebar-panel">
+    <h2>On This Page</h2>
+    <nav id="toc-list" class="toc-list" aria-label="Table of contents"></nav>
+  </section>
+{% endif %}
+
+{% if page.layout == "post" %}
+  {% assign primary_tag = page.tags | first %}
+  {% if primary_tag %}
+    {% assign related_posts = site.posts | where_exp: "item", "item.url != page.url and item.tags contains primary_tag" | slice: 0, 5 %}
+    {% if related_posts.size > 0 %}
+      <section class="sidebar-panel">
+        <h2>Related</h2>
+        <ul class="sidebar-list">
+          {% for post in related_posts %}
+            <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+{% include backlinks.html %}

@@ -1,15 +1,13 @@
 ---
 layout: page
-title: Search
+title: Search Moved
 permalink: /search/
-description: Search posts by title, tag, and description.
+description: Search is now available globally in the header.
 ---
 
-<div class="search-box">
-  <label for="search-input">Search query</label>
-  <input id="search-input" type="search" placeholder="Try 'jekyll', 'workflow', or 'debug'" data-search-json="{{ '/search.json' | relative_url }}">
-</div>
+Search moved to the top header search bar.
 
-<ul id="search-results" class="search-results"></ul>
+- Desktop: use the search input in the header.
+- Mobile: use the same search input next to the menu button.
 
-<script src="{{ '/assets/js/search.js' | relative_url }}"></script>
+[Go to home]({{ '/' | relative_url }})

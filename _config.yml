@@ -16,12 +16,23 @@ plugins:
 
 show_drafts: false
 
+collections:
+  notes:
+    output: true
+    permalink: /notes/:title/
+
 defaults:
   - scope:
       path: ""
       type: "posts"
     values:
       layout: "post"
+      draft: false
+  - scope:
+      path: ""
+      type: "notes"
+    values:
+      layout: "note"
       draft: false
 
 ga4_measurement_id: "G-QL119RJM33"

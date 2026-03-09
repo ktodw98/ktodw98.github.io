@@ -1,14 +1,30 @@
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
-    <nav>
+    <nav class="desktop-nav" aria-label="Global">
       <a href="{{ '/' | relative_url }}">Home</a>
-      <a href="{{ '/tags/' | relative_url }}">Tags</a>
-      <a href="{{ '/search/' | relative_url }}">Search</a>
+      <a href="{{ '/posts/' | relative_url }}">Posts</a>
+      <a href="{{ '/notes/' | relative_url }}">Notes</a>
       <a href="{{ '/about/' | relative_url }}">About</a>
     </nav>
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">
-      Theme
-    </button>
+    <div class="header-actions">
+      <div class="search-shell">
+        <label for="global-search-input" class="sr-only">Search posts and notes</label>
+        <input
+          id="global-search-input"
+          class="global-search-input"
+          type="search"
+          placeholder="Search posts and notes"
+          data-search-json="{{ '/search.json' | relative_url }}"
+          autocomplete="off">
+        <ul id="global-search-results" class="global-search-results" hidden></ul>
+      </div>
+      <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Open menu">
+        Menu
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">
+        Theme
+      </button>
+    </div>
   </div>
 </header>

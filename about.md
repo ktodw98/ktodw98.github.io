@@ -16,6 +16,7 @@ This blog tracks development decisions, tradeoffs, and lessons learned while shi
 ## Writing model
 
 Posts are stored as Markdown files under `_posts/`.
+Evergreen notes are stored under `_notes/`.
 
 Required front matter fields for each post:
 
@@ -30,3 +31,10 @@ draft: false
 ```
 
 You can edit any post directly from the "Edit on GitHub" link shown at the bottom of each page.
+
+## Internal linking
+
+Use Obsidian-style wikilinks to connect content:
+
+- `[[Post Title]]`
+- `[[Post Title|Custom Label]]`

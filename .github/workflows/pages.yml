@@ -28,10 +28,18 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.2"
-          bundler-cache: true
+          bundler-cache: false
+
+      - name: Install Bundler
+        run: gem install bundler -v 2.5.23
+
+      - name: Install dependencies
+        run: |
+          bundle _2.5.23_ config set path vendor/bundle
+          bundle _2.5.23_ install --jobs 4 --retry 3
 
       - name: Build with Jekyll
-        run: bundle exec jekyll build --trace
+        run: bundle _2.5.23_ exec jekyll build --trace
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

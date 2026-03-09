@@ -1,0 +1,25 @@
+---
+title: "Jekyll Markdown Workflow for Fast Publishing"
+date: 2026-03-09 21:45:00 +0900
+tags: ["jekyll", "github-pages", "productivity"]
+description: "A practical post template and publishing checklist for quick shipping."
+draft: false
+---
+
+When I publish technical notes, speed and consistency matter more than fancy tooling.
+
+## Post checklist
+
+- Add clear front matter fields.
+- Keep section headings skimmable.
+- Link issue/PR context where relevant.
+- Add at least one "what changed" paragraph.
+
+## Publishing checklist
+
+- Preview locally with Jekyll.
+- Push to `main`.
+- Confirm GitHub Pages deployment.
+- Verify domain and HTTPS.
+
+This is the baseline process this blog uses for every post.

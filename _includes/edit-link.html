@@ -1,0 +1,7 @@
+{% if site.github.owner and site.github.repo and site.github.branch and page.path %}
+  <p class="edit-link">
+    <a href="https://github.com/{{ site.github.owner }}/{{ site.github.repo }}/edit/{{ site.github.branch }}/{{ page.path }}" target="_blank" rel="noopener noreferrer">
+      Edit on GitHub
+    </a>
+  </p>
+{% endif %}

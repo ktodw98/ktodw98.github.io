@@ -1,0 +1,16 @@
+---
+layout: default
+---
+<article class="post">
+  <header class="post-header">
+    <p class="eyebrow">Post</p>
+    <h1>{{ page.title }}</h1>
+    <p class="meta">{{ page.date | date: "%Y-%m-%d %H:%M" }} · {{ page.tags | join: ", " }}</p>
+    <p>{{ page.description }}</p>
+  </header>
+  <div class="content-body">
+    {{ content }}
+  </div>
+  {% include edit-link.html %}
+  {% include giscus.html %}
+</article>

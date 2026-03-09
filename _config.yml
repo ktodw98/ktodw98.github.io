@@ -1,0 +1,49 @@
+title: Dev Blog
+description: Development notes, architecture choices, and shipping logs.
+lang: ko
+timezone: Asia/Seoul
+url: "https://YOUR_GITHUB_ID.github.io"
+baseurl: ""
+permalink: /:year/:month/:day/:title/
+
+markdown: kramdown
+highlighter: rouge
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+show_drafts: false
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      draft: false
+
+ga4_measurement_id: "G-XXXXXXXXXX"
+
+github:
+  owner: "YOUR_GITHUB_ID"
+  repo: "YOUR_GITHUB_ID.github.io"
+  branch: "main"
+
+giscus:
+  repo: "YOUR_GITHUB_ID/YOUR_GITHUB_ID.github.io"
+  repo_id: "REPLACE_WITH_GISCUS_REPO_ID"
+  category: "General"
+  category_id: "REPLACE_WITH_GISCUS_CATEGORY_ID"
+  mapping: "pathname"
+  strict: "0"
+  reactions_enabled: "1"
+  emit_metadata: "0"
+  input_position: "bottom"
+  theme: "preferred_color_scheme"
+  lang: "ko"
+
+exclude:
+  - README.md
+  - docs/

@@ -1,0 +1,22 @@
+{% assign gc = site.giscus %}
+{% if gc.repo and gc.repo_id and gc.category_id and gc.repo_id != "REPLACE_WITH_GISCUS_REPO_ID" and gc.category_id != "REPLACE_WITH_GISCUS_CATEGORY_ID" %}
+  <section class="comments">
+    <h2>Comments</h2>
+    <script
+      src="https://giscus.app/client.js"
+      data-repo="{{ gc.repo }}"
+      data-repo-id="{{ gc.repo_id }}"
+      data-category="{{ gc.category }}"
+      data-category-id="{{ gc.category_id }}"
+      data-mapping="{{ gc.mapping }}"
+      data-strict="{{ gc.strict }}"
+      data-reactions-enabled="{{ gc.reactions_enabled }}"
+      data-emit-metadata="{{ gc.emit_metadata }}"
+      data-input-position="{{ gc.input_position }}"
+      data-theme="{{ gc.theme }}"
+      data-lang="{{ gc.lang }}"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </section>
+{% endif %}

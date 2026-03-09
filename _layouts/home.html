@@ -1,0 +1,32 @@
+---
+layout: default
+---
+<section class="hero">
+  <p class="eyebrow">Developer Notes</p>
+  <h1>{{ site.title }}</h1>
+  <p>{{ site.description }}</p>
+  <div class="hero-actions">
+    <a class="btn" href="{{ '/search/' | relative_url }}">Search Posts</a>
+    <a class="btn btn-outline" href="{{ '/about/' | relative_url }}">About</a>
+  </div>
+</section>
+
+<section class="post-list">
+  <h2>Latest Posts</h2>
+  {% assign visible_posts = site.posts | where_exp: "item", "item.draft != true" %}
+  {% if visible_posts.size > 0 %}
+    <ul>
+      {% for post in visible_posts %}
+        <li>
+          <article class="card">
+            <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+            <p class="meta">{{ post.date | date: "%Y-%m-%d" }} · {{ post.tags | join: ", " }}</p>
+            <p>{{ post.description }}</p>
+          </article>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No posts yet.</p>
+  {% endif %}
+</section>

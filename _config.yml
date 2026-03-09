@@ -6,6 +6,16 @@ url: "https://blog.kailee.dev"
 baseurl: ""
 permalink: /:year/:month/:day/:title/
 
+author:
+  name: "Your Name"
+  headline: "Software Engineer"
+  bio: "Building reliable products with clear architecture and practical execution."
+  avatar: "/assets/images/profile-placeholder.svg"
+  location: "Seoul, South Korea"
+  email: "you@example.com"
+  github_url: "https://github.com/ktodw98"
+  contact_url: "mailto:you@example.com"
+
 markdown: kramdown
 highlighter: rouge
 

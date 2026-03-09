@@ -1,7 +1,32 @@
+{% assign profile = site.author %}
 <section class="sidebar-panel profile-panel">
-  <p class="eyebrow">Navigator</p>
-  <h2>{{ site.title }}</h2>
-  <p>{{ site.description }}</p>
+  <p class="eyebrow">Profile</p>
+  <div class="profile-head">
+    <img class="profile-avatar" src="{{ profile.avatar | default: '/assets/images/profile-placeholder.svg' | relative_url }}" alt="{{ profile.name | default: site.title }}">
+    <div>
+      <h2>{{ profile.name | default: site.title }}</h2>
+      {% if profile.headline %}
+        <p class="meta">{{ profile.headline }}</p>
+      {% endif %}
+    </div>
+  </div>
+  {% if profile.bio %}
+    <p>{{ profile.bio }}</p>
+  {% endif %}
+  <ul class="profile-meta">
+    {% if profile.location %}
+      <li>{{ profile.location }}</li>
+    {% endif %}
+    {% if profile.email %}
+      <li><a href="mailto:{{ profile.email }}">{{ profile.email }}</a></li>
+    {% endif %}
+    {% if profile.github_url %}
+      <li><a href="{{ profile.github_url }}" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+    {% endif %}
+    {% if profile.contact_url %}
+      <li><a href="{{ profile.contact_url }}" target="_blank" rel="noopener noreferrer">Contact</a></li>
+    {% endif %}
+  </ul>
 </section>
 
 <section class="sidebar-panel">
@@ -10,7 +35,7 @@
     <li><a href="{{ '/' | relative_url }}">Home</a></li>
     <li><a href="{{ '/posts/' | relative_url }}">Posts</a></li>
     <li><a href="{{ '/notes/' | relative_url }}">Notes</a></li>
-    <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+    <li><a href="{{ '/resume/' | relative_url }}">Resume</a></li>
   </ul>
 </section>
 

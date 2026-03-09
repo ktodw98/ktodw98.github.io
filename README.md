@@ -72,7 +72,8 @@ During build, wikilinks are converted to internal links and backlinks are genera
 - `/` Home dashboard
 - `/posts/` Post archive
 - `/notes/` Note archive
-- `/about/` About page
+- `/resume/` Resume / profile page
+- `/about/` legacy alias to resume
 - Header search input for global search
 - Left sidebar for tags and navigation
 - Right sidebar (post/note) for TOC, related posts, backlinks

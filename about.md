@@ -2,39 +2,11 @@
 layout: page
 title: About
 permalink: /about/
-description: What this blog is about and how to contribute.
+description: This page moved to Resume.
 ---
 
-This blog tracks development decisions, tradeoffs, and lessons learned while shipping products.
+This page moved.
 
-## What you can expect
+[Go to Resume]({{ '/resume/' | relative_url }})
 
-- Practical write-ups about architecture and implementation.
-- Debugging notes with concrete examples.
-- Links to related repositories and pull requests.
-
-## Writing model
-
-Posts are stored as Markdown files under `_posts/`.
-Evergreen notes are stored under `_notes/`.
-
-Required front matter fields for each post:
-
-```yaml
----
-title: "Post title"
-date: 2026-03-09 21:00:00 +0900
-tags: ["tag1", "tag2"]
-description: "One-line summary."
-draft: false
----
-```
-
-You can edit any post directly from the "Edit on GitHub" link shown at the bottom of each page.
-
-## Internal linking
-
-Use Obsidian-style wikilinks to connect content:
-
-- `[[Post Title]]`
-- `[[Post Title|Custom Label]]`
+If you bookmarked `/about/`, use `/resume/` as the primary profile page.

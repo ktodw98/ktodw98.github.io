@@ -11,15 +11,21 @@ layout: default
       <p class="meta post-meta-date">{{ page.date | date: "%Y-%m-%d %H:%M" }}</p>
       <div class="post-meta-taxonomy">
         {% if primary_category %}
-          <a class="post-category-badge" href="{{ '/categories/' | append: primary_category | append: '/' | relative_url }}">
-            {{ category_label | strip }}
-          </a>
+          <div class="post-meta-group">
+            <span class="post-meta-key">Category</span>
+            <a class="post-category-badge" href="{{ '/categories/' | append: primary_category | append: '/' | relative_url }}">
+              {{ category_label | strip }}
+            </a>
+          </div>
         {% endif %}
         {% if page.tags and page.tags.size > 0 %}
-          <div class="post-tag-chips" aria-label="Tags">
-            {% for tag in page.tags %}
-              <a class="post-tag-chip" href="{{ '/posts/' | relative_url }}?tag={{ tag | url_encode }}">#{{ tag }}</a>
-            {% endfor %}
+          <div class="post-meta-group">
+            <span class="post-meta-key">Tags</span>
+            <div class="post-tag-chips" aria-label="Tags">
+              {% for tag in page.tags %}
+                <a class="post-tag-chip" href="{{ '/posts/' | relative_url }}?tag={{ tag | url_encode }}">#{{ tag }}</a>
+              {% endfor %}
+            </div>
           </div>
         {% endif %}
       </div>

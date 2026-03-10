@@ -1,23 +1,13 @@
 <header class="site-header">
   <div class="container header-inner">
+    {% assign is_posts_section = false %}
+    {% if page.layout == "post" or page.url == "/posts/" or page.url contains "/categories/" %}
+      {% assign is_posts_section = true %}
+    {% endif %}
     <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
     <nav class="desktop-nav" aria-label="Global">
       <a href="{{ '/' | relative_url }}">Home</a>
-      <a href="{{ '/posts/' | relative_url }}">Posts</a>
-      <div class="nav-dropdown">
-        <a class="nav-dropdown-trigger" href="{{ '/categories/' | relative_url }}" aria-haspopup="true">Categories</a>
-        {% assign active_categories = site.data.categories | where: "active", true | sort: "order" %}
-        {% if active_categories.size > 0 %}
-          <div class="nav-dropdown-menu" aria-label="Category links">
-            {% for category in active_categories %}
-              <a href="{{ '/categories/' | append: category.id | append: '/' | relative_url }}">
-                <span class="nav-dropdown-title">{{ category.label }}</span>
-                <span class="nav-dropdown-meta">/{{ category.id }}</span>
-              </a>
-            {% endfor %}
-          </div>
-        {% endif %}
-      </div>
+      <a class="{% if is_posts_section %}is-active{% endif %}" href="{{ '/posts/' | relative_url }}">Posts</a>
       <a href="{{ '/series/' | relative_url }}">Series</a>
       <a href="{{ '/resume/' | relative_url }}">Resume</a>
     </nav>

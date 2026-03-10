@@ -1,0 +1,27 @@
+{% assign in_posts_context = false %}
+{% if page.layout == "post" or page.url == "/posts/" or page.url contains "/categories/" %}
+  {% assign in_posts_context = true %}
+{% endif %}
+
+{% if in_posts_context %}
+  {% assign active_categories = site.data.categories | where: "active", true | sort: "order" %}
+  {% assign current_category_id = page.category_id %}
+  {% if current_category_id == nil or current_category_id == "" %}
+    {% assign current_category_id = page.categories | first %}
+  {% endif %}
+  <div class="posts-subnav-shell">
+    <div class="container">
+      <nav class="posts-subnav" aria-label="Post categories">
+        <a class="posts-subnav-item {% if page.url == '/posts/' %}is-active{% endif %}" href="{{ '/posts/' | relative_url }}">All Posts</a>
+        {% for category in active_categories %}
+          <a
+            class="posts-subnav-item {% if current_category_id == category.id %}is-active{% endif %}"
+            href="{{ '/posts/' | relative_url }}?category={{ category.id | url_encode }}">
+            {{ category.label }}
+          </a>
+        {% endfor %}
+        <a class="posts-subnav-item posts-subnav-item-outline {% if page.url == '/categories/' or page.url contains '/categories/' %}is-active{% endif %}" href="{{ '/categories/' | relative_url }}">Category 보기</a>
+      </nav>
+    </div>
+  </div>
+{% endif %}

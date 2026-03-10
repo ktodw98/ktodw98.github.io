@@ -28,6 +28,7 @@ bundle exec jekyll serve --livereload
 ```bash
 make preview
 make doctor
+make drafts
 make templates
 make categories
 make tags
@@ -81,5 +82,6 @@ bundle exec jekyll build
 
 - UI 다국어는 `ko`, `en`, `ja`, `vi`를 지원하며 단일 URL 전략을 사용합니다.
 - taxonomy는 `_data/taxonomies.yml`에서 중앙 관리합니다.
+- 기본 OG 이미지는 `/assets/images/og-default.png`를 사용하고, 개별 글에서 `image` front matter로 덮어쓸 수 있습니다.
 - Giscus는 `giscus.repo_id`, `giscus.category_id` 설정 후 렌더링됩니다.
 - GA4는 `_config.yml`의 `ga4_measurement_id` 교체 후 활성화됩니다.

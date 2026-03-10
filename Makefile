@@ -1,8 +1,9 @@
-.PHONY: help preview doctor templates categories tags new import-summary import-repost validate
+.PHONY: help preview doctor drafts templates categories tags new import-summary import-repost validate
 
 help:
 	@echo "make preview"
 	@echo "make doctor"
+	@echo "make drafts"
 	@echo "make templates"
 	@echo "make categories"
 	@echo "make tags"
@@ -18,6 +19,9 @@ doctor:
 	@ruby scripts/validate-i18n.rb
 	@ruby scripts/validate-frontmatter.rb
 	@bundle exec jekyll build
+
+drafts:
+	@ruby scripts/list-drafts.rb
 
 templates:
 	@ruby scripts/posts.rb list-templates

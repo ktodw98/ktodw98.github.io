@@ -45,6 +45,12 @@ make categories
 make tags
 ```
 
+현재 draft 글 보기:
+
+```bash
+make drafts
+```
+
 ## 새 글 생성
 
 일반 글 생성:
@@ -89,6 +95,7 @@ draft: true
 - `description`: 목록/검색/메타 설명에 쓰이는 한 줄 요약
 - `draft`: 초안은 `true`, 발행은 `false`
 - `series`와 `series_order`: 연재형 글일 때만 같이 사용
+- `image`: 선택값. 설정하면 해당 글의 OG 이미지로 사용되고, 비워두면 기본값 `/assets/images/og-default.png`를 사용
 
 ## 본문 작성 규칙
 
@@ -136,3 +143,4 @@ bundle exec jekyll build
 - `series`만 넣고 `series_order`를 빼면 validation이 실패합니다.
 - slug는 제목에서 자동 생성되므로, 특수문자가 많으면 `SLUG=...`를 직접 주는 편이 안전합니다.
 - 생성 직후 기본값은 `draft: true`입니다. 발행 전에 직접 바꿔야 합니다.
+- 발행 전에 `make drafts`로 초안 목록에서 빠지는지 확인하는 편이 안전합니다.

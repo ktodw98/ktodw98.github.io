@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Default Open Graph image">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#071714"/>
+      <stop offset="52%" stop-color="#0b2c26"/>
+      <stop offset="100%" stop-color="#10211f"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#143c36" stop-opacity="0.92"/>
+      <stop offset="100%" stop-color="#0b211d" stop-opacity="0.96"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1030" cy="108" r="170" fill="#5fd7c6" fill-opacity="0.08"/>
+  <circle cx="112" cy="542" r="196" fill="#ffd88e" fill-opacity="0.08"/>
+  <path d="M0 465c147-68 279-89 396-62 118 27 228 48 356 27 129-22 278-88 448-199v399H0Z" fill="#081614" fill-opacity="0.54"/>
+
+  <rect x="72" y="72" width="1056" height="486" rx="34" fill="url(#panel)" stroke="#2a6157" stroke-opacity="0.8"/>
+
+  <g transform="translate(118 132)">
+    <rect width="162" height="162" rx="42" fill="#071714"/>
+    <circle cx="50" cy="42" r="19" fill="#5fd7c6"/>
+    <circle cx="112" cy="42" r="19" fill="#5fd7c6"/>
+    <circle cx="81" cy="80" r="53" fill="#5fd7c6"/>
+    <circle cx="61" cy="71" r="22" fill="#fffaf0"/>
+    <circle cx="101" cy="71" r="22" fill="#fffaf0"/>
+    <circle cx="66" cy="73" r="10.7" fill="#12242b"/>
+    <circle cx="98" cy="73" r="10.7" fill="#12242b"/>
+    <circle cx="70" cy="69" r="3.2" fill="#fff"/>
+    <circle cx="102" cy="69" r="3.2" fill="#fff"/>
+    <ellipse cx="81" cy="100" rx="16" ry="12" fill="#f4c158"/>
+    <path d="M70 102c2.8 3.6 6.7 5.5 11 5.5s8.2-1.9 11-5.5" fill="none" stroke="#966810" stroke-linecap="round" stroke-width="3.2"/>
+    <circle cx="29" cy="94" r="6.5" fill="#ffd88e"/>
+    <circle cx="133" cy="94" r="6.5" fill="#ffd88e"/>
+  </g>
+
+  <text x="320" y="185" fill="#68d9c8" font-size="28" font-weight="700" letter-spacing="4">DEVELOPER NOTES</text>
+  <text x="320" y="280" fill="#f3f2ea" font-size="78" font-weight="700">Dev Blog</text>
+  <text x="320" y="345" fill="#d7e7df" font-size="30">Development posts, architecture choices, and shipping logs.</text>
+
+  <g transform="translate(320 404)">
+    <rect width="246" height="56" rx="28" fill="#61d6c5"/>
+    <text x="34" y="37" fill="#071714" font-size="26" font-weight="700">blog.kailee.dev</text>
+  </g>
+
+  <g transform="translate(818 364)">
+    <rect width="238" height="128" rx="24" fill="#0c1f1c" stroke="#2a6157"/>
+    <text x="28" y="42" fill="#68d9c8" font-size="20" font-weight="700">STACK</text>
+    <text x="28" y="78" fill="#eff5f2" font-size="28" font-weight="700">Jekyll + Markdown</text>
+    <text x="28" y="108" fill="#c8d8d2" font-size="22">GitHub Pages</text>
+  </g>
+</svg>

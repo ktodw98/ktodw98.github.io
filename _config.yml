@@ -7,6 +7,7 @@ timezone: Asia/Seoul
 url: "https://blog.kailee.dev"
 baseurl: ""
 permalink: /:year/:month/:day/:title/
+image: "/assets/images/og-default.png"
 
 author:
   name: "Kai Lee"
@@ -36,6 +37,12 @@ defaults:
     values:
       layout: "post"
       draft: false
+      image: "/assets/images/og-default.png"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      image: "/assets/images/og-default.png"
 
 ga4_measurement_id: "G-QL119RJM33"
 

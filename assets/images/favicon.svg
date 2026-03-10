@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Gopher favicon">
+  <rect width="64" height="64" rx="16" fill="#071714"/>
+  <circle cx="19.5" cy="17.5" r="8.5" fill="#5fd7c6"/>
+  <circle cx="44.5" cy="17.5" r="8.5" fill="#5fd7c6"/>
+  <circle cx="32" cy="34" r="23.5" fill="#5fd7c6"/>
+  <circle cx="23.5" cy="29.5" r="10" fill="#fffaf0"/>
+  <circle cx="40.5" cy="29.5" r="10" fill="#fffaf0"/>
+  <circle cx="25.3" cy="30.4" r="4.9" fill="#12242b"/>
+  <circle cx="38.7" cy="30.4" r="4.9" fill="#12242b"/>
+  <circle cx="27" cy="28.8" r="1.35" fill="#fff"/>
+  <circle cx="40.4" cy="28.8" r="1.35" fill="#fff"/>
+  <ellipse cx="32" cy="41.8" rx="7.4" ry="5.7" fill="#f4c158"/>
+  <path d="M26.8 42.2c1.3 1.7 3.2 2.6 5.2 2.6 2 0 3.9-.9 5.2-2.6" fill="none" stroke="#966810" stroke-linecap="round" stroke-width="1.6"/>
+  <circle cx="14.8" cy="39.2" r="3" fill="#ffd88e"/>
+  <circle cx="49.2" cy="39.2" r="3" fill="#ffd88e"/>
+</svg>

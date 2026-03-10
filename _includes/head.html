@@ -2,9 +2,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>
   {% if page.title %}
-    {{ page.title }} | {{ site.title }}
+  {{ page.title }} | {{ site.title }}
   {% else %}
-    {{ site.title }}
+  {{ site.title }}
   {% endif %}
 </title>
 <meta name="description" content="{{ page.description | default: site.description }}">
@@ -28,22 +28,27 @@
   })();
 </script>
 {% if site.github and site.github.build_revision %}
-  {% assign asset_version = site.github.build_revision %}
+{% assign asset_version = site.github.build_revision %}
 {% else %}
-  {% assign asset_version = site.time | date: "%s" %}
+{% assign asset_version = site.time | date: "%s" %}
 {% endif %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap"
+  rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="{{ '/assets/images/favicon.svg' | relative_url }}?v={{ asset_version }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/images/favicon.png' | relative_url }}?v={{ asset_version }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}?v={{ asset_version }}">
 <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}?v={{ asset_version }}">
 <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
 {% seo %}
 {% if site.ga4_measurement_id and site.ga4_measurement_id != "G-XXXXXXXXXX" %}
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga4_measurement_id }}"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag("js", new Date());
-    gtag("config", "{{ site.ga4_measurement_id }}");
-  </script>
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga4_measurement_id }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag("js", new Date());
+  gtag("config", "{{ site.ga4_measurement_id }}");
+</script>
 {% endif %}

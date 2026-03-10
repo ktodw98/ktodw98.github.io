@@ -5,7 +5,7 @@ permalink: /categories/
 description: Browse posts by category.
 ---
 
-{% assign active_categories = site.data.categories | where: "active", true | sort: "order" %}
+{% assign active_categories = site.data.taxonomies.categories | where: "active", true | sort: "order" %}
 
 {% if active_categories.size > 0 %}
   <ul class="post-archive-list categories-index-list">

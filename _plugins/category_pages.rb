@@ -30,7 +30,8 @@ module CategoryPages
     priority :low
 
     def generate(site)
-      categories = site.data.fetch("categories", [])
+      taxonomies = site.data.fetch("taxonomies", {})
+      categories = taxonomies.fetch("categories", [])
       return unless categories.is_a?(Array)
 
       categories.each do |category|

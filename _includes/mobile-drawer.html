@@ -40,7 +40,7 @@
 
     <section class="mobile-drawer-section">
       <h2 data-i18n="mobile_menu.categories">카테고리</h2>
-      {% assign active_categories = site.data.categories | where: "active", true | sort: "order" %}
+      {% assign active_categories = site.data.taxonomies.categories | where: "active", true | sort: "order" %}
       {% if active_categories.size > 0 %}
         <ul class="mobile-drawer-list">
           {% for category in active_categories %}

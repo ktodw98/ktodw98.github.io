@@ -6,10 +6,11 @@ require "time"
 require "date"
 
 ROOT = File.expand_path("..", __dir__)
-CATEGORIES_PATH = File.join(ROOT, "_data", "categories.yml")
-POSTS_GLOB = File.join(ROOT, "_posts", "*.md")
+TAXONOMIES_PATH = File.join(ROOT, "_data", "taxonomies.yml")
+POSTS_GLOB = File.join(ROOT, "_posts", "**", "*.md")
 TAG_PATTERN = /\A[a-z0-9]+(?:-[a-z0-9]+)*\z/
 ALLOWED_TYPES = %w[article tutorial case-study log reference].freeze
+ALLOWED_IMPORT_MODES = %w[summary repost].freeze
 
 def fail_with(message)
   warn(message)
@@ -36,13 +37,18 @@ def parse_time(value)
   Time.parse(value.to_s)
 end
 
-unless File.exist?(CATEGORIES_PATH)
-  fail_with("Missing category master file: #{CATEGORIES_PATH}")
+unless File.exist?(TAXONOMIES_PATH)
+  fail_with("Missing taxonomy master file: #{TAXONOMIES_PATH}")
 end
 
-categories_data = YAML.safe_load(File.read(CATEGORIES_PATH), aliases: true)
+taxonomies_data = YAML.safe_load(File.read(TAXONOMIES_PATH), aliases: true)
+unless taxonomies_data.is_a?(Hash)
+  fail_with("Taxonomy master must be a YAML map: #{TAXONOMIES_PATH}")
+end
+
+categories_data = taxonomies_data["categories"]
 unless categories_data.is_a?(Array) && categories_data.any?
-  fail_with("Category master must be a non-empty YAML array: #{CATEGORIES_PATH}")
+  fail_with("Taxonomy master must include a non-empty `categories` array: #{TAXONOMIES_PATH}")
 end
 
 active_category_ids = categories_data
@@ -52,7 +58,7 @@ active_category_ids = categories_data
   .uniq
 
 if active_category_ids.empty?
-  fail_with("No active categories found in #{CATEGORIES_PATH}")
+  fail_with("No active categories found in #{TAXONOMIES_PATH}")
 end
 
 errors = []
@@ -147,6 +153,24 @@ Dir.glob(POSTS_GLOB).sort.each do |path|
     rescue StandardError
       errors << "#{path}: `series_order` must be a positive integer"
     end
+  end
+
+  source_url = normalize_string(fm["source_url"])
+  source_name = normalize_string(fm["source_name"])
+  import_mode = normalize_string(fm["import_mode"])
+  import_fields = [source_url.empty?, source_name.empty?, import_mode.empty?]
+
+  if import_fields.uniq.length > 1
+    errors << "#{path}: `source_url`, `source_name`, and `import_mode` must be set together"
+  end
+
+  unless import_mode.empty?
+    unless ALLOWED_IMPORT_MODES.include?(import_mode)
+      errors << "#{path}: `import_mode` must be one of #{ALLOWED_IMPORT_MODES.join(', ')}"
+    end
+
+    errors << "#{path}: `source_url` must be a valid http/https URL" unless source_url.match?(/\Ahttps?:\/\/\S+\z/)
+    errors << "#{path}: `source_name` is required for imported posts" if source_name.empty?
   end
 end
 

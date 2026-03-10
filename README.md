@@ -27,11 +27,49 @@ bundle exec jekyll serve --livereload
 
 Open: `http://127.0.0.1:4000`
 
-## Write a new post
+## Post workflow
 
-1. Copy `POST_TEMPLATE.md`
-2. Save as `_posts/YYYY-MM-DD-your-title.md`
-3. Fill required front matter:
+Use `make` as the entrypoint and let `scripts/posts.rb` generate the file.
+
+List available presets:
+
+```bash
+make templates
+```
+
+List categories:
+
+```bash
+make categories
+```
+
+List recommended tags:
+
+```bash
+make tags
+```
+
+Create a new post:
+
+```bash
+make new TEMPLATE=tutorial TITLE="Building a Caching Layer" CATEGORY=backend TAGS="go,api,caching" DESCRIPTION="How the cache design evolved."
+```
+
+Create an external summary post:
+
+```bash
+make import-summary TITLE="Notes on Example Article" CATEGORY=writing TAGS="reference,writing" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="Summary and takeaways from the source article."
+```
+
+Create a repost skeleton:
+
+```bash
+make import-repost TITLE="Repost: Example Article" CATEGORY=writing TAGS="reference" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="Repost with source attribution."
+```
+
+Generated files are stored under `_posts/<category>/YYYY-MM-DD-slug.md`.
+
+Required front matter:
 
 ```yaml
 ---
@@ -48,11 +86,20 @@ draft: false
 Metadata rules:
 
 - `type`: required, must be one of `article`, `tutorial`, `case-study`, `log`, `reference`
-- `categories`: exactly one value and it must exist in `_data/categories.yml`
+- `categories`: exactly one value and it must exist in `_data/taxonomies.yml`
 - `tags`: 1 to 5 values, lowercase kebab-case only
 - `series` and `series_order`: optional, but must be set together when used
+- imported posts must include `source_url`, `source_name`, and `import_mode`
 
-4. Push to `main` to publish.
+Recommended template set:
+
+- `article`
+- `tutorial`
+- `case-study`
+- `log`
+- `reference`
+- `import-summary`
+- `import-repost`
 
 Reference other documents with wikilinks:
 
@@ -61,6 +108,24 @@ See [[Welcome to My Dev Blog]] and [[Development Glossary]].
 ```
 
 During build, wikilinks are converted to internal links and backlinks are generated automatically.
+
+## Validation and deploy
+
+Run the full local check:
+
+```bash
+make validate
+```
+
+Or run each step directly:
+
+```bash
+ruby scripts/validate-i18n.rb
+ruby scripts/validate-frontmatter.rb
+bundle exec jekyll build
+```
+
+Push to `main` to publish through GitHub Pages.
 
 ## Site structure
 
@@ -86,9 +151,9 @@ During build, wikilinks are converted to internal links and backlinks are genera
 - Locale dictionaries live in `_data/i18n/*.yml`.
 - User selection is stored in `localStorage` (`blog-locale`).
 
-## Category master
+## Taxonomy master
 
-Categories are centrally managed in `_data/categories.yml`.
+Categories and recommended tags are centrally managed in `_data/taxonomies.yml`.
 
 Each category has:
 
@@ -97,6 +162,8 @@ Each category has:
 - `description`: explanatory text
 - `order`: sidebar ordering
 - `active`: visibility toggle
+
+Recommended tags are listed under `recommended_tags` and are used by the CLI as suggestions. They are not hard-blocked by validation.
 
 ## Validation
 

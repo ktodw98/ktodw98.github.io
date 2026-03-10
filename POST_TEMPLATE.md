@@ -1,14 +1,13 @@
 ---
-title: "Replace with title"
+title: "Example title"
 date: 2026-03-09 22:00:00 +0900
-type: "article" # article | tutorial | case-study | log | reference
+type: "article"
 categories: ["engineering"]
 tags: ["tag1", "tag2"]
-# Optional: enable for serialized posts
-# series: "series-slug"
-# series_order: 1
-description: "One line summary for list/search/meta."
-draft: false
+description: "Replace with a one-line summary."
+draft: true
 ---
 
-Write your post here.
+Use `make new TEMPLATE=article TITLE="..." CATEGORY=engineering TAGS="tag1,tag2"` for real post creation.
+
+This file remains as a front matter reference only.

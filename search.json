@@ -5,7 +5,7 @@ layout: null
 {% assign visible_posts = site.posts | where_exp: "item", "item.draft != true" %}
 {% for doc in visible_posts %}
   {% assign primary_category = doc.categories | first %}
-  {% assign category_record = site.data.categories | where: "id", primary_category | first %}
+  {% assign category_record = site.data.taxonomies.categories | where: "id", primary_category | first %}
   {
     "title": {{ doc.title | jsonify }},
     "url": {{ doc.url | relative_url | jsonify }},

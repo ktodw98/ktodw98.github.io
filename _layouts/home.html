@@ -2,11 +2,12 @@
 layout: default
 ---
 <section class="hero">
-  <p class="eyebrow">Developer Notes</p>
+  <p class="eyebrow">Developer Blog</p>
   <h1>{{ site.title }}</h1>
   <p>{{ site.description }}</p>
   <div class="hero-actions">
     <a class="btn" href="{{ '/posts/' | relative_url }}">Browse Posts</a>
+    <a class="btn btn-outline" href="{{ '/categories/' | relative_url }}">Browse Categories</a>
     <a class="btn btn-outline" href="{{ '/resume/' | relative_url }}">View Resume</a>
   </div>
 </section>
@@ -16,7 +17,7 @@ layout: default
   {% assign visible_posts = site.posts | where_exp: "item", "item.draft != true" %}
   {% if visible_posts.size > 0 %}
     <ul>
-      {% for post in visible_posts %}
+      {% for post in visible_posts limit: 8 %}
         <li>
           <article class="card">
             <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
@@ -38,21 +39,30 @@ layout: default
 </section>
 
 <section class="post-list">
-  <h2>Latest Notes</h2>
-  {% assign visible_notes = site.notes | where_exp: "item", "item.draft != true" %}
-  {% if visible_notes.size > 0 %}
+  <h2>Active Series</h2>
+  {% assign series_posts = site.posts | where_exp: "item", "item.draft != true and item.series" %}
+  {% assign series_groups = series_posts | group_by: "series" | sort: "name" %}
+  {% if series_groups.size > 0 %}
     <ul>
-      {% for note in visible_notes limit: 6 %}
+      {% for series in series_groups %}
+        {% assign series_items = series.items | sort: "series_order" %}
+        {% assign first_post = series_items | first %}
+        {% assign latest_post = series_items | sort: "date" | last %}
         <li>
           <article class="card">
-            <h3><a href="{{ note.url | relative_url }}">{{ note.title }}</a></h3>
-            <p class="meta">{{ note.tags | join: ", " }}</p>
-            <p>{{ note.description | default: note.excerpt | strip_html | truncate: 120 }}</p>
+            <h3><a href="{{ '/series/' | relative_url }}">{{ series.name }}</a></h3>
+            <p class="meta">
+              {{ series_items.size }} posts
+              {% if latest_post %} · latest {{ latest_post.date | date: "%Y-%m-%d" }}{% endif %}
+            </p>
+            {% if first_post %}
+              <p><a href="{{ first_post.url | relative_url }}">Start with: {{ first_post.title }}</a></p>
+            {% endif %}
           </article>
         </li>
       {% endfor %}
     </ul>
   {% else %}
-    <p>No notes yet.</p>
+    <p>No series yet.</p>
   {% endif %}
 </section>

@@ -9,6 +9,7 @@ ROOT = File.expand_path("..", __dir__)
 CATEGORIES_PATH = File.join(ROOT, "_data", "categories.yml")
 POSTS_GLOB = File.join(ROOT, "_posts", "*.md")
 TAG_PATTERN = /\A[a-z0-9]+(?:-[a-z0-9]+)*\z/
+ALLOWED_TYPES = %w[article tutorial case-study log reference].freeze
 
 def fail_with(message)
   warn(message)
@@ -82,6 +83,13 @@ Dir.glob(POSTS_GLOB).sort.each do |path|
 
   unless [true, false].include?(fm["draft"])
     errors << "#{path}: `draft` is required and must be boolean"
+  end
+
+  post_type = normalize_string(fm["type"])
+  if post_type.empty?
+    errors << "#{path}: `type` is required"
+  elsif !ALLOWED_TYPES.include?(post_type)
+    errors << "#{path}: `type` must be one of #{ALLOWED_TYPES.join(', ')}"
   end
 
   categories = fm["categories"]

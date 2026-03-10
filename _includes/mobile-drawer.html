@@ -1,10 +1,53 @@
 <div id="mobile-drawer" class="mobile-drawer" hidden>
   <button id="mobile-drawer-backdrop" class="mobile-drawer-backdrop" type="button" aria-label="Close menu"></button>
-  <aside class="mobile-drawer-panel" aria-label="Mobile sidebar">
+  <aside class="mobile-drawer-panel" aria-label="Mobile navigation">
     <div class="mobile-drawer-header">
       <strong>Menu</strong>
       <button id="drawer-close" class="drawer-close" type="button" aria-label="Close drawer">Close</button>
     </div>
-    {% include sidebar-left.html %}
+
+    <nav class="mobile-drawer-nav" aria-label="Mobile global">
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="{{ '/posts/' | relative_url }}">Posts</a>
+      <a href="{{ '/categories/' | relative_url }}">Categories</a>
+      <a href="{{ '/series/' | relative_url }}">Series</a>
+      <a href="{{ '/resume/' | relative_url }}">Resume</a>
+    </nav>
+
+    {% assign profile = site.author %}
+    <section class="mobile-drawer-section">
+      <h2>Profile</h2>
+      <p class="meta">{{ profile.name | default: site.title }}{% if profile.headline %} · {{ profile.headline }}{% endif %}</p>
+      <div class="profile-links">
+        {% if profile.github_url %}
+          <a href="{{ profile.github_url }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+        {% endif %}
+        {% if profile.linkedin_url %}
+          <a href="{{ profile.linkedin_url }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        {% endif %}
+        {% if profile.contact_url %}
+          <a href="{{ profile.contact_url }}" target="_blank" rel="noopener noreferrer">Contact</a>
+        {% endif %}
+      </div>
+    </section>
+
+    <section class="mobile-drawer-section">
+      <h2>Categories</h2>
+      {% assign active_categories = site.data.categories | where: "active", true | sort: "order" %}
+      {% if active_categories.size > 0 %}
+        <ul class="mobile-drawer-list">
+          {% for category in active_categories %}
+            {% assign category_posts = site.posts | where_exp: "item", "item.draft != true and item.categories and item.categories contains category.id" %}
+            <li>
+              <a href="{{ '/categories/' | append: category.id | append: '/' | relative_url }}">
+                {{ category.label }} <span>{{ category_posts.size }}</span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="meta">No categories yet.</p>
+      {% endif %}
+    </section>
   </aside>
 </div>

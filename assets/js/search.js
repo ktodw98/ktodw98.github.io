@@ -7,6 +7,13 @@
   var sourceUrl = input.getAttribute("data-search-json");
   var docs = [];
   var maxResults = 8;
+  var typeLabels = {
+    article: "Article",
+    tutorial: "Tutorial",
+    "case-study": "Case Study",
+    log: "Log",
+    reference: "Reference"
+  };
 
   function escapeHtml(value) {
     return String(value || "")
@@ -44,7 +51,7 @@
       .map(function (post) {
         var tags = (post.tags || []).join(", ");
         var category = post.category_label ? String(post.category_label) : "";
-        var badge = post.type === "note" ? "Note" : "Post";
+        var badge = typeLabels[post.type] || "Post";
         return (
           "<li>" +
           "<a class=\"search-hit\" href=\"" + escapeHtml(post.url) + "\">" +
@@ -97,6 +104,7 @@
     })
     .then(function (data) {
       docs = data;
+      closeResults();
       input.addEventListener("input", function (event) {
         filter(event.target.value);
       });

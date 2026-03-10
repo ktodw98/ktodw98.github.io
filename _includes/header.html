@@ -4,18 +4,19 @@
     <nav class="desktop-nav" aria-label="Global">
       <a href="{{ '/' | relative_url }}">Home</a>
       <a href="{{ '/posts/' | relative_url }}">Posts</a>
-      <a href="{{ '/notes/' | relative_url }}">Notes</a>
+      <a href="{{ '/categories/' | relative_url }}">Categories</a>
+      <a href="{{ '/series/' | relative_url }}">Series</a>
       <a href="{{ '/resume/' | relative_url }}">Resume</a>
     </nav>
     <div class="header-actions">
       <div class="search-shell">
-        <label for="global-search-input" class="sr-only">Search posts and notes</label>
+        <label for="global-search-input" class="sr-only">Search posts</label>
         <div class="search-inline">
           <input
             id="global-search-input"
             class="global-search-input"
             type="search"
-            placeholder="Search posts and notes"
+            placeholder="Search posts"
             data-search-json="{{ '/search.json' | relative_url }}"
             autocomplete="off">
           <button id="global-search-button" class="search-button" type="button" aria-label="Search">

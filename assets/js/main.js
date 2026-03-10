@@ -86,6 +86,10 @@
     var toc = document.getElementById("toc-list");
     var content = document.querySelector(".js-rich-content");
     if (!toc || !content) return;
+    if (window.matchMedia("(max-width: 979px)").matches) {
+      toc.innerHTML = "<p class=\"meta\">TOC is shown on desktop.</p>";
+      return;
+    }
 
     var headings = content.querySelectorAll("h2, h3");
     if (!headings.length) {

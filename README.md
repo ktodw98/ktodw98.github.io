@@ -4,7 +4,7 @@ This repository is a Markdown-first development blog template designed for:
 
 - GitHub Pages deployment from `main`
 - Custom domain support via `CNAME`
-- Built-in global search, sidebars, dark mode, comments (Giscus), and analytics (GA4)
+- Built-in global search, category/series navigation, sidebars, dark mode, comments (Giscus), and analytics (GA4)
 - Obsidian-style `[[wikilink]]` and automatic backlinks
 
 ## Quick start
@@ -37,6 +37,7 @@ Open: `http://127.0.0.1:4000`
 ---
 title: "Post title"
 date: 2026-03-09 22:00:00 +0900
+type: "article" # article | tutorial | case-study | log | reference
 categories: ["engineering"]
 tags: ["tag1", "tag2"]
 description: "One-line summary"
@@ -46,27 +47,14 @@ draft: false
 
 Metadata rules:
 
+- `type`: required, must be one of `article`, `tutorial`, `case-study`, `log`, `reference`
 - `categories`: exactly one value and it must exist in `_data/categories.yml`
 - `tags`: 1 to 5 values, lowercase kebab-case only
 - `series` and `series_order`: optional, but must be set together when used
 
 4. Push to `main` to publish.
 
-## Write a note (knowledge graph style)
-
-1. Create a file in `_notes/` (for example: `_notes/my-note.md`)
-2. Use front matter:
-
-```yaml
----
-title: "My Note"
-tags: ["notes", "reference"]
-description: "Quick summary"
-draft: false
----
-```
-
-3. Reference other documents with wikilinks:
+Reference other documents with wikilinks:
 
 ```md
 See [[Welcome to My Dev Blog]] and [[Development Glossary]].
@@ -78,12 +66,14 @@ During build, wikilinks are converted to internal links and backlinks are genera
 
 - `/` Home dashboard
 - `/posts/` Post archive
-- `/notes/` Note archive
+- `/categories/` Category index
+- `/categories/<id>/` Category detail (generated at build time)
+- `/series/` Series index
 - `/resume/` Resume / profile page
 - `/about/` legacy alias to resume
 - Header search input for global search
 - Left sidebar for categories, tags, and recent posts
-- Right sidebar (post/note) for TOC, related posts, backlinks
+- Right sidebar (post) for TOC, related posts, backlinks
 - `/feed.xml` Atom feed
 
 ## Category master
@@ -113,4 +103,4 @@ The CI workflow runs this validation before `jekyll build`.
 - **Comments**: Giscus renders only after `giscus.repo_id` and `giscus.category_id` are configured.
 - **Analytics**: GA4 script loads only when `ga4_measurement_id` is replaced from default placeholder.
 - **Edit on GitHub**: every page/post includes an edit link based on `_config.yml` GitHub settings.
-- **Wikilinks**: `[[Page Title]]` and `[[Page Title|Alias]]` are supported for posts/notes/pages.
+- **Wikilinks**: `[[Page Title]]` and `[[Page Title|Alias]]` are supported for posts/pages.

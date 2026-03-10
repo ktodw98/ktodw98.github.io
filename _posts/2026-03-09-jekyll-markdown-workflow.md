@@ -1,6 +1,7 @@
 ---
 title: "Jekyll Markdown Workflow for Fast Publishing"
 date: 2026-03-09 21:45:00 +0900
+type: "tutorial"
 categories: ["engineering"]
 tags: ["jekyll", "github-pages", "productivity"]
 series: "blog-setup"
@@ -27,4 +28,4 @@ When I publish technical notes, speed and consistency matter more than fancy too
 
 This is the baseline process this blog uses for every post.
 
-For a quick reference map, open [[Development Glossary|the glossary note]].
+For a quick reference map, open [[Development Glossary|the glossary reference]].

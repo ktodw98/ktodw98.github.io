@@ -1,6 +1,7 @@
 ---
 title: "Welcome to My Dev Blog"
 date: 2026-03-09 21:30:00 +0900
+type: "article"
 categories: ["writing"]
 tags: ["intro", "blogging", "workflow"]
 series: "blog-setup"

@@ -783,6 +783,10 @@ a {
   grid-template-columns: 1fr auto;
 }
 
+.mobile-drawer[hidden] {
+  display: none !important;
+}
+
 .mobile-drawer-backdrop {
   border: 0;
   background: rgba(5, 10, 8, 0.38);

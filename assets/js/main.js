@@ -194,10 +194,14 @@
   });
 
   function slugify(text) {
-    return String(text || "")
-      .trim()
-      .toLowerCase()
-      .replace(/[^\p{L}\p{N}\s-]/gu, "")
+    var value = String(text || "").trim().toLowerCase();
+
+    if (typeof value.normalize === "function") {
+      value = value.normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    return value
+      .replace(/[^a-z0-9\u00c0-\u024f\u3040-\u30ff\u3400-\u9fbf\uac00-\ud7af\s-]/g, "")
       .replace(/\s+/g, "-")
       .replace(/-+/g, "-");
   }

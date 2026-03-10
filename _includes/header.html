@@ -11,6 +11,23 @@
       <a href="{{ '/series/' | relative_url }}" data-i18n="nav.series">시리즈</a>
       <a href="{{ '/resume/' | relative_url }}" data-i18n="nav.resume">이력</a>
     </nav>
+    <div class="search-shell header-search">
+      <label for="global-search-input" class="sr-only" data-i18n="nav.search_label">포스트 검색</label>
+      <div class="search-inline">
+        <input
+          id="global-search-input"
+          class="global-search-input"
+          type="search"
+          placeholder="포스트 검색"
+          data-i18n-placeholder="nav.search_placeholder"
+          data-search-json="{{ '/search.json' | relative_url }}"
+          autocomplete="off">
+        <button id="global-search-button" class="search-button" type="button" aria-label="검색" data-i18n-aria-label="aria.search" data-i18n="nav.search_button">
+          검색
+        </button>
+      </div>
+      <ul id="global-search-results" class="global-search-results" hidden></ul>
+    </div>
     <div class="header-actions">
       <div class="locale-switcher" data-i18n-aria-label="nav.locale_switcher" aria-label="언어">
         <button class="locale-switcher-btn" type="button" data-locale-switch="ko" data-i18n="nav.locale_ko">KO</button>
@@ -18,28 +35,16 @@
         <button class="locale-switcher-btn" type="button" data-locale-switch="ja" data-i18n="nav.locale_ja">JA</button>
         <button class="locale-switcher-btn" type="button" data-locale-switch="vi" data-i18n="nav.locale_vi">VI</button>
       </div>
-      <div class="search-shell">
-        <label for="global-search-input" class="sr-only" data-i18n="nav.search_label">포스트 검색</label>
-        <div class="search-inline">
-          <input
-            id="global-search-input"
-            class="global-search-input"
-            type="search"
-            placeholder="포스트 검색"
-            data-i18n-placeholder="nav.search_placeholder"
-            data-search-json="{{ '/search.json' | relative_url }}"
-            autocomplete="off">
-          <button id="global-search-button" class="search-button" type="button" aria-label="검색" data-i18n-aria-label="aria.search" data-i18n="nav.search_button">
-            검색
-          </button>
-        </div>
-        <ul id="global-search-results" class="global-search-results" hidden></ul>
-      </div>
-      <button id="menu-toggle" class="menu-toggle" type="button" aria-label="메뉴 열기" aria-controls="mobile-drawer" aria-expanded="false" data-i18n-aria-label="aria.open_menu" data-i18n="nav.menu">
-        메뉴
-      </button>
       <button id="theme-toggle" class="theme-toggle" type="button" aria-label="테마 전환" data-i18n-aria-label="aria.toggle_theme">
         테마
+      </button>
+      <button id="menu-toggle" class="menu-toggle" type="button" aria-label="메뉴 열기" aria-controls="mobile-drawer" aria-expanded="false" data-i18n-aria-label="aria.open_menu">
+        <span class="menu-toggle-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+        <span class="sr-only" data-i18n="nav.menu">메뉴</span>
       </button>
     </div>
   </div>

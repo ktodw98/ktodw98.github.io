@@ -48,26 +48,6 @@
 </section>
 
 <section class="sidebar-panel">
-  <h2>Categories</h2>
-  {% assign active_categories = site.data.categories | where: "active", true | sort: "order" %}
-  {% if active_categories.size > 0 %}
-  <ul class="sidebar-list sidebar-list-rich">
-    {% for category in active_categories %}
-    {% assign category_posts = site.posts | where_exp: "item", "item.draft != true and item.categories and item.categories contains category.id" %}
-    <li>
-      <a href="{{ '/categories/' | append: category.id | append: '/' | relative_url }}">
-        <span class="item-title">{{ category.label }}</span>
-        <span class="item-meta">{{ category_posts.size }} posts · <span class="mono">/{{ category.id }}</span></span>
-      </a>
-    </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <p class="meta">No categories yet.</p>
-  {% endif %}
-</section>
-
-<section class="sidebar-panel">
   <h2>Tags</h2>
   {% assign sorted_tags = site.tags | sort %}
   {% if sorted_tags.size > 0 %}

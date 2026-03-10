@@ -4,7 +4,20 @@
     <nav class="desktop-nav" aria-label="Global">
       <a href="{{ '/' | relative_url }}">Home</a>
       <a href="{{ '/posts/' | relative_url }}">Posts</a>
-      <a href="{{ '/categories/' | relative_url }}">Categories</a>
+      <div class="nav-dropdown">
+        <a class="nav-dropdown-trigger" href="{{ '/categories/' | relative_url }}" aria-haspopup="true">Categories</a>
+        {% assign active_categories = site.data.categories | where: "active", true | sort: "order" %}
+        {% if active_categories.size > 0 %}
+          <div class="nav-dropdown-menu" aria-label="Category links">
+            {% for category in active_categories %}
+              <a href="{{ '/categories/' | append: category.id | append: '/' | relative_url }}">
+                <span class="nav-dropdown-title">{{ category.label }}</span>
+                <span class="nav-dropdown-meta">/{{ category.id }}</span>
+              </a>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
       <a href="{{ '/series/' | relative_url }}">Series</a>
       <a href="{{ '/resume/' | relative_url }}">Resume</a>
     </nav>

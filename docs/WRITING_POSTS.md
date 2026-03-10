@@ -105,10 +105,16 @@ draft: true
 
 ## 검증과 발행
 
+로컬 미리보기:
+
+```bash
+make preview
+```
+
 전체 검증:
 
 ```bash
-make validate
+make doctor
 ```
 
 개별 실행:
@@ -118,6 +124,8 @@ ruby scripts/validate-i18n.rb
 ruby scripts/validate-frontmatter.rb
 bundle exec jekyll build
 ```
+
+기존 `make validate`도 동작하지만, 표준 진입점은 `make doctor`입니다.
 
 문제 없으면 `draft: false`로 바꾸고 `main`에 push 합니다.
 

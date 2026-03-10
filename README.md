@@ -26,6 +26,8 @@ bundle exec jekyll serve --livereload
 ## Main Commands
 
 ```bash
+make preview
+make doctor
 make templates
 make categories
 make tags
@@ -58,15 +60,21 @@ make validate
 ## Validation
 
 ```bash
-ruby scripts/validate-i18n.rb
-ruby scripts/validate-frontmatter.rb
-bundle exec jekyll build
+make doctor
 ```
 
-또는 한 번에:
+하위 호환 명령:
 
 ```bash
 make validate
+```
+
+직접 실행:
+
+```bash
+ruby scripts/validate-i18n.rb
+ruby scripts/validate-frontmatter.rb
+bundle exec jekyll build
 ```
 
 ## Notes

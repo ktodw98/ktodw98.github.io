@@ -1,6 +1,8 @@
-.PHONY: help templates categories tags new import-summary import-repost validate
+.PHONY: help preview doctor templates categories tags new import-summary import-repost validate
 
 help:
+	@echo "make preview"
+	@echo "make doctor"
 	@echo "make templates"
 	@echo "make categories"
 	@echo "make tags"
@@ -8,6 +10,14 @@ help:
 	@echo "make import-summary TITLE=\"...\" CATEGORY=writing TAGS=\"summary,reference\" SOURCE_URL=\"...\" SOURCE_NAME=\"...\" DESCRIPTION=\"...\""
 	@echo "make import-repost TITLE=\"...\" CATEGORY=writing TAGS=\"reference\" SOURCE_URL=\"...\" SOURCE_NAME=\"...\" DESCRIPTION=\"...\""
 	@echo "make validate"
+
+preview:
+	@bundle exec jekyll serve --livereload
+
+doctor:
+	@ruby scripts/validate-i18n.rb
+	@ruby scripts/validate-frontmatter.rb
+	@bundle exec jekyll build
 
 templates:
 	@ruby scripts/posts.rb list-templates
@@ -28,6 +38,4 @@ import-repost:
 	@ruby scripts/posts.rb import-repost
 
 validate:
-	@ruby scripts/validate-i18n.rb
-	@ruby scripts/validate-frontmatter.rb
-	@bundle exec jekyll build
+	@$(MAKE) doctor

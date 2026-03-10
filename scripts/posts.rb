@@ -209,18 +209,31 @@ def build_post(template_name)
 
   template = File.read(template_path)
   replacements = {
+    "__TITLE__" => title,
     "{{TITLE}}" => title,
+    "__DATE__" => date_str,
     "{{DATE}}" => date_str,
+    "__TYPE__" => TYPE_BY_TEMPLATE.fetch(template_name, "article"),
     "{{TYPE}}" => TYPE_BY_TEMPLATE.fetch(template_name, "article"),
+    "__CATEGORY__" => category,
     "{{CATEGORY}}" => category,
+    "__TAGS__" => yaml_array(tags),
     "{{TAGS}}" => yaml_array(tags),
+    "__DESCRIPTION__" => description,
     "{{DESCRIPTION}}" => description,
+    "# __IMAGE_BLOCK__" => image_block(image),
     "{{IMAGE_BLOCK}}" => image_block(image),
+    "__SERIES__" => series,
     "{{SERIES}}" => series,
+    "__SERIES_ORDER__" => series_order,
     "{{SERIES_ORDER}}" => series_order,
+    "__SLUG__" => slug,
     "{{SLUG}}" => slug,
+    "__SOURCE_URL__" => source_url,
     "{{SOURCE_URL}}" => source_url,
+    "__SOURCE_NAME__" => source_name,
     "{{SOURCE_NAME}}" => source_name,
+    "__IMPORT_MODE__" => import_mode,
     "{{IMPORT_MODE}}" => import_mode
   }
 

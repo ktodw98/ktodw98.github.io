@@ -1,15 +1,15 @@
 ---
-title: "{{TITLE}}"
-date: {{DATE}}
-type: "{{TYPE}}"
-categories: ["{{CATEGORY}}"]
-tags: {{TAGS}}
-description: "{{DESCRIPTION}}"
-{{IMAGE_BLOCK}}
+title: "__TITLE__"
+date: "__DATE__"
+type: "__TYPE__"
+categories: ["__CATEGORY__"]
+tags: __TAGS__
+description: "__DESCRIPTION__"
+# __IMAGE_BLOCK__
 draft: true
-source_url: "{{SOURCE_URL}}"
-source_name: "{{SOURCE_NAME}}"
-import_mode: "{{IMPORT_MODE}}"
+source_url: "__SOURCE_URL__"
+source_name: "__SOURCE_NAME__"
+import_mode: "__IMPORT_MODE__"
 ---
 
 ## Source Notice

@@ -1,14 +1,14 @@
 ---
-title: "{{TITLE}}"
-date: {{DATE}}
-type: "{{TYPE}}"
-categories: ["{{CATEGORY}}"]
-tags: {{TAGS}}
-description: "{{DESCRIPTION}}"
-{{IMAGE_BLOCK}}
+title: "__TITLE__"
+date: "__DATE__"
+type: "__TYPE__"
+categories: ["__CATEGORY__"]
+tags: __TAGS__
+description: "__DESCRIPTION__"
+# __IMAGE_BLOCK__
 draft: true
-series: "{{SERIES}}"
-series_order: {{SERIES_ORDER}}
+series: "__SERIES__"
+series_order: __SERIES_ORDER__
 ---
 
 ## Overview

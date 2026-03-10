@@ -51,47 +51,51 @@ make new TEMPLATE=retrospective TITLE="Sprint 12 Review" CATEGORY=career TAGS="r
 ## placeholder 규칙
 
 템플릿은 아래 placeholder를 사용합니다.
+front matter 안에서는 YAML-safe 토큰을 권장합니다.
 
-- `{{TITLE}}`
-- `{{DATE}}`
-- `{{TYPE}}`
-- `{{CATEGORY}}`
-- `{{TAGS}}`
-- `{{DESCRIPTION}}`
-- `{{IMAGE_BLOCK}}`
-- `{{SERIES}}`
-- `{{SERIES_ORDER}}`
-- `{{SLUG}}`
-- `{{SOURCE_URL}}`
-- `{{SOURCE_NAME}}`
-- `{{IMPORT_MODE}}`
+- `__TITLE__`
+- `__DATE__`
+- `__TYPE__`
+- `__CATEGORY__`
+- `__TAGS__`
+- `__DESCRIPTION__`
+- `# __IMAGE_BLOCK__`
+- `__SERIES__`
+- `__SERIES_ORDER__`
+- `__SLUG__`
+- `__SOURCE_URL__`
+- `__SOURCE_NAME__`
+- `__IMPORT_MODE__`
 
 일반 템플릿은 보통 아래 6개만 사용합니다.
 
 ```md
-{{TITLE}}
-{{DATE}}
-{{TYPE}}
-{{CATEGORY}}
-{{TAGS}}
-{{DESCRIPTION}}
-{{IMAGE_BLOCK}}
+__TITLE__
+__DATE__
+__TYPE__
+__CATEGORY__
+__TAGS__
+__DESCRIPTION__
+# __IMAGE_BLOCK__
 ```
 
 시리즈를 직접 front matter에 포함하는 템플릿은 아래 placeholder를 추가로 사용합니다.
 
 ```md
-{{SERIES}}
-{{SERIES_ORDER}}
+__SERIES__
+__SERIES_ORDER__
 ```
 
 import 템플릿은 아래 3개를 추가로 사용합니다.
 
 ```md
-{{SOURCE_URL}}
-{{SOURCE_NAME}}
-{{IMPORT_MODE}}
+__SOURCE_URL__
+__SOURCE_NAME__
+__IMPORT_MODE__
 ```
+
+생성기인 `scripts/posts.rb`는 기존 `{{...}}` placeholder도 계속 치환합니다.
+다만 새 템플릿이나 수정 작업에서는 YAML 파서와 편집기 preview 오탐을 피하기 위해 `__...__` 형식을 사용합니다.
 
 ## 템플릿 예시
 
@@ -99,12 +103,13 @@ import 템플릿은 아래 3개를 추가로 사용합니다.
 
 ```md
 ---
-title: "{{TITLE}}"
-date: {{DATE}}
-type: "{{TYPE}}"
-categories: ["{{CATEGORY}}"]
-tags: {{TAGS}}
-description: "{{DESCRIPTION}}"
+title: "__TITLE__"
+date: "__DATE__"
+type: "__TYPE__"
+categories: ["__CATEGORY__"]
+tags: __TAGS__
+description: "__DESCRIPTION__"
+# __IMAGE_BLOCK__
 draft: true
 ---
 
@@ -142,7 +147,7 @@ make validate
 
 - placeholder 철자가 다르면 치환되지 않고 그대로 남습니다.
 - 새 템플릿을 추가하면서 `TYPE_BY_TEMPLATE`를 안 맞추면 `type` 기본값이 의도와 다를 수 있습니다.
-- `{{IMAGE_BLOCK}}`를 빼면 생성기에서 `IMAGE=...`를 넘겨도 front matter에 반영되지 않습니다.
-- `{{SERIES}}`와 `{{SERIES_ORDER}}`를 사용하는 템플릿은 생성기 입력도 같이 맞춰야 합니다.
+- `# __IMAGE_BLOCK__`를 빼면 생성기에서 `IMAGE=...`를 넘겨도 front matter에 반영되지 않습니다.
+- `__SERIES__`와 `__SERIES_ORDER__`를 사용하는 템플릿은 생성기 입력도 같이 맞춰야 합니다.
 - import 전용 placeholder를 일반 템플릿에 섞으면 빈 문자열로 치환될 수 있습니다.
 - 템플릿은 ASCII 위주로 유지하는 편이 diff와 재사용에 유리합니다.

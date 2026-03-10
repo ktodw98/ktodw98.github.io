@@ -11,8 +11,8 @@
   {% endif %}
   <div class="posts-subnav-shell">
     <div class="container">
-      <nav class="posts-subnav" aria-label="Post categories">
-        <a class="posts-subnav-item {% if page.url == '/posts/' %}is-active{% endif %}" href="{{ '/posts/' | relative_url }}">All Posts</a>
+      <nav class="posts-subnav" aria-label="포스트 카테고리" data-i18n-aria-label="aria.post_categories">
+        <a class="posts-subnav-item {% if page.url == '/posts/' %}is-active{% endif %}" href="{{ '/posts/' | relative_url }}" data-i18n="posts_subnav.all_posts">전체 포스트</a>
         {% for category in active_categories %}
           <a
             class="posts-subnav-item {% if current_category_id == category.id %}is-active{% endif %}"
@@ -20,7 +20,7 @@
             {{ category.label }}
           </a>
         {% endfor %}
-        <a class="posts-subnav-item posts-subnav-item-outline {% if page.url == '/categories/' or page.url contains '/categories/' %}is-active{% endif %}" href="{{ '/categories/' | relative_url }}">Category 보기</a>
+        <a class="posts-subnav-item posts-subnav-item-outline {% if page.url == '/categories/' or page.url contains '/categories/' %}is-active{% endif %}" href="{{ '/categories/' | relative_url }}" data-i18n="posts_subnav.category_view">카테고리 보기</a>
       </nav>
     </div>
   </div>

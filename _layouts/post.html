@@ -12,7 +12,7 @@ layout: default
       <div class="post-meta-taxonomy">
         {% if primary_category %}
           <div class="post-meta-group">
-            <span class="post-meta-key">Category</span>
+            <span class="post-meta-key" data-i18n="post_meta.category">카테고리</span>
             <a class="post-category-badge" href="{{ '/categories/' | append: primary_category | append: '/' | relative_url }}">
               {{ category_label | strip }}
             </a>
@@ -20,8 +20,8 @@ layout: default
         {% endif %}
         {% if page.tags and page.tags.size > 0 %}
           <div class="post-meta-group">
-            <span class="post-meta-key">Tags</span>
-            <div class="post-tag-chips" aria-label="Tags">
+            <span class="post-meta-key" data-i18n="post_meta.tags">태그</span>
+            <div class="post-tag-chips" aria-label="태그" data-i18n-aria-label="post_meta.tags">
               {% for tag in page.tags %}
                 <a class="post-tag-chip" href="{{ '/posts/' | relative_url }}?tag={{ tag | url_encode }}">#{{ tag }}</a>
               {% endfor %}

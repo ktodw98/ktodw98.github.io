@@ -8,6 +8,25 @@
   {% endif %}
 </title>
 <meta name="description" content="{{ page.description | default: site.description }}">
+<script>
+  window.BLOG_I18N = {
+    defaultLocale: {{ site.default_locale | default: "ko" | jsonify }},
+    supportedLocales: {{ site.supported_locales | default: "ko,en,ja,vi" | jsonify }},
+    messages: {{ site.data.i18n | jsonify }}
+  };
+  (function () {
+    var config = window.BLOG_I18N || {};
+    var defaultLocale = config.defaultLocale || "ko";
+    var supported = Array.isArray(config.supportedLocales) ? config.supportedLocales : [defaultLocale];
+    var locale = defaultLocale;
+    try {
+      var stored = localStorage.getItem("blog-locale");
+      if (stored && supported.indexOf(stored) >= 0) locale = stored;
+    } catch (e) {}
+    document.documentElement.lang = locale;
+    document.documentElement.setAttribute("data-locale", locale);
+  })();
+</script>
 {% if site.github and site.github.build_revision %}
   {% assign asset_version = site.github.build_revision %}
 {% else %}

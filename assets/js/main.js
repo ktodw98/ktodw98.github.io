@@ -1,5 +1,6 @@
 (function () {
-  var storageKey = "blog-theme";
+  var themeStorageKey = "blog-theme";
+  var localeStorageKey = "blog-locale";
   var root = document.documentElement;
   var toggleButton = document.getElementById("theme-toggle");
   var drawer = document.getElementById("mobile-drawer");
@@ -7,38 +8,139 @@
   var drawerCloseButton = document.getElementById("drawer-close");
   var drawerBackdrop = document.getElementById("mobile-drawer-backdrop");
 
-  function getPreferredTheme() {
-    var saved = localStorage.getItem(storageKey);
-    if (saved === "light" || saved === "dark") {
-      return saved;
+  var i18nConfig = window.BLOG_I18N || {};
+  var defaultLocale = i18nConfig.defaultLocale || "ko";
+  var supportedLocales = Array.isArray(i18nConfig.supportedLocales)
+    ? i18nConfig.supportedLocales
+    : [defaultLocale];
+  var messages = i18nConfig.messages || {};
+  var currentLocale = defaultLocale;
+
+  function normalizeLocale(locale) {
+    var value = String(locale || "").toLowerCase().trim();
+    return supportedLocales.indexOf(value) >= 0 ? value : defaultLocale;
+  }
+
+  function getStoredLocale() {
+    try {
+      return normalizeLocale(localStorage.getItem(localeStorageKey));
+    } catch (error) {
+      return defaultLocale;
     }
+  }
+
+  function getNestedValue(object, path) {
+    if (!object || !path) return null;
+    return String(path)
+      .split(".")
+      .reduce(function (acc, key) {
+        if (!acc || typeof acc !== "object" || !(key in acc)) return null;
+        return acc[key];
+      }, object);
+  }
+
+  function getMessage(key) {
+    var localized = getNestedValue(messages[currentLocale], key);
+    if (typeof localized === "string" && localized.length > 0) return localized;
+
+    var fallback = getNestedValue(messages[defaultLocale], key);
+    if (typeof fallback === "string" && fallback.length > 0) return fallback;
+
+    return key;
+  }
+
+  function applyI18n(scope) {
+    var target = scope || document;
+
+    Array.prototype.forEach.call(target.querySelectorAll("[data-i18n]"), function (node) {
+      node.textContent = getMessage(node.getAttribute("data-i18n"));
+    });
+
+    Array.prototype.forEach.call(target.querySelectorAll("[data-i18n-placeholder]"), function (node) {
+      node.setAttribute("placeholder", getMessage(node.getAttribute("data-i18n-placeholder")));
+    });
+
+    Array.prototype.forEach.call(target.querySelectorAll("[data-i18n-aria-label]"), function (node) {
+      node.setAttribute("aria-label", getMessage(node.getAttribute("data-i18n-aria-label")));
+    });
+
+    Array.prototype.forEach.call(target.querySelectorAll("[data-i18n-title]"), function (node) {
+      node.setAttribute("title", getMessage(node.getAttribute("data-i18n-title")));
+    });
+  }
+
+  function syncLocaleSwitcherButtons() {
+    Array.prototype.forEach.call(document.querySelectorAll("[data-locale-switch]"), function (button) {
+      var locale = normalizeLocale(button.getAttribute("data-locale-switch"));
+      button.classList.toggle("is-active", locale === currentLocale);
+      button.setAttribute("aria-pressed", locale === currentLocale ? "true" : "false");
+    });
+  }
+
+  function applyLocale(locale) {
+    currentLocale = normalizeLocale(locale);
+    root.lang = currentLocale;
+    root.setAttribute("data-locale", currentLocale);
+    applyI18n(document);
+    syncLocaleSwitcherButtons();
+  }
+
+  function bindLocaleSwitchers() {
+    Array.prototype.forEach.call(document.querySelectorAll("[data-locale-switch]"), function (button) {
+      button.addEventListener("click", function () {
+        var nextLocale = normalizeLocale(button.getAttribute("data-locale-switch"));
+        if (nextLocale === currentLocale) return;
+        try {
+          localStorage.setItem(localeStorageKey, nextLocale);
+        } catch (error) {}
+        window.location.reload();
+      });
+    });
+  }
+
+  window.BlogI18n = {
+    t: getMessage,
+    getLocale: function () {
+      return currentLocale;
+    },
+    apply: applyI18n
+  };
+
+  function getPreferredTheme() {
+    try {
+      var saved = localStorage.getItem(themeStorageKey);
+      if (saved === "light" || saved === "dark") {
+        return saved;
+      }
+    } catch (error) {}
     return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   }
 
   function setGiscusTheme(theme) {
     var frame = document.querySelector("iframe.giscus-frame");
     if (!frame) return;
-    frame.contentWindow.postMessage(
-      { giscus: { setConfig: { theme: theme } } },
-      "https://giscus.app"
-    );
+    frame.contentWindow.postMessage({ giscus: { setConfig: { theme: theme } } }, "https://giscus.app");
   }
 
   function applyTheme(theme) {
     root.setAttribute("data-theme", theme);
     if (toggleButton) {
-      toggleButton.textContent = theme === "dark" ? "Light Mode" : "Dark Mode";
+      toggleButton.textContent = theme === "dark" ? getMessage("theme.light_mode") : getMessage("theme.dark_mode");
     }
     setGiscusTheme(theme);
   }
 
   var currentTheme = getPreferredTheme();
+  applyLocale(getStoredLocale());
+  bindLocaleSwitchers();
   applyTheme(currentTheme);
 
   if (toggleButton) {
     toggleButton.addEventListener("click", function () {
       currentTheme = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      localStorage.setItem(storageKey, currentTheme);
+      try {
+        localStorage.setItem(themeStorageKey, currentTheme);
+      } catch (error) {}
       applyTheme(currentTheme);
     });
   }
@@ -87,13 +189,13 @@
     var content = document.querySelector(".js-rich-content");
     if (!toc || !content) return;
     if (window.matchMedia("(max-width: 979px)").matches) {
-      toc.innerHTML = "<p class=\"meta\">TOC is shown on desktop.</p>";
+      toc.innerHTML = "<p class=\"meta\">" + getMessage("toc.desktop_only") + "</p>";
       return;
     }
 
     var headings = content.querySelectorAll("h2, h3");
     if (!headings.length) {
-      toc.innerHTML = "<p class=\"meta\">No sections.</p>";
+      toc.innerHTML = "<p class=\"meta\">" + getMessage("toc.no_sections") + "</p>";
       return;
     }
 
@@ -189,8 +291,8 @@
       filterNotice.hidden = false;
       var labels = [];
       if (tag) labels.push("#" + tag);
-      if (category) labels.push("category:" + category);
-      filterNotice.textContent = "Filtered by " + labels.join(" + ") + " (" + visibleCount + ")";
+      if (category) labels.push(getMessage("search.filter_category_prefix") + ":" + category);
+      filterNotice.textContent = getMessage("search.filter_prefix") + " " + labels.join(" + ") + " (" + visibleCount + ")";
     }
   }
 

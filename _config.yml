@@ -1,6 +1,8 @@
 title: Dev Blog
 description: Development posts, architecture choices, and shipping logs.
 lang: ko
+default_locale: ko
+supported_locales: [ko, en, ja, vi]
 timezone: Asia/Seoul
 url: "https://blog.kailee.dev"
 baseurl: ""

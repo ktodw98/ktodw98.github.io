@@ -1,38 +1,45 @@
 <div id="mobile-drawer" class="mobile-drawer" hidden>
-  <button id="mobile-drawer-backdrop" class="mobile-drawer-backdrop" type="button" aria-label="Close menu"></button>
-  <aside class="mobile-drawer-panel" aria-label="Mobile navigation">
+  <button id="mobile-drawer-backdrop" class="mobile-drawer-backdrop" type="button" aria-label="메뉴 닫기" data-i18n-aria-label="aria.close_menu"></button>
+  <aside class="mobile-drawer-panel" aria-label="모바일 내비게이션" data-i18n-aria-label="aria.mobile_navigation">
     <div class="mobile-drawer-header">
-      <strong>Menu</strong>
-      <button id="drawer-close" class="drawer-close" type="button" aria-label="Close drawer">Close</button>
+      <strong data-i18n="mobile_menu.menu">메뉴</strong>
+      <button id="drawer-close" class="drawer-close" type="button" aria-label="드로어 닫기" data-i18n-aria-label="aria.close_drawer" data-i18n="mobile_menu.close">닫기</button>
     </div>
 
-    <nav class="mobile-drawer-nav" aria-label="Mobile global">
-      <a href="{{ '/' | relative_url }}">Home</a>
-      <a href="{{ '/posts/' | relative_url }}">Posts</a>
-      <a href="{{ '/categories/' | relative_url }}">Categories</a>
-      <a href="{{ '/series/' | relative_url }}">Series</a>
-      <a href="{{ '/resume/' | relative_url }}">Resume</a>
+    <div class="locale-switcher mobile-locale-switcher" data-i18n-aria-label="nav.locale_switcher" aria-label="언어">
+      <button class="locale-switcher-btn" type="button" data-locale-switch="ko" data-i18n="nav.locale_ko">KO</button>
+      <button class="locale-switcher-btn" type="button" data-locale-switch="en" data-i18n="nav.locale_en">EN</button>
+      <button class="locale-switcher-btn" type="button" data-locale-switch="ja" data-i18n="nav.locale_ja">JA</button>
+      <button class="locale-switcher-btn" type="button" data-locale-switch="vi" data-i18n="nav.locale_vi">VI</button>
+    </div>
+
+    <nav class="mobile-drawer-nav" aria-label="모바일 전역 메뉴" data-i18n-aria-label="mobile_menu.navigation">
+      <a href="{{ '/' | relative_url }}" data-i18n="nav.home">홈</a>
+      <a href="{{ '/posts/' | relative_url }}" data-i18n="nav.posts">포스트</a>
+      <a href="{{ '/categories/' | relative_url }}" data-i18n="mobile_menu.categories">카테고리</a>
+      <a href="{{ '/series/' | relative_url }}" data-i18n="nav.series">시리즈</a>
+      <a href="{{ '/resume/' | relative_url }}" data-i18n="nav.resume">이력</a>
     </nav>
 
     {% assign profile = site.author %}
     <section class="mobile-drawer-section">
-      <h2>Profile</h2>
+      <h2 data-i18n="mobile_menu.profile">프로필</h2>
       <p class="meta">{{ profile.name | default: site.title }}{% if profile.headline %} · {{ profile.headline }}{% endif %}</p>
       <div class="profile-links">
         {% if profile.github_url %}
-          <a href="{{ profile.github_url }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="{{ profile.github_url }}" target="_blank" rel="noopener noreferrer" data-i18n="profile_links.github">GitHub</a>
         {% endif %}
         {% if profile.linkedin_url %}
-          <a href="{{ profile.linkedin_url }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="{{ profile.linkedin_url }}" target="_blank" rel="noopener noreferrer" data-i18n="profile_links.linkedin">LinkedIn</a>
         {% endif %}
         {% if profile.contact_url %}
-          <a href="{{ profile.contact_url }}" target="_blank" rel="noopener noreferrer">Contact</a>
+          <a href="{{ profile.contact_url }}" target="_blank" rel="noopener noreferrer" data-i18n="profile_links.contact">문의</a>
         {% endif %}
       </div>
     </section>
 
     <section class="mobile-drawer-section">
-      <h2>Categories</h2>
+      <h2 data-i18n="mobile_menu.categories">카테고리</h2>
       {% assign active_categories = site.data.categories | where: "active", true | sort: "order" %}
       {% if active_categories.size > 0 %}
         <ul class="mobile-drawer-list">
@@ -46,7 +53,7 @@
           {% endfor %}
         </ul>
       {% else %}
-        <p class="meta">No categories yet.</p>
+        <p class="meta" data-i18n="mobile_menu.no_categories">카테고리가 없습니다.</p>
       {% endif %}
     </section>
   </aside>

@@ -1,6 +1,6 @@
 {% assign profile = site.author %}
 <section class="sidebar-panel profile-panel">
-  <p class="eyebrow">Profile</p>
+  <p class="eyebrow" data-i18n="sidebar.profile">프로필</p>
   <div class="profile-head">
     <img class="profile-avatar" src="{{ profile.avatar | default: '/assets/images/gopher.png' | relative_url }}"
       alt="{{ profile.name | default: site.title }}">
@@ -23,32 +23,32 @@
     {% if profile.email %}
       <a href="mailto:{{ profile.email }}" aria-label="Email">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
-        <span>Email</span>
+        <span data-i18n="profile_links.email">이메일</span>
       </a>
     {% endif %}
     {% if profile.github_url %}
       <a href="{{ profile.github_url }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.3a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.9c-2.8.6-3.4-1.3-3.4-1.3-.4-1-1-1.4-1-1.4-.8-.5 0-.5 0-.5.9 0 1.4.9 1.4.9.8 1.4 2.1 1 2.6.8.1-.6.3-1 .6-1.3-2.2-.2-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7 3.6 3.6 0 0 1 .1-2.6s.8-.3 2.8 1a9.8 9.8 0 0 1 5.1 0c2-1.3 2.8-1 2.8-1 .4 1 .2 2 .1 2.6a3.9 3.9 0 0 1 1 2.7c0 3.9-2.4 4.8-4.7 5 .4.2.7.8.7 1.6v2.4c0 .3.2.6.7.5A10 10 0 0 0 12 2.3z" fill="currentColor"/></svg>
-        <span>GitHub</span>
+        <span data-i18n="profile_links.github">GitHub</span>
       </a>
     {% endif %}
     {% if profile.linkedin_url %}
       <a href="{{ profile.linkedin_url }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.8 8.6H2.4V21h3.4V8.6zm.2-3.8A2 2 0 0 0 4 2.8a2 2 0 0 0-2 2c0 1 .9 2 2 2a2 2 0 0 0 2-2zM21 13.9c0-3.4-1.8-5-4.3-5-2 0-2.9 1.1-3.4 1.9V8.6h-3.4V21h3.4v-6.9c0-.4 0-.8.1-1 .3-.8 1-1.6 2.2-1.6 1.6 0 2.2 1.2 2.2 3V21H21v-7.1z" fill="currentColor"/></svg>
-        <span>LinkedIn</span>
+        <span data-i18n="profile_links.linkedin">LinkedIn</span>
       </a>
     {% endif %}
     {% if profile.contact_url %}
       <a href="{{ profile.contact_url }}" target="_blank" rel="noopener noreferrer" aria-label="Contact page">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 12h8M8 16h6M8 8h8" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
-        <span>Contact</span>
+        <span data-i18n="profile_links.contact">문의</span>
       </a>
     {% endif %}
   </div>
 </section>
 
 <section class="sidebar-panel">
-  <h2>Tags</h2>
+  <h2 data-i18n="sidebar.tags">태그</h2>
   {% assign sorted_tags = site.tags | sort %}
   {% if sorted_tags.size > 0 %}
   <div class="tag-cloud">
@@ -59,12 +59,12 @@
     {% endfor %}
   </div>
   {% else %}
-  <p class="meta">No tags yet.</p>
+  <p class="meta" data-i18n="sidebar.no_tags">태그가 없습니다.</p>
   {% endif %}
 </section>
 
 <section class="sidebar-panel">
-  <h2>Recent Posts</h2>
+  <h2 data-i18n="sidebar.recent_posts">최근 포스트</h2>
   <ul class="sidebar-list sidebar-list-rich">
   {% assign latest_posts = site.posts | where_exp: "item", "item.draft != true" | slice: 0, 6 %}
     {% for post in latest_posts %}
@@ -85,10 +85,10 @@
 </section>
 
 <section class="sidebar-panel">
-  <h2>Links</h2>
+  <h2 data-i18n="sidebar.links">링크</h2>
   <ul class="sidebar-list">
-    <li><a href="{{ '/feed.xml' | relative_url }}">RSS Feed</a></li>
+    <li><a href="{{ '/feed.xml' | relative_url }}" data-i18n="sidebar.rss_feed">RSS 피드</a></li>
     <li><a href="https://github.com/{{ site.github.owner }}/{{ site.github.repo }}" target="_blank"
-        rel="noopener noreferrer">GitHub Repo</a></li>
+        rel="noopener noreferrer" data-i18n="sidebar.github_repo">GitHub 저장소</a></li>
   </ul>
 </section>

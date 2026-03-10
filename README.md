@@ -72,9 +72,19 @@ During build, wikilinks are converted to internal links and backlinks are genera
 - `/resume/` Resume / profile page
 - `/about/` legacy alias to resume
 - Header search input for global search
-- Left sidebar for categories, tags, and recent posts
+- Posts section sub-navigation for category shortcuts
+- Left sidebar for profile, tags, and recent posts
 - Right sidebar (post) for TOC, related posts, backlinks
 - `/feed.xml` Atom feed
+
+## UI i18n (Phase 1)
+
+- UI locale only (`ko`, `en`, `ja`, `vi`) with single URL strategy.
+- Configure defaults in `_config.yml`:
+  - `default_locale`
+  - `supported_locales`
+- Locale dictionaries live in `_data/i18n/*.yml`.
+- User selection is stored in `localStorage` (`blog-locale`).
 
 ## Category master
 
@@ -90,13 +100,14 @@ Each category has:
 
 ## Validation
 
-Run metadata validation before publishing:
+Run validation before publishing:
 
 ```bash
+ruby scripts/validate-i18n.rb
 ruby scripts/validate-frontmatter.rb
 ```
 
-The CI workflow runs this validation before `jekyll build`.
+The CI workflow runs i18n/front matter validation before `jekyll build`.
 
 ## Feature notes
 

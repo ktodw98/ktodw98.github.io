@@ -2,17 +2,23 @@
   var input = document.getElementById("global-search-input");
   var results = document.getElementById("global-search-results");
   var searchButton = document.getElementById("global-search-button");
+  var i18n = window.BlogI18n;
   if (!input || !results) return;
 
   var sourceUrl = input.getAttribute("data-search-json");
   var docs = [];
   var maxResults = 8;
+  function t(key) {
+    if (i18n && typeof i18n.t === "function") return i18n.t(key);
+    return key;
+  }
+
   var typeLabels = {
-    article: "Article",
-    tutorial: "Tutorial",
-    "case-study": "Case Study",
-    log: "Log",
-    reference: "Reference"
+    article: "search.type_article",
+    tutorial: "search.type_tutorial",
+    "case-study": "search.type_case_study",
+    log: "search.type_log",
+    reference: "search.type_reference"
   };
 
   function escapeHtml(value) {
@@ -42,7 +48,7 @@
     openResults();
 
     if (!list.length) {
-      results.innerHTML = "<li class=\"search-empty\">No matching results.</li>";
+      results.innerHTML = "<li class=\"search-empty\">" + escapeHtml(t("search.no_results")) + "</li>";
       return;
     }
 
@@ -51,7 +57,8 @@
       .map(function (post) {
         var tags = (post.tags || []).join(", ");
         var category = post.category_label ? String(post.category_label) : "";
-        var badge = typeLabels[post.type] || "Post";
+        var badgeKey = typeLabels[post.type] || "search.type_article";
+        var badge = t(badgeKey);
         return (
           "<li>" +
           "<a class=\"search-hit\" href=\"" + escapeHtml(post.url) + "\">" +
@@ -98,7 +105,7 @@
   fetch(sourceUrl)
     .then(function (response) {
       if (!response.ok) {
-        throw new Error("Failed to load search index.");
+        throw new Error(t("search.load_error"));
       }
       return response.json();
     })

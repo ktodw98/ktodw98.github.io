@@ -4,7 +4,7 @@
 {% else %}
   {% assign asset_version = site.time | date: "%s" %}
 {% endif %}
-<html lang="{{ site.lang | default: 'en' }}">
+<html lang="{{ site.default_locale | default: site.lang | default: 'ko' }}">
   <head>
     {% include head.html %}
   </head>

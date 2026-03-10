@@ -14,40 +14,40 @@
       {% assign prev_index = current_index | minus: 1 %}
       {% assign next_index = current_index | plus: 1 %}
       <section class="series-nav">
-        <p class="eyebrow">Series Navigator</p>
+        <p class="eyebrow" data-i18n="series_nav.navigator">시리즈 네비게이터</p>
         <h2>{{ page.series }}</h2>
-        <p class="meta">Part {{ current_step }} of {{ series_posts.size }}</p>
+        <p class="meta"><span data-i18n="series_nav.part_prefix">파트</span> {{ current_step }} <span data-i18n="series_nav.part_of">/</span> {{ series_posts.size }}</p>
         <div class="series-progress" style="--series-progress: {{ progress_ratio }}%;"></div>
 
         <div class="series-links">
           {% if prev_index >= 0 %}
             {% assign prev_post = series_posts[prev_index] %}
             <a class="series-link-card" href="{{ prev_post.url | relative_url }}">
-              <span class="meta">Previous</span>
+              <span class="meta" data-i18n="series_nav.previous">이전</span>
               <strong>{{ prev_post.series_order }}. {{ prev_post.title }}</strong>
             </a>
           {% else %}
             <div class="series-link-card is-disabled">
-              <span class="meta">Previous</span>
-              <strong>Start of series</strong>
+              <span class="meta" data-i18n="series_nav.previous">이전</span>
+              <strong data-i18n="series_nav.start_of_series">시리즈 시작</strong>
             </div>
           {% endif %}
 
           {% if next_index < series_posts.size %}
             {% assign next_post = series_posts[next_index] %}
             <a class="series-link-card" href="{{ next_post.url | relative_url }}">
-              <span class="meta">Next</span>
+              <span class="meta" data-i18n="series_nav.next">다음</span>
               <strong>{{ next_post.series_order }}. {{ next_post.title }}</strong>
             </a>
           {% else %}
             <div class="series-link-card is-disabled">
-              <span class="meta">Next</span>
-              <strong>End of series</strong>
+              <span class="meta" data-i18n="series_nav.next">다음</span>
+              <strong data-i18n="series_nav.end_of_series">시리즈 끝</strong>
             </div>
           {% endif %}
         </div>
 
-        <h3>Series Contents</h3>
+        <h3 data-i18n="series_nav.contents">시리즈 목차</h3>
         <ol class="series-list">
           {% for series_post in series_posts %}
             <li class="{% if series_post.url == page.url %}current{% endif %}">

@@ -136,6 +136,33 @@ a {
   min-width: 0;
 }
 
+.locale-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  padding: 0.2rem;
+}
+
+.locale-switcher-btn {
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.22rem 0.42rem;
+  line-height: 1;
+}
+
+.locale-switcher-btn.is-active {
+  background: var(--brand);
+  color: var(--brand-contrast);
+}
+
 .search-shell {
   position: relative;
   min-width: 0;
@@ -778,6 +805,10 @@ a {
   justify-content: space-between;
 }
 
+.mobile-locale-switcher {
+  justify-content: flex-start;
+}
+
 .mobile-drawer-nav {
   display: grid;
   gap: 0.4rem;
@@ -962,6 +993,10 @@ a {
     gap: 0.4rem;
   }
 
+  .header-actions > .locale-switcher {
+    display: none;
+  }
+
   .global-search-input {
     width: 100%;
     min-width: 0;
@@ -1014,6 +1049,11 @@ a {
   .menu-toggle {
     padding: 0.42rem 0.62rem;
     font-size: 0.83rem;
+  }
+
+  .locale-switcher-btn {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.38rem;
   }
 
   .item-title {

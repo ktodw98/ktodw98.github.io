@@ -3,6 +3,8 @@ title: "Jekyll Markdown Workflow for Fast Publishing"
 date: 2026-03-09 21:45:00 +0900
 categories: ["engineering"]
 tags: ["jekyll", "github-pages", "productivity"]
+series: "blog-setup"
+series_order: 2
 description: "A practical post template and publishing checklist for quick shipping."
 draft: false
 ---

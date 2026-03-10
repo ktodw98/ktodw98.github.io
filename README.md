@@ -44,6 +44,12 @@ draft: false
 ---
 ```
 
+Metadata rules:
+
+- `categories`: exactly one value and it must exist in `_data/categories.yml`
+- `tags`: 1 to 5 values, lowercase kebab-case only
+- `series` and `series_order`: optional, but must be set together when used
+
 4. Push to `main` to publish.
 
 ## Write a note (knowledge graph style)
@@ -79,6 +85,28 @@ During build, wikilinks are converted to internal links and backlinks are genera
 - Left sidebar for categories, tags, and recent posts
 - Right sidebar (post/note) for TOC, related posts, backlinks
 - `/feed.xml` Atom feed
+
+## Category master
+
+Categories are centrally managed in `_data/categories.yml`.
+
+Each category has:
+
+- `id`: stable machine id (slug)
+- `label`: UI display name
+- `description`: explanatory text
+- `order`: sidebar ordering
+- `active`: visibility toggle
+
+## Validation
+
+Run metadata validation before publishing:
+
+```bash
+ruby scripts/validate-frontmatter.rb
+```
+
+The CI workflow runs this validation before `jekyll build`.
 
 ## Feature notes
 

@@ -1,0 +1,7 @@
+{% assign category_id = include.id | default: "" %}
+{% assign category_record = site.data.categories | where: "id", category_id | first %}
+{% if category_record and category_record.label %}
+  {{ category_record.label }}
+{% else %}
+  {{ category_id }}
+{% endif %}

@@ -315,6 +315,7 @@ a {
 .item-meta {
   color: var(--muted);
   font-size: 0.76rem;
+  line-height: 1.3;
 }
 
 .profile-head {
@@ -509,6 +510,62 @@ a {
 
 .comments {
   margin-top: 1.8rem;
+}
+
+.series-nav {
+  margin-top: 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--surface-soft) 88%, transparent);
+  padding: 0.9rem 1rem;
+}
+
+.series-nav h2 {
+  margin: 0 0 0.2rem;
+  font-size: 1rem;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.series-list {
+  margin: 0.7rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.series-list li {
+  margin: 0;
+}
+
+.series-list a,
+.series-list span {
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.42rem 0.56rem;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.series-list li.current span {
+  border-color: color-mix(in srgb, var(--brand) 45%, var(--line));
+  background: var(--surface);
+  font-weight: 700;
+}
+
+.series-links {
+  margin-top: 0.7rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.series-links a {
+  text-decoration: none;
+  color: var(--brand);
+  font-weight: 600;
 }
 
 .edit-link {

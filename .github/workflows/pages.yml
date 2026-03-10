@@ -46,6 +46,9 @@ jobs:
           bundle _2.5.23_ config set path vendor/bundle
           bundle _2.5.23_ install --jobs 4 --retry 3
 
+      - name: Validate post front matter
+        run: ruby scripts/validate-frontmatter.rb
+
       - name: Build with Jekyll
         run: bundle _2.5.23_ exec jekyll build --trace
 

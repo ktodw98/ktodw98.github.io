@@ -6,9 +6,10 @@ layout: default
     <p class="eyebrow">Post</p>
     <h1>{{ page.title }}</h1>
     {% assign primary_category = page.categories | first %}
+    {% capture category_label %}{% include category-label.html id=primary_category %}{% endcapture %}
     <p class="meta">
       {{ page.date | date: "%Y-%m-%d %H:%M" }}
-      {% if primary_category %} · {{ primary_category }}{% endif %}
+      {% if primary_category %} · {{ category_label | strip }}{% endif %}
       {% if page.tags and page.tags.size > 0 %} · {{ page.tags | join: ", " }}{% endif %}
     </p>
     <p>{{ page.description }}</p>
@@ -17,6 +18,7 @@ layout: default
     {{ content }}
   </div>
   {% include edit-link.html %}
+  {% include series-nav.html %}
   <div class="mobile-only">
     {% include backlinks.html %}
   </div>

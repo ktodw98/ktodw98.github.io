@@ -15,12 +15,14 @@
         <ul class="sidebar-list sidebar-list-rich">
           {% for post in related_posts %}
             {% assign primary_category = post.categories | first %}
+            {% capture category_label %}{% include category-label.html id=primary_category %}{% endcapture %}
             <li>
               <a href="{{ post.url | relative_url }}">
                 <span class="item-title">{{ post.title }}</span>
                 <span class="item-meta">
                   {{ post.date | date: "%m-%d" }}
-                  {% if primary_category %} · {{ primary_category }}{% endif %}
+                  {% if primary_category %} · {{ category_label | strip }}{% endif %}
+                  {% if post.tags and post.tags.size > 0 %} · {{ post.tags | join: ", " }}{% endif %}
                 </span>
               </a>
             </li>

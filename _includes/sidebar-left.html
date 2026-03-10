@@ -49,14 +49,15 @@
 
 <section class="sidebar-panel">
   <h2>Categories</h2>
-  {% assign sorted_categories = site.categories | sort %}
-  {% if sorted_categories.size > 0 %}
+  {% assign active_categories = site.data.categories | where: "active", true | sort: "order" %}
+  {% if active_categories.size > 0 %}
   <ul class="sidebar-list sidebar-list-rich">
-    {% for category in sorted_categories %}
+    {% for category in active_categories %}
+    {% assign category_posts = site.posts | where_exp: "item", "item.draft != true and item.categories and item.categories contains category.id" %}
     <li>
-      <a href="{{ '/posts/' | relative_url }}?category={{ category[0] | url_encode }}">
-        <span class="item-title">{{ category[0] }}</span>
-        <span class="item-meta">{{ category[1].size }} posts</span>
+      <a href="{{ '/posts/' | relative_url }}?category={{ category.id | url_encode }}">
+        <span class="item-title">{{ category.label }}</span>
+        <span class="item-meta">{{ category_posts.size }} posts</span>
       </a>
     </li>
     {% endfor %}
@@ -85,15 +86,17 @@
 <section class="sidebar-panel">
   <h2>Recent Posts</h2>
   <ul class="sidebar-list sidebar-list-rich">
-    {% assign latest_posts = site.posts | where_exp: "item", "item.draft != true" | slice: 0, 6 %}
+  {% assign latest_posts = site.posts | where_exp: "item", "item.draft != true" | slice: 0, 6 %}
     {% for post in latest_posts %}
     {% assign primary_category = post.categories | first %}
+    {% capture category_label %}{% include category-label.html id=primary_category %}{% endcapture %}
     <li>
       <a href="{{ post.url | relative_url }}">
         <span class="item-title">{{ post.title }}</span>
         <span class="item-meta">
           {{ post.date | date: "%m-%d" }}
-          {% if primary_category %} · {{ primary_category }}{% endif %}
+          {% if primary_category %} · {{ category_label | strip }}{% endif %}
+          {% if post.tags and post.tags.size > 0 %} · {{ post.tags | join: ", " }}{% endif %}
         </span>
       </a>
     </li>

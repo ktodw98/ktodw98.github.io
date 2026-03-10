@@ -43,7 +43,7 @@
       .slice(0, maxResults)
       .map(function (post) {
         var tags = (post.tags || []).join(", ");
-        var category = post.category ? String(post.category) : "";
+        var category = post.category_label ? String(post.category_label) : "";
         var badge = post.type === "note" ? "Note" : "Post";
         return (
           "<li>" +
@@ -77,7 +77,8 @@
         post.title,
         post.description,
         (post.tags || []).join(" "),
-        post.category || "",
+        post.category_id || "",
+        post.category_label || "",
         post.type
       ]
         .join(" ")

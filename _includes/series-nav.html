@@ -1,0 +1,48 @@
+{% if page.series %}
+  {% assign series_posts = site.posts | where_exp: "item", "item.draft != true and item.series == page.series" | sort: "series_order" %}
+  {% if series_posts.size > 1 %}
+    {% assign current_index = -1 %}
+    {% for series_post in series_posts %}
+      {% if series_post.url == page.url %}
+        {% assign current_index = forloop.index0 %}
+      {% endif %}
+    {% endfor %}
+
+    <section class="series-nav">
+      <h2>Series</h2>
+      <p class="meta">{{ page.series }}</p>
+
+      <ul class="series-list">
+        {% for series_post in series_posts %}
+          <li class="{% if series_post.url == page.url %}current{% endif %}">
+            {% if series_post.url == page.url %}
+              <span>{{ series_post.series_order }}. {{ series_post.title }}</span>
+            {% else %}
+              <a href="{{ series_post.url | relative_url }}">{{ series_post.series_order }}. {{ series_post.title }}</a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+
+      {% if current_index >= 0 %}
+        {% assign prev_index = current_index | minus: 1 %}
+        {% assign next_index = current_index | plus: 1 %}
+        <div class="series-links">
+          {% if prev_index >= 0 %}
+            {% assign prev_post = series_posts[prev_index] %}
+            <a href="{{ prev_post.url | relative_url }}">← {{ prev_post.title }}</a>
+          {% else %}
+            <span class="meta">Start of series</span>
+          {% endif %}
+
+          {% if next_index < series_posts.size %}
+            {% assign next_post = series_posts[next_index] %}
+            <a href="{{ next_post.url | relative_url }}">{{ next_post.title }} →</a>
+          {% else %}
+            <span class="meta">End of series</span>
+          {% endif %}
+        </div>
+      {% endif %}
+    </section>
+  {% endif %}
+{% endif %}

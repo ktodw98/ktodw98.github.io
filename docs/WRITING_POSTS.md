@@ -77,6 +77,12 @@ make new TEMPLATE=tutorial TITLE="Building a Caching Layer" CATEGORY=backend TAG
 make new TEMPLATE=reference TITLE="HTTP Cache Control Notes" CATEGORY=backend TAGS="reference,http,caching" DESCRIPTION="자주 헷갈리는 Cache-Control 규칙 정리"
 ```
 
+스터디 노트 생성:
+
+```bash
+make new TEMPLATE=study-note TITLE="MSA 01 - What Are Microservices?" CATEGORY=engineering TAGS="architecture,microservices,study" SERIES="msa-study" SERIES_ORDER=1 DESCRIPTION="챕터 핵심 개념과 내 해석 정리"
+```
+
 대표 이미지까지 같이 넣는 예시:
 
 ```bash
@@ -109,6 +115,13 @@ draft: true
 - `series`와 `series_order`: 연재형 글일 때만 같이 사용
 - `image`: 선택값. 설정하면 해당 글의 OG 이미지로 사용되고, 비워두면 기본값 `/assets/images/og-default.png`를 사용
 
+스터디 포스트 운영 규칙:
+
+- 스터디 노트도 일반 포스트와 같은 위치와 규칙으로 관리합니다.
+- 같은 학습 묶음이면 동일한 `series` 값을 사용하고, 순서대로 `series_order`를 증가시킵니다.
+- 카테고리는 스터디 주제에 맞게 `engineering`, `backend`, `frontend` 등에서 선택합니다.
+- `study-note` 템플릿은 생성 시 `SERIES`와 `SERIES_ORDER`가 필수입니다.
+
 ## 본문 작성 규칙
 
 - 템플릿에 들어 있는 섹션은 시작점이다. 필요 없는 섹션은 삭제하고, 필요한 섹션은 추가한다.
@@ -116,6 +129,7 @@ draft: true
 - 태그는 자유 입력 가능하지만, 먼저 `make tags`에 있는 추천 목록을 재사용하는 편이 좋다.
 - 카테고리는 글의 소속, 태그는 검색/발견용 보조 키워드로 생각한다.
 - 대표 이미지를 직접 넣을 때는 `assets/images/posts/` 아래에 두고, `image: "/assets/images/posts/..."` 형식으로 맞추는 편이 관리하기 쉽다.
+- 스터디 글은 `Overview -> Key Concepts -> Notes -> Takeaways` 흐름으로 쓰면 읽기와 복습이 쉽다.
 
 내부 문서 참조 예시:
 
@@ -154,6 +168,7 @@ bundle exec jekyll build
 - `categories`를 문자열 하나로 쓰면 안 되고 배열로 써야 합니다.
 - `tags`는 최대 5개입니다.
 - `series`만 넣고 `series_order`를 빼면 validation이 실패합니다.
+- `study-note` 생성 시 `SERIES` 또는 `SERIES_ORDER` 하나만 넣으면 생성이 실패합니다.
 - slug는 제목에서 자동 생성되므로, 특수문자가 많으면 `SLUG=...`를 직접 주는 편이 안전합니다.
 - 생성 직후 기본값은 `draft: true`입니다. 발행 전에 직접 바꿔야 합니다.
 - 발행 전에 `make drafts`로 초안 목록에서 빠지는지 확인하는 편이 안전합니다.

@@ -17,6 +17,7 @@ TYPE_BY_TEMPLATE = {
   "case-study" => "case-study",
   "log" => "log",
   "reference" => "reference",
+  "study-note" => "reference",
   "import-summary" => "reference",
   "import-repost" => "reference"
 }.freeze
@@ -32,6 +33,7 @@ DEFAULT_DESCRIPTION_BY_TEMPLATE = {
   "case-study" => "Replace with the problem, decision, and result.",
   "log" => "Replace with the change summary and impact.",
   "reference" => "Replace with the definition or lookup summary.",
+  "study-note" => "Replace with the chapter summary, key concepts, and your takeaways.",
   "import-summary" => "Replace with a summary of the source article and your takeaways.",
   "import-repost" => "Replace with a repost summary and source attribution."
 }.freeze
@@ -114,11 +116,48 @@ def yaml_array(values)
   values.to_json
 end
 
+def normalize_series(value)
+  value.to_s
+    .strip
+    .downcase
+    .gsub(/[^a-z0-9]+/, "-")
+    .gsub(/\A-+|-+\z/, "")
+    .gsub(/-{2,}/, "-")
+end
+
 def image_block(image)
   image = image.to_s.strip
   return "# image: \"/assets/images/posts/example.png\"" if image.empty?
 
   "image: #{image.to_json}"
+end
+
+def parse_series_fields(template_name)
+  series = optional_env("SERIES", "")
+  series_order = optional_env("SERIES_ORDER", "")
+
+  if template_name == "study-note"
+    fail_with("Missing required variable: SERIES") if series.empty?
+    fail_with("Missing required variable: SERIES_ORDER") if series_order.empty?
+  end
+
+  if series.empty? != series_order.empty?
+    fail_with("SERIES and SERIES_ORDER must be provided together.")
+  end
+
+  return ["", ""] if series.empty?
+
+  normalized_series = normalize_series(series)
+  fail_with("SERIES must contain at least one alphanumeric character.") if normalized_series.empty?
+
+  begin
+    order = Integer(series_order)
+    fail_with("SERIES_ORDER must be a positive integer.") if order <= 0
+  rescue ArgumentError
+    fail_with("SERIES_ORDER must be a positive integer.")
+  end
+
+  [normalized_series, order.to_s]
 end
 
 def category_exists?(categories, category_id)
@@ -153,6 +192,7 @@ def build_post(template_name)
   source_url = optional_env("SOURCE_URL", "")
   source_name = optional_env("SOURCE_NAME", "")
   import_mode = IMPORT_MODES.fetch(template_name, "")
+  series, series_order = parse_series_fields(template_name)
 
   if import_mode.empty?
     fail_with("SOURCE_URL is only supported for import templates.") unless source_url.empty?
@@ -176,6 +216,8 @@ def build_post(template_name)
     "{{TAGS}}" => yaml_array(tags),
     "{{DESCRIPTION}}" => description,
     "{{IMAGE_BLOCK}}" => image_block(image),
+    "{{SERIES}}" => series,
+    "{{SERIES_ORDER}}" => series_order,
     "{{SLUG}}" => slug,
     "{{SOURCE_URL}}" => source_url,
     "{{SOURCE_NAME}}" => source_name,

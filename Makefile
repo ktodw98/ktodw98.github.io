@@ -8,6 +8,7 @@ help:
 	@echo "make categories"
 	@echo "make tags"
 	@echo "make new TEMPLATE=tutorial TITLE=\"...\" CATEGORY=backend TAGS=\"go,api\" DESCRIPTION=\"...\" IMAGE=\"/assets/images/posts/...png\""
+	@echo "make new TEMPLATE=study-note TITLE=\"...\" CATEGORY=engineering TAGS=\"architecture,microservices,study\" SERIES=\"msa-study\" SERIES_ORDER=1 DESCRIPTION=\"...\""
 	@echo "make import-summary TITLE=\"...\" CATEGORY=writing TAGS=\"summary,reference\" SOURCE_URL=\"...\" SOURCE_NAME=\"...\" DESCRIPTION=\"...\" IMAGE=\"/assets/images/posts/...png\""
 	@echo "make import-repost TITLE=\"...\" CATEGORY=writing TAGS=\"reference\" SOURCE_URL=\"...\" SOURCE_NAME=\"...\" DESCRIPTION=\"...\" IMAGE=\"/assets/images/posts/...png\""
 	@echo "make validate"

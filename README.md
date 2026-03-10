@@ -33,6 +33,7 @@ make templates
 make categories
 make tags
 make new TEMPLATE=tutorial TITLE="Building a Caching Layer" CATEGORY=backend TAGS="go,api,caching" DESCRIPTION="How the cache design evolved." IMAGE="/assets/images/posts/cache-layer.png"
+make new TEMPLATE=study-note TITLE="MSA 01 - What Are Microservices?" CATEGORY=engineering TAGS="architecture,microservices,study" SERIES="msa-study" SERIES_ORDER=1 DESCRIPTION="Chapter summary and takeaways."
 make import-summary TITLE="Notes on Example Article" CATEGORY=writing TAGS="reference,writing" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="Summary and takeaways from the source article." IMAGE="/assets/images/posts/example-summary.png"
 make import-repost TITLE="Repost: Example Article" CATEGORY=writing TAGS="reference" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="Repost with source attribution." IMAGE="/assets/images/posts/example-repost.png"
 make validate

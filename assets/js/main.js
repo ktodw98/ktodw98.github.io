@@ -7,6 +7,7 @@
   var drawerOpenButton = document.getElementById("menu-toggle");
   var drawerCloseButton = document.getElementById("drawer-close");
   var drawerBackdrop = document.getElementById("mobile-drawer-backdrop");
+  var drawerPanel = drawer ? drawer.querySelector("[data-drawer-panel]") : null;
 
   var i18nConfig = window.BLOG_I18N || {};
   var defaultLocale = i18nConfig.defaultLocale || "ko";
@@ -148,7 +149,11 @@
   function setDrawerState(isOpen) {
     if (!drawer) return;
     drawer.hidden = !isOpen;
+    drawer.setAttribute("aria-hidden", isOpen ? "false" : "true");
     root.classList.toggle("drawer-open", isOpen);
+    if (drawerOpenButton) {
+      drawerOpenButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    }
   }
 
   if (drawerOpenButton) {
@@ -166,6 +171,19 @@
   if (drawerBackdrop) {
     drawerBackdrop.addEventListener("click", function () {
       setDrawerState(false);
+    });
+  }
+
+  if (drawer) {
+    drawer.addEventListener("click", function (event) {
+      if (event.target === drawer) {
+        setDrawerState(false);
+        return;
+      }
+
+      if (drawerPanel && !event.target.closest("[data-drawer-panel]")) {
+        setDrawerState(false);
+      }
     });
   }
 

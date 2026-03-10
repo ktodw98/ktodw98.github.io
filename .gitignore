@@ -1,7 +1,8 @@
+.playwright-cli/
 .DS_Store
+.bundle/
 _site/
 .jekyll-cache/
 .jekyll-metadata
-.bundle/
-vendor/
 .sass-cache/
+vendor/

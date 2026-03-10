@@ -578,6 +578,24 @@ a {
   border-radius: 12px;
 }
 
+.post-image {
+  margin: 1.4rem 0;
+}
+
+.post-image img {
+  display: block;
+  width: 100%;
+  background: color-mix(in srgb, var(--surface-soft) 88%, transparent);
+  border: 1px solid color-mix(in srgb, var(--line) 82%, transparent);
+  box-shadow: var(--shadow);
+}
+
+.post-image figcaption {
+  margin-top: 0.55rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 .content-body pre {
   overflow: auto;
   border-radius: 10px;

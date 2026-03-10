@@ -25,11 +25,13 @@ _posts/<category>/YYYY-MM-DD-slug.md
 _posts/backend/2026-03-10-building-a-caching-layer.md
 ```
 
-대표 이미지는 아래 위치를 기본 경로로 사용합니다.
+포스트 이미지는 아래 위치를 기본 경로로 사용합니다.
 
 ```text
-assets/images/posts/
+assets/images/posts/<post_id>/
 ```
+
+`post_id`는 생성 시 UUID로 자동 발급되는 불변 식별자입니다. 제목이나 slug를 바꿔도 이미지 경로는 유지됩니다.
 
 ## 작성 전 확인 명령
 
@@ -86,7 +88,7 @@ make new TEMPLATE=study-note TITLE="MSA 01 - What Are Microservices?" CATEGORY=e
 대표 이미지까지 같이 넣는 예시:
 
 ```bash
-make new TEMPLATE=case-study TITLE="Reducing API Tail Latency" CATEGORY=backend TAGS="api,performance,latency" DESCRIPTION="지연 시간 병목을 줄인 과정" IMAGE="/assets/images/posts/api-tail-latency.png"
+make new TEMPLATE=case-study TITLE="Reducing API Tail Latency" CATEGORY=backend TAGS="api,performance,latency" DESCRIPTION="지연 시간 병목을 줄인 과정" IMAGE="cover.png"
 ```
 
 ## front matter 규칙
@@ -97,6 +99,7 @@ make new TEMPLATE=case-study TITLE="Reducing API Tail Latency" CATEGORY=backend 
 ---
 title: "Post title"
 date: 2026-03-10 17:00:00 +0900
+post_id: "550e8400-e29b-41d4-a716-446655440000"
 type: "article"
 categories: ["engineering"]
 tags: ["architecture", "decision"]
@@ -108,12 +111,14 @@ draft: true
 규칙:
 
 - `type`: `article`, `tutorial`, `case-study`, `log`, `reference` 중 하나
+- `post_id`: UUID 형식의 불변 식별자. 생성 시 자동 발급되며 수정하지 않는다.
 - `categories`: 정확히 1개, `_data/taxonomies.yml`에 존재해야 함
 - `tags`: 1개 이상 5개 이하, 소문자 kebab-case만 허용
 - `description`: 목록/검색/메타 설명에 쓰이는 한 줄 요약
 - `draft`: 초안은 `true`, 발행은 `false`
 - `series`와 `series_order`: 연재형 글일 때만 같이 사용
-- `image`: 선택값. 설정하면 해당 글의 OG 이미지로 사용되고, 비워두면 기본값 `/assets/images/og-default.png`를 사용
+- `image`: 선택값. `cover.png` 같은 상대 파일명, `/assets/images/...` 절대 경로, 또는 `http/https` URL을 사용할 수 있다.
+- 상대 파일명 이미지는 자동으로 `assets/images/posts/<post_id>/` 아래에서 찾고, 해당 글의 OG 이미지로 사용한다.
 
 스터디 포스트 운영 규칙:
 
@@ -128,7 +133,16 @@ draft: true
 - 첫 문단은 제목 반복이 아니라 글의 문제와 결론 방향을 보여줘야 한다.
 - 태그는 자유 입력 가능하지만, 먼저 `make tags`에 있는 추천 목록을 재사용하는 편이 좋다.
 - 카테고리는 글의 소속, 태그는 검색/발견용 보조 키워드로 생각한다.
-- 대표 이미지를 직접 넣을 때는 `assets/images/posts/` 아래에 두고, `image: "/assets/images/posts/..."` 형식으로 맞추는 편이 관리하기 쉽다.
+- 새 글을 만들면 `assets/images/posts/<post_id>/` 디렉터리도 같이 생성된다.
+- 대표 이미지는 전용 디렉터리에 두고 `image: "cover.png"`처럼 상대 파일명으로 적는다.
+- 본문 이미지는 아래 helper로 넣는다.
+
+```liquid
+{% include post-image.html file="step-01.png" alt="캐시 계층 구조도" caption="요청 흐름 개요" %}
+```
+
+- helper는 현재 글의 `post_id`를 기준으로 실제 이미지 URL을 계산한다.
+- 본문에서 `/assets/images/posts/...` 같은 절대경로를 직접 박아 넣는 방식은 지양한다.
 - 스터디 글은 `Overview -> Key Concepts -> Notes -> Takeaways` 흐름으로 쓰면 읽기와 복습이 쉽다.
 
 내부 문서 참조 예시:
@@ -166,9 +180,11 @@ bundle exec jekyll build
 ## 실수하기 쉬운 규칙
 
 - `categories`를 문자열 하나로 쓰면 안 되고 배열로 써야 합니다.
+- `post_id`는 자동 생성되며, 발행 후에도 바꾸지 않는 값입니다.
 - `tags`는 최대 5개입니다.
 - `series`만 넣고 `series_order`를 빼면 validation이 실패합니다.
 - `study-note` 생성 시 `SERIES` 또는 `SERIES_ORDER` 하나만 넣으면 생성이 실패합니다.
 - slug는 제목에서 자동 생성되므로, 특수문자가 많으면 `SLUG=...`를 직접 주는 편이 안전합니다.
+- `image: "cover.png"` 같은 상대 파일명을 썼다면 실제 파일도 `assets/images/posts/<post_id>/cover.png`에 있어야 validation이 통과합니다.
 - 생성 직후 기본값은 `draft: true`입니다. 발행 전에 직접 바꿔야 합니다.
 - 발행 전에 `make drafts`로 초안 목록에서 빠지는지 확인하는 편이 안전합니다.

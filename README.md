@@ -32,10 +32,10 @@ make drafts
 make templates
 make categories
 make tags
-make new TEMPLATE=tutorial TITLE="Building a Caching Layer" CATEGORY=backend TAGS="go,api,caching" DESCRIPTION="How the cache design evolved." IMAGE="/assets/images/posts/cache-layer.png"
+make new TEMPLATE=tutorial TITLE="Building a Caching Layer" CATEGORY=backend TAGS="go,api,caching" DESCRIPTION="How the cache design evolved." IMAGE="cover.png"
 make new TEMPLATE=study-note TITLE="MSA 01 - What Are Microservices?" CATEGORY=engineering TAGS="architecture,microservices,study" SERIES="msa-study" SERIES_ORDER=1 DESCRIPTION="Chapter summary and takeaways."
-make import-summary TITLE="Notes on Example Article" CATEGORY=writing TAGS="reference,writing" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="Summary and takeaways from the source article." IMAGE="/assets/images/posts/example-summary.png"
-make import-repost TITLE="Repost: Example Article" CATEGORY=writing TAGS="reference" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="Repost with source attribution." IMAGE="/assets/images/posts/example-repost.png"
+make import-summary TITLE="Notes on Example Article" CATEGORY=writing TAGS="reference,writing" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="Summary and takeaways from the source article." IMAGE="cover.png"
+make import-repost TITLE="Repost: Example Article" CATEGORY=writing TAGS="reference" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="Repost with source attribution." IMAGE="cover.png"
 make validate
 ```
 
@@ -58,6 +58,8 @@ make validate
 - `/feed.xml` Atom feed
 
 게시물은 `_posts/<category>/YYYY-MM-DD-slug.md`에 저장됩니다.
+
+포스트 이미지는 `assets/images/posts/<post_id>/`에 저장됩니다. `post_id`는 생성 시 UUID로 자동 발급되며, 제목이나 slug가 바뀌어도 그대로 유지됩니다.
 
 ## Validation
 
@@ -83,6 +85,8 @@ bundle exec jekyll build
 
 - UI 다국어는 `ko`, `en`, `ja`, `vi`를 지원하며 단일 URL 전략을 사용합니다.
 - taxonomy는 `_data/taxonomies.yml`에서 중앙 관리합니다.
-- 기본 OG 이미지는 `/assets/images/og-default.png`를 사용하고, 개별 글에서 `image` front matter로 덮어쓸 수 있습니다.
+- 기본 OG 이미지는 `/assets/images/og-default.png`를 사용하고, 개별 글에서 `image: "cover.png"` 같은 상대 파일명으로 덮어쓸 수 있습니다.
+- 본문 이미지는 `{% include post-image.html file="step-01.png" alt="..." caption="..." %}` 형식으로 삽입합니다.
+- `media_baseurl`를 설정하면 포스트 이미지 URL을 외부 스토리지/CDN으로 쉽게 이관할 수 있습니다.
 - Giscus는 `giscus.repo_id`, `giscus.category_id` 설정 후 렌더링됩니다.
 - GA4는 `_config.yml`의 `ga4_measurement_id` 교체 후 활성화됩니다.

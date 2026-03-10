@@ -1,0 +1,13 @@
+{% assign image_src = include.file | post_asset_url %}
+<figure class="post-image{% if include.class %} {{ include.class }}{% endif %}">
+  <img
+    src="{{ image_src }}"
+    alt="{{ include.alt | default: '' | escape }}"
+    {% if include.width %}width="{{ include.width }}"{% endif %}
+    {% if include.height %}height="{{ include.height }}"{% endif %}
+    loading="lazy"
+    decoding="async">
+  {% if include.caption %}
+    <figcaption>{{ include.caption }}</figcaption>
+  {% endif %}
+</figure>

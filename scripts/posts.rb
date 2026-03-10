@@ -3,6 +3,7 @@
 
 require "fileutils"
 require "json"
+require "securerandom"
 require "time"
 require "yaml"
 
@@ -10,6 +11,7 @@ ROOT = File.expand_path("..", __dir__)
 TAXONOMIES_PATH = File.join(ROOT, "_data", "taxonomies.yml")
 TEMPLATES_DIR = File.join(ROOT, "templates", "posts")
 POSTS_DIR = File.join(ROOT, "_posts")
+POST_IMAGES_DIR = File.join(ROOT, "assets", "images", "posts")
 
 TYPE_BY_TEMPLATE = {
   "article" => "article",
@@ -127,9 +129,13 @@ end
 
 def image_block(image)
   image = image.to_s.strip
-  return "# image: \"/assets/images/posts/example.png\"" if image.empty?
+  return "# image: \"cover.png\"" if image.empty?
 
   "image: #{image.to_json}"
+end
+
+def generate_post_id
+  SecureRandom.uuid
 end
 
 def parse_series_fields(template_name)
@@ -189,6 +195,7 @@ def build_post(template_name)
   file_date = now.strftime("%Y-%m-%d")
   description = optional_env("DESCRIPTION", DEFAULT_DESCRIPTION_BY_TEMPLATE.fetch(template_name, "Replace with a summary."))
   image = optional_env("IMAGE", "")
+  post_id = generate_post_id
   source_url = optional_env("SOURCE_URL", "")
   source_name = optional_env("SOURCE_NAME", "")
   import_mode = IMPORT_MODES.fetch(template_name, "")
@@ -203,6 +210,7 @@ def build_post(template_name)
   end
 
   category_dir = File.join(POSTS_DIR, category)
+  post_images_dir = File.join(POST_IMAGES_DIR, post_id)
   filename = "#{file_date}-#{slug}.md"
   path = File.join(category_dir, filename)
   fail_with("Post already exists: #{path}") if File.exist?(path)
@@ -213,6 +221,8 @@ def build_post(template_name)
     "{{TITLE}}" => title,
     "__DATE__" => date_str,
     "{{DATE}}" => date_str,
+    "__POST_ID__" => post_id,
+    "{{POST_ID}}" => post_id,
     "__TYPE__" => TYPE_BY_TEMPLATE.fetch(template_name, "article"),
     "{{TYPE}}" => TYPE_BY_TEMPLATE.fetch(template_name, "article"),
     "__CATEGORY__" => category,
@@ -242,6 +252,7 @@ def build_post(template_name)
   end
 
   FileUtils.mkdir_p(category_dir)
+  FileUtils.mkdir_p(post_images_dir)
   File.write(path, content)
 
   puts(path)

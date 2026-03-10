@@ -1,6 +1,7 @@
 ---
 title: "Jekyll Markdown Workflow for Fast Publishing"
 date: 2026-03-09 21:45:00 +0900
+post_id: "c4015914-c4d3-491e-ab36-d7a87afc3b67"
 type: "tutorial"
 categories: ["engineering"]
 tags: ["jekyll", "github-pages", "productivity"]

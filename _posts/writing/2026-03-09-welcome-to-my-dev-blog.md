@@ -1,6 +1,7 @@
 ---
 title: "Welcome to My Dev Blog"
 date: 2026-03-09 21:30:00 +0900
+post_id: "9ae18343-0531-474f-8de1-029015ba92d7"
 type: "article"
 categories: ["writing"]
 tags: ["intro", "blogging", "workflow"]

@@ -8,6 +8,7 @@ url: "https://blog.kailee.dev"
 baseurl: ""
 permalink: /:year/:month/:day/:title/
 image: "/assets/images/og-default.png"
+media_baseurl: ""
 
 author:
   name: "Kai Lee"

@@ -1,6 +1,7 @@
 ---
 title: "Development Glossary"
 date: 2026-03-09 23:10:00 +0900
+post_id: "7b511437-eb0a-4d4e-9027-680cbe5050a2"
 type: "reference"
 categories: ["engineering"]
 tags: ["reference", "glossary", "writing"]

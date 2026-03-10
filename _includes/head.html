@@ -8,13 +8,28 @@
   {% endif %}
 </title>
 <meta name="description" content="{{ page.description | default: site.description }}">
+{% assign blog_default_locale = site.default_locale | default: "ko" %}
+{% assign blog_supported_locales = site.supported_locales %}
+{% if blog_supported_locales == nil %}
+{% assign blog_supported_locales = "ko,en,ja,vi" | split: "," %}
+{% endif %}
+{% capture blog_i18n_payload %}
+  {
+    "defaultLocale": {{ blog_default_locale | jsonify }},
+    "supportedLocales": {{ blog_supported_locales | jsonify }},
+    "messages": {{ site.data.i18n | jsonify }}
+  }
+{% endcapture %}
+<script id="blog-i18n-data" type="application/json">{{ blog_i18n_payload | strip | replace: '</script>', '<\/script>' }}</script>
 <script>
-  window.BLOG_I18N = {
-    defaultLocale: {{ site.default_locale | default: "ko" | jsonify }},
-    supportedLocales: {{ site.supported_locales | default: "ko,en,ja,vi" | jsonify }},
-    messages: {{ site.data.i18n | jsonify }}
-  };
   (function () {
+    var configElement = document.getElementById("blog-i18n-data");
+    try {
+      window.BLOG_I18N = configElement ? JSON.parse(configElement.textContent) : {};
+    } catch (error) {
+      window.BLOG_I18N = {};
+    }
+
     var config = window.BLOG_I18N || {};
     var defaultLocale = config.defaultLocale || "ko";
     var supported = Array.isArray(config.supportedLocales) ? config.supportedLocales : [defaultLocale];

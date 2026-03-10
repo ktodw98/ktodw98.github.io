@@ -5,6 +5,7 @@ type: "{{TYPE}}"
 categories: ["{{CATEGORY}}"]
 tags: {{TAGS}}
 description: "{{DESCRIPTION}}"
+{{IMAGE_BLOCK}}
 draft: true
 source_url: "{{SOURCE_URL}}"
 source_name: "{{SOURCE_NAME}}"

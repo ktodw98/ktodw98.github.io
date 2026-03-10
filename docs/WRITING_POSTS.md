@@ -25,6 +25,12 @@ _posts/<category>/YYYY-MM-DD-slug.md
 _posts/backend/2026-03-10-building-a-caching-layer.md
 ```
 
+대표 이미지는 아래 위치를 기본 경로로 사용합니다.
+
+```text
+assets/images/posts/
+```
+
 ## 작성 전 확인 명령
 
 사용 가능한 템플릿 보기:
@@ -71,6 +77,12 @@ make new TEMPLATE=tutorial TITLE="Building a Caching Layer" CATEGORY=backend TAG
 make new TEMPLATE=reference TITLE="HTTP Cache Control Notes" CATEGORY=backend TAGS="reference,http,caching" DESCRIPTION="자주 헷갈리는 Cache-Control 규칙 정리"
 ```
 
+대표 이미지까지 같이 넣는 예시:
+
+```bash
+make new TEMPLATE=case-study TITLE="Reducing API Tail Latency" CATEGORY=backend TAGS="api,performance,latency" DESCRIPTION="지연 시간 병목을 줄인 과정" IMAGE="/assets/images/posts/api-tail-latency.png"
+```
+
 ## front matter 규칙
 
 필수 필드:
@@ -103,6 +115,7 @@ draft: true
 - 첫 문단은 제목 반복이 아니라 글의 문제와 결론 방향을 보여줘야 한다.
 - 태그는 자유 입력 가능하지만, 먼저 `make tags`에 있는 추천 목록을 재사용하는 편이 좋다.
 - 카테고리는 글의 소속, 태그는 검색/발견용 보조 키워드로 생각한다.
+- 대표 이미지를 직접 넣을 때는 `assets/images/posts/` 아래에 두고, `image: "/assets/images/posts/..."` 형식으로 맞추는 편이 관리하기 쉽다.
 
 내부 문서 참조 예시:
 

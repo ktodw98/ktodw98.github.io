@@ -32,9 +32,9 @@ make drafts
 make templates
 make categories
 make tags
-make new TEMPLATE=tutorial TITLE="Building a Caching Layer" CATEGORY=backend TAGS="go,api,caching" DESCRIPTION="How the cache design evolved."
-make import-summary TITLE="Notes on Example Article" CATEGORY=writing TAGS="reference,writing" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="Summary and takeaways from the source article."
-make import-repost TITLE="Repost: Example Article" CATEGORY=writing TAGS="reference" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="Repost with source attribution."
+make new TEMPLATE=tutorial TITLE="Building a Caching Layer" CATEGORY=backend TAGS="go,api,caching" DESCRIPTION="How the cache design evolved." IMAGE="/assets/images/posts/cache-layer.png"
+make import-summary TITLE="Notes on Example Article" CATEGORY=writing TAGS="reference,writing" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="Summary and takeaways from the source article." IMAGE="/assets/images/posts/example-summary.png"
+make import-repost TITLE="Repost: Example Article" CATEGORY=writing TAGS="reference" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="Repost with source attribution." IMAGE="/assets/images/posts/example-repost.png"
 make validate
 ```
 

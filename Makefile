@@ -7,9 +7,9 @@ help:
 	@echo "make templates"
 	@echo "make categories"
 	@echo "make tags"
-	@echo "make new TEMPLATE=tutorial TITLE=\"...\" CATEGORY=backend TAGS=\"go,api\" DESCRIPTION=\"...\""
-	@echo "make import-summary TITLE=\"...\" CATEGORY=writing TAGS=\"summary,reference\" SOURCE_URL=\"...\" SOURCE_NAME=\"...\" DESCRIPTION=\"...\""
-	@echo "make import-repost TITLE=\"...\" CATEGORY=writing TAGS=\"reference\" SOURCE_URL=\"...\" SOURCE_NAME=\"...\" DESCRIPTION=\"...\""
+	@echo "make new TEMPLATE=tutorial TITLE=\"...\" CATEGORY=backend TAGS=\"go,api\" DESCRIPTION=\"...\" IMAGE=\"/assets/images/posts/...png\""
+	@echo "make import-summary TITLE=\"...\" CATEGORY=writing TAGS=\"summary,reference\" SOURCE_URL=\"...\" SOURCE_NAME=\"...\" DESCRIPTION=\"...\" IMAGE=\"/assets/images/posts/...png\""
+	@echo "make import-repost TITLE=\"...\" CATEGORY=writing TAGS=\"reference\" SOURCE_URL=\"...\" SOURCE_NAME=\"...\" DESCRIPTION=\"...\" IMAGE=\"/assets/images/posts/...png\""
 	@echo "make validate"
 
 preview:

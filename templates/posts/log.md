@@ -5,6 +5,7 @@ type: "{{TYPE}}"
 categories: ["{{CATEGORY}}"]
 tags: {{TAGS}}
 description: "{{DESCRIPTION}}"
+{{IMAGE_BLOCK}}
 draft: true
 ---
 

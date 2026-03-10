@@ -114,6 +114,13 @@ def yaml_array(values)
   values.to_json
 end
 
+def image_block(image)
+  image = image.to_s.strip
+  return "# image: \"/assets/images/posts/example.png\"" if image.empty?
+
+  "image: #{image.to_json}"
+end
+
 def category_exists?(categories, category_id)
   categories.any? do |category|
     category.is_a?(Hash) && category["active"] == true && category["id"].to_s == category_id
@@ -142,6 +149,7 @@ def build_post(template_name)
   date_str = now.strftime("%Y-%m-%d %H:%M:%S %z")
   file_date = now.strftime("%Y-%m-%d")
   description = optional_env("DESCRIPTION", DEFAULT_DESCRIPTION_BY_TEMPLATE.fetch(template_name, "Replace with a summary."))
+  image = optional_env("IMAGE", "")
   source_url = optional_env("SOURCE_URL", "")
   source_name = optional_env("SOURCE_NAME", "")
   import_mode = IMPORT_MODES.fetch(template_name, "")
@@ -167,6 +175,7 @@ def build_post(template_name)
     "{{CATEGORY}}" => category,
     "{{TAGS}}" => yaml_array(tags),
     "{{DESCRIPTION}}" => description,
+    "{{IMAGE_BLOCK}}" => image_block(image),
     "{{SLUG}}" => slug,
     "{{SOURCE_URL}}" => source_url,
     "{{SOURCE_NAME}}" => source_name,

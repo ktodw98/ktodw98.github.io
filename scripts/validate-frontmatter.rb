@@ -11,6 +11,7 @@ POSTS_GLOB = File.join(ROOT, "_posts", "**", "*.md")
 TAG_PATTERN = /\A[a-z0-9]+(?:-[a-z0-9]+)*\z/
 ALLOWED_TYPES = %w[article tutorial case-study log reference].freeze
 ALLOWED_IMPORT_MODES = %w[summary repost].freeze
+IMAGE_PATH_PATTERN = /\A(?:https?:\/\/\S+|\/\S+)\z/
 
 def fail_with(message)
   warn(message)
@@ -86,6 +87,15 @@ Dir.glob(POSTS_GLOB).sort.each do |path|
 
   description = normalize_string(fm["description"])
   errors << "#{path}: `description` is required" if description.empty?
+
+  unless fm["image"].nil?
+    image = normalize_string(fm["image"])
+    if image.empty?
+      errors << "#{path}: `image` must not be blank when provided"
+    elsif !IMAGE_PATH_PATTERN.match?(image)
+      errors << "#{path}: `image` must be an absolute path like /assets/images/... or an http/https URL"
+    end
+  end
 
   unless [true, false].include?(fm["draft"])
     errors << "#{path}: `draft` is required and must be boolean"

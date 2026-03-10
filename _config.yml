@@ -67,3 +67,4 @@ giscus:
 exclude:
   - README.md
   - docs/
+  - templates/

@@ -57,6 +57,7 @@ make new TEMPLATE=retrospective TITLE="Sprint 12 Review" CATEGORY=career TAGS="r
 - `{{CATEGORY}}`
 - `{{TAGS}}`
 - `{{DESCRIPTION}}`
+- `{{IMAGE_BLOCK}}`
 - `{{SLUG}}`
 - `{{SOURCE_URL}}`
 - `{{SOURCE_NAME}}`
@@ -71,6 +72,7 @@ make new TEMPLATE=retrospective TITLE="Sprint 12 Review" CATEGORY=career TAGS="r
 {{CATEGORY}}
 {{TAGS}}
 {{DESCRIPTION}}
+{{IMAGE_BLOCK}}
 ```
 
 import 템플릿은 아래 3개를 추가로 사용합니다.
@@ -127,5 +129,6 @@ make validate
 
 - placeholder 철자가 다르면 치환되지 않고 그대로 남습니다.
 - 새 템플릿을 추가하면서 `TYPE_BY_TEMPLATE`를 안 맞추면 `type` 기본값이 의도와 다를 수 있습니다.
+- `{{IMAGE_BLOCK}}`를 빼면 생성기에서 `IMAGE=...`를 넘겨도 front matter에 반영되지 않습니다.
 - import 전용 placeholder를 일반 템플릿에 섞으면 빈 문자열로 치환될 수 있습니다.
 - 템플릿은 ASCII 위주로 유지하는 편이 diff와 재사용에 유리합니다.

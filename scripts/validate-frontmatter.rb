@@ -139,6 +139,21 @@ active_category_ids = categories_data
   .reject(&:empty?)
   .uniq
 
+active_subcategory_ids_by_category = categories_data.each_with_object({}) do |category, memo|
+  next unless category.is_a?(Hash) && category["active"] == true
+
+  category_id = normalize_string(category["id"])
+  next if category_id.empty?
+
+  subcategory_ids = Array(category["subcategories"])
+    .select { |item| item.is_a?(Hash) && item["active"] == true }
+    .map { |item| normalize_string(item["id"]) }
+    .reject(&:empty?)
+    .uniq
+
+  memo[category_id] = subcategory_ids
+end
+
 if active_category_ids.empty?
   fail_with("No active categories found in #{TAXONOMIES_PATH}")
 end
@@ -209,6 +224,22 @@ Dir.glob(POSTS_GLOB).sort.each do |path|
     errors << "#{path}: category id cannot be blank"
   elsif !active_category_ids.include?(category_id)
     errors << "#{path}: category `#{category_id}` is not in active category master"
+  end
+
+  subcategory_id = ""
+  unless fm["subcategory"].nil?
+    unless fm["subcategory"].is_a?(String)
+      errors << "#{path}: `subcategory` must be a string when provided"
+    end
+
+    subcategory_id = normalize_string(fm["subcategory"])
+    if subcategory_id.empty?
+      errors << "#{path}: `subcategory` must not be blank when provided"
+    elsif category_id.empty?
+      errors << "#{path}: `subcategory` requires a valid category"
+    elsif !active_subcategory_ids_by_category.fetch(category_id, []).include?(subcategory_id)
+      errors << "#{path}: subcategory `#{subcategory_id}` is not active under category `#{category_id}`"
+    end
   end
 
   tags = fm["tags"]

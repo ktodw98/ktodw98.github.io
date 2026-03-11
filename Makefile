@@ -7,10 +7,10 @@ help:
 	@echo "make templates"
 	@echo "make categories"
 	@echo "make tags"
-	@echo "make new TEMPLATE=tutorial TITLE=\"...\" CATEGORY=backend TAGS=\"go,api\" DESCRIPTION=\"...\" IMAGE=\"cover.png\""
-	@echo "make new TEMPLATE=study-note TITLE=\"...\" CATEGORY=engineering TAGS=\"architecture,microservices,study\" SERIES=\"msa-study\" SERIES_ORDER=1 DESCRIPTION=\"...\""
-	@echo "make import-summary TITLE=\"...\" CATEGORY=writing TAGS=\"summary,reference\" SOURCE_URL=\"...\" SOURCE_NAME=\"...\" DESCRIPTION=\"...\" IMAGE=\"cover.png\""
-	@echo "make import-repost TITLE=\"...\" CATEGORY=writing TAGS=\"reference\" SOURCE_URL=\"...\" SOURCE_NAME=\"...\" DESCRIPTION=\"...\" IMAGE=\"cover.png\""
+	@echo "make new TEMPLATE=tutorial TITLE=\"...\" CATEGORY=engineering SUBCATEGORY=backend TAGS=\"go,api\" DESCRIPTION=\"...\" IMAGE=\"cover.png\""
+	@echo "make new TEMPLATE=study-note TITLE=\"...\" CATEGORY=engineering SUBCATEGORY=architecture TAGS=\"architecture,microservices,study\" SERIES=\"msa-study\" SERIES_ORDER=1 DESCRIPTION=\"...\""
+	@echo "make import-summary TITLE=\"...\" CATEGORY=essays SUBCATEGORY=writing TAGS=\"summary,reference\" SOURCE_URL=\"...\" SOURCE_NAME=\"...\" DESCRIPTION=\"...\" IMAGE=\"cover.png\""
+	@echo "make import-repost TITLE=\"...\" CATEGORY=essays SUBCATEGORY=writing TAGS=\"reference\" SOURCE_URL=\"...\" SOURCE_NAME=\"...\" DESCRIPTION=\"...\" IMAGE=\"cover.png\""
 	@echo "make validate"
 
 preview:

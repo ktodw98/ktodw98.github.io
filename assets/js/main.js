@@ -292,19 +292,23 @@
     var params = new URLSearchParams(window.location.search);
     var tag = params.get("tag");
     var category = params.get("category");
-    if (!tag && !category) return;
+    var subcategory = params.get("subcategory");
+    if (!tag && !category && !subcategory) return;
 
     var normalizedTag = tag ? tag.toLowerCase() : "";
     var normalizedCategory = category ? category.toLowerCase() : "";
+    var normalizedSubcategory = subcategory ? subcategory.toLowerCase() : "";
     var visibleCount = 0;
     var items = postList.querySelectorAll("li[data-tags]");
     Array.prototype.forEach.call(items, function (item) {
       var rawTags = item.getAttribute("data-tags") || "";
       var tags = rawTags.split("|");
       var rawCategory = (item.getAttribute("data-category") || "").toLowerCase();
+      var rawSubcategory = (item.getAttribute("data-subcategory") || "").toLowerCase();
       var tagMatched = !normalizedTag || tags.indexOf(normalizedTag) !== -1;
       var categoryMatched = !normalizedCategory || rawCategory === normalizedCategory;
-      var matched = tagMatched && categoryMatched;
+      var subcategoryMatched = !normalizedSubcategory || rawSubcategory === normalizedSubcategory;
+      var matched = tagMatched && categoryMatched && subcategoryMatched;
       item.hidden = !matched;
       if (matched) visibleCount += 1;
     });
@@ -314,6 +318,7 @@
       var labels = [];
       if (tag) labels.push("#" + tag);
       if (category) labels.push(getMessage("search.filter_category_prefix") + ":" + category);
+      if (subcategory) labels.push(getMessage("search.filter_subcategory_prefix") + ":" + subcategory);
       filterNotice.textContent = getMessage("search.filter_prefix") + " " + labels.join(" + ") + " (" + visibleCount + ")";
     }
   }

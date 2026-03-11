@@ -34,8 +34,10 @@ Dir.glob(POSTS_GLOB).sort.each do |path|
   title = front_matter["title"].to_s.strip
   date = front_matter["date"].to_s.strip
   category = Array(front_matter["categories"]).first.to_s.strip
+  subcategory = front_matter["subcategory"].to_s.strip
   relative_path = path.sub("#{ROOT}/", "")
-  drafts << [date, title, category, relative_path]
+  taxonomy = [category, subcategory].reject(&:empty?).join("/")
+  drafts << [date, title, taxonomy, relative_path]
 end
 
 if drafts.empty?

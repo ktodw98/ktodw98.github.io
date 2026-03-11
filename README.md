@@ -32,10 +32,10 @@ make drafts
 make templates
 make categories
 make tags
-make new TEMPLATE=tutorial TITLE="Building a Caching Layer" CATEGORY=backend TAGS="go,api,caching" DESCRIPTION="How the cache design evolved." IMAGE="cover.png"
-make new TEMPLATE=study-note TITLE="MSA 01 - What Are Microservices?" CATEGORY=engineering TAGS="architecture,microservices,study" SERIES="msa-study" SERIES_ORDER=1 DESCRIPTION="Chapter summary and takeaways."
-make import-summary TITLE="Notes on Example Article" CATEGORY=writing TAGS="reference,writing" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="Summary and takeaways from the source article." IMAGE="cover.png"
-make import-repost TITLE="Repost: Example Article" CATEGORY=writing TAGS="reference" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="Repost with source attribution." IMAGE="cover.png"
+make new TEMPLATE=tutorial TITLE="Building a Caching Layer" CATEGORY=engineering SUBCATEGORY=backend TAGS="go,api,caching" DESCRIPTION="How the cache design evolved." IMAGE="cover.png"
+make new TEMPLATE=study-note TITLE="MSA 01 - What Are Microservices?" CATEGORY=engineering SUBCATEGORY=architecture TAGS="architecture,microservices,study" SERIES="msa-study" SERIES_ORDER=1 DESCRIPTION="Chapter summary and takeaways."
+make import-summary TITLE="Notes on Example Article" CATEGORY=essays SUBCATEGORY=writing TAGS="reference,writing" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="Summary and takeaways from the source article." IMAGE="cover.png"
+make import-repost TITLE="Repost: Example Article" CATEGORY=essays SUBCATEGORY=writing TAGS="reference" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="Repost with source attribution." IMAGE="cover.png"
 make validate
 ```
 
@@ -52,7 +52,8 @@ make validate
 - `/` Home
 - `/posts/` Post archive
 - `/categories/` Category index
-- `/categories/<id>/` Category detail
+- `/categories/<category>/` Category detail
+- `/categories/<category>/<subcategory>/` Subcategory detail
 - `/series/` Series index
 - `/resume/` Resume page
 - `/feed.xml` Atom feed
@@ -85,6 +86,7 @@ bundle exec jekyll build
 
 - UI 다국어는 `ko`, `en`, `ja`, `vi`를 지원하며 단일 URL 전략을 사용합니다.
 - taxonomy는 `_data/taxonomies.yml`에서 중앙 관리합니다.
+- `subcategory`는 선택값이며, 활성화된 category 아래에서만 지정할 수 있습니다.
 - 기본 OG 이미지는 `/assets/images/og-default.png`를 사용하고, 개별 글에서 `image: "cover.png"` 같은 상대 파일명으로 덮어쓸 수 있습니다.
 - 본문 이미지는 `{% include post-image.html file="step-01.png" alt="..." caption="..." %}` 형식으로 삽입합니다.
 - `media_baseurl`를 설정하면 포스트 이미지 URL을 외부 스토리지/CDN으로 쉽게 이관할 수 있습니다.

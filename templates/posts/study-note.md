@@ -4,6 +4,7 @@ date: "__DATE__"
 post_id: "__POST_ID__"
 type: "__TYPE__"
 categories: ["__CATEGORY__"]
+# __SUBCATEGORY_BLOCK__
 tags: __TAGS__
 description: "__DESCRIPTION__"
 # __IMAGE_BLOCK__

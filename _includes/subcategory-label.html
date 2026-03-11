@@ -1,0 +1,17 @@
+{% assign category_id = include.category_id | default: "" %}
+{% assign subcategory_id = include.id | default: include.subcategory_id | default: "" %}
+{% assign category_record = site.data.taxonomies.categories | where: "id", category_id | first %}
+{% assign subcategory_label = "" %}
+{% if category_record and category_record.subcategories %}
+  {% for subcategory in category_record.subcategories %}
+    {% if subcategory.id == subcategory_id %}
+      {% assign subcategory_label = subcategory.label | default: subcategory_id %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+{% if subcategory_label != "" %}
+  {{ subcategory_label }}
+{% else %}
+  {{ subcategory_id }}
+{% endif %}

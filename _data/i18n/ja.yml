@@ -63,6 +63,7 @@ search:
   load_error: "検索インデックスの読み込みに失敗しました。"
   filter_prefix: "フィルター:"
   filter_category_prefix: "カテゴリ"
+  filter_subcategory_prefix: "サブカテゴリ"
   type_article: "記事"
   type_tutorial: "チュートリアル"
   type_case_study: "ケーススタディ"

@@ -15,7 +15,7 @@
 생성 예시:
 
 ```bash
-make import-summary TITLE="Notes on Example Article" CATEGORY=writing TAGS="reference,summary,writing" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="원문 요약과 내 해석"
+make import-summary TITLE="Notes on Example Article" CATEGORY=essays SUBCATEGORY=writing TAGS="reference,summary,writing" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="원문 요약과 내 해석"
 ```
 
 ### 2. `import-repost`
@@ -28,7 +28,7 @@ make import-summary TITLE="Notes on Example Article" CATEGORY=writing TAGS="refe
 생성 예시:
 
 ```bash
-make import-repost TITLE="Repost: Example Article" CATEGORY=writing TAGS="reference,repost" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="재게시용 초안"
+make import-repost TITLE="Repost: Example Article" CATEGORY=essays SUBCATEGORY=writing TAGS="reference,repost" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="재게시용 초안"
 ```
 
 ## 필수 메타데이터
@@ -79,5 +79,5 @@ import_mode: "summary"
 
 - 출처 URL 없이 import 글을 만들 수 없습니다
 - `repost`는 기술적으로 생성 가능하더라도, 법적으로 허용된다는 뜻이 아닙니다
-- category는 여전히 정확히 1개만 허용됩니다
+- category는 여전히 정확히 1개만 허용되며, subcategory는 필요할 때만 선택적으로 붙일 수 있습니다
 - 추천 tag에 없는 값을 써도 되지만, `reference`, `summary`, `repost`, `writing` 같은 공통 태그를 우선 재사용하는 편이 좋습니다

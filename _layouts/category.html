@@ -3,34 +3,64 @@ layout: default
 ---
 <article class="content-page category-page">
   <header class="content-header">
-    <p class="eyebrow">Category</p>
-    <h1>{{ page.category_label | default: page.category_id }}</h1>
-    {% if page.category_description %}
+    <p class="eyebrow">{% if page.subcategory_id %}Subcategory{% else %}Category{% endif %}</p>
+    {% assign page_subcategory = page.subcategory_id | default: "" %}
+    {% capture page_taxonomy_label %}{% include taxonomy-label.html category_id=page.category_id subcategory_id=page_subcategory %}{% endcapture %}
+    <h1>{{ page_taxonomy_label | strip }}</h1>
+    {% if page.subcategory_description %}
+      <p>{{ page.subcategory_description }}</p>
+    {% elsif page.category_description %}
       <p>{{ page.category_description }}</p>
     {% endif %}
   </header>
   <div class="content-body">
-    {% assign category_posts = site.posts | where_exp: "item", "item.draft != true and item.categories and item.categories contains page.category_id" %}
+    {% if page.subcategory_id %}
+      {% assign category_posts = site.posts | where_exp: "item", "item.draft != true and item.categories and item.categories contains page.category_id and item.subcategory == page.subcategory_id" %}
+    {% else %}
+      {% assign category_posts = site.posts | where_exp: "item", "item.draft != true and item.categories and item.categories contains page.category_id" %}
+    {% endif %}
+    {% if page.subcategories and page.subcategories.size > 0 %}
+      <section class="taxonomy-section">
+        <h2>Subcategories</h2>
+        <ul class="taxonomy-chip-list">
+          {% for subcategory in page.subcategories %}
+            {% assign subcategory_posts = site.posts | where_exp: "item", "item.draft != true and item.categories and item.categories contains page.category_id and item.subcategory == subcategory.id" %}
+            <li>
+              <a href="{{ '/categories/' | append: page.category_id | append: '/' | append: subcategory.id | append: '/' | relative_url }}">
+                {{ subcategory.label }} <span>{{ subcategory_posts.size }}</span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
     {% if category_posts.size > 0 %}
-      <p class="meta">{{ category_posts.size }} posts · /{{ page.category_id }}</p>
+      <p class="meta">
+        {{ category_posts.size }} posts · /{{ page.category_id }}{% if page.subcategory_id %}/{{ page.subcategory_id }}{% endif %}
+      </p>
       <ul class="post-archive-list">
         {% for post in category_posts %}
           {% assign primary_category = post.categories | first %}
-          {% capture category_label %}{% include category-label.html id=primary_category %}{% endcapture %}
-          <li class="card" data-tags="{{ post.tags | join: '|' | downcase }}" data-category="{{ primary_category | downcase }}">
+          {% assign post_subcategory = post.subcategory | default: "" %}
+          {% capture taxonomy_label %}{% include taxonomy-label.html category_id=primary_category subcategory_id=post_subcategory %}{% endcapture %}
+          <li class="card" data-tags="{{ post.tags | join: '|' | downcase }}" data-category="{{ primary_category | downcase }}" data-subcategory="{{ post_subcategory | downcase }}">
             <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
             <p class="meta">
               {{ post.date | date: "%Y-%m-%d" }}
-              {% if primary_category %} · {{ category_label | strip }}{% endif %}
+              {% if primary_category %} · {{ taxonomy_label | strip }}{% endif %}
               {% if post.tags and post.tags.size > 0 %} · {{ post.tags | join: ", " }}{% endif %}
             </p>
             <p>{{ post.description }}</p>
           </li>
         {% endfor %}
       </ul>
-      <p class="meta"><a href="{{ '/posts/' | relative_url }}?category={{ page.category_id | url_encode }}">Open this category in filtered posts view</a></p>
+      <p class="meta">
+        <a href="{{ '/posts/' | relative_url }}?category={{ page.category_id | url_encode }}{% if page.subcategory_id %}&subcategory={{ page.subcategory_id | url_encode }}{% endif %}">
+          Open this {% if page.subcategory_id %}subcategory{% else %}category{% endif %} in filtered posts view
+        </a>
+      </p>
     {% else %}
-      <p>No posts in this category yet.</p>
+      <p>No posts in this {% if page.subcategory_id %}subcategory{% else %}category{% endif %} yet.</p>
     {% endif %}
   </div>
 </article>

@@ -1,39 +1,132 @@
 categories:
-  - id: engineering
-    label: Engineering
-    description: Architecture, backend design, and implementation decisions.
+  - id: research
+    label: Research
+    description: Technical exploration, study notes, and deep dives.
     order: 10
     active: true
+    subcategories:
+      - id: study-notes
+        label: Study Notes
+        description: Reading notes, summaries, and chapter-by-chapter takeaways.
+        order: 10
+        active: true
+      - id: benchmarks
+        label: Benchmarks
+        description: Measurements, experiments, and performance comparisons.
+        order: 20
+        active: true
 
-  - id: backend
-    label: Backend
-    description: APIs, databases, caching, and runtime behavior.
+  - id: engineering
+    label: Engineering
+    description: Backend systems, APIs, Go, and implementation details.
     order: 20
     active: true
+    subcategories:
+      - id: backend
+        label: Backend
+        description: APIs, services, databases, and server-side implementation.
+        order: 10
+        active: true
+      - id: frontend
+        label: Frontend
+        description: Web UI, browser behavior, and interaction patterns.
+        order: 20
+        active: true
+      - id: architecture
+        label: Architecture
+        description: System design, interfaces, and technical structure decisions.
+        order: 30
+        active: true
 
-  - id: frontend
-    label: Frontend
-    description: UI architecture, styling systems, and interaction design.
+  - id: ai
+    label: AI
+    description: LLMs, agents, and AI engineering.
     order: 30
     active: true
+    subcategories:
+      - id: llm
+        label: LLM
+        description: Models, prompting, and inference-oriented work.
+        order: 10
+        active: true
+      - id: agents
+        label: Agents
+        description: Tool use, orchestration, and agent runtime design.
+        order: 20
+        active: true
+      - id: evals
+        label: Evals
+        description: Evaluation pipelines, scoring, and regression tracking.
+        order: 30
+        active: true
 
   - id: infra
     label: Infra
-    description: Deployment, CI/CD, observability, and operations.
+    description: Infrastructure, deployment, and observability.
     order: 40
     active: true
+    subcategories:
+      - id: deployment
+        label: Deployment
+        description: Delivery pipelines, release flows, and runtime rollout work.
+        order: 10
+        active: true
+      - id: observability
+        label: Observability
+        description: Logging, metrics, tracing, and operations visibility.
+        order: 20
+        active: true
+
+  - id: projects
+    label: Projects
+    description: Product architecture and build logs.
+    order: 50
+    active: true
+    subcategories:
+      - id: build-log
+        label: Build Log
+        description: Build progress, changelogs, and implementation updates.
+        order: 10
+        active: true
+      - id: product
+        label: Product
+        description: Product framing, feature decisions, and user-facing changes.
+        order: 20
+        active: true
+
+  - id: essays
+    label: Essays
+    description: Thoughts on software, AI, and industry trends.
+    order: 60
+    active: true
+    subcategories:
+      - id: industry
+        label: Industry
+        description: Market shifts, ecosystem changes, and broader commentary.
+        order: 10
+        active: true
+      - id: writing
+        label: Writing
+        description: Writing process, blogging workflow, and communication notes.
+        order: 20
+        active: true
 
   - id: career
     label: Career
-    description: Team process, growth, and engineering culture.
-    order: 50
+    description: Growth, engineering culture, and leadership.
+    order: 70
     active: true
-
-  - id: writing
-    label: Writing
-    description: Documentation, blogging workflow, and communication.
-    order: 60
-    active: true
+    subcategories:
+      - id: leadership
+        label: Leadership
+        description: Team direction, decision making, and leadership practice.
+        order: 10
+        active: true
+      - id: teamwork
+        label: Teamwork
+        description: Collaboration, process, and day-to-day engineering culture.
+        order: 20
+        active: true
 
 recommended_tags:
   - intro

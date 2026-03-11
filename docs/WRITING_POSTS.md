@@ -5,7 +5,7 @@
 ## 기본 흐름
 
 1. 템플릿 목록 확인
-2. category와 tags 결정
+2. category, optional subcategory, tags 결정
 3. `make new` 또는 import 명령으로 초안 생성
 4. 본문 작성
 5. 로컬 검증
@@ -22,7 +22,7 @@ _posts/<category>/YYYY-MM-DD-slug.md
 예시:
 
 ```text
-_posts/backend/2026-03-10-building-a-caching-layer.md
+_posts/engineering/2026-03-10-building-a-caching-layer.md
 ```
 
 포스트 이미지는 아래 위치를 기본 경로로 사용합니다.
@@ -64,31 +64,31 @@ make drafts
 일반 글 생성:
 
 ```bash
-make new TEMPLATE=article TITLE="How We Simplified Deployments" CATEGORY=infra TAGS="deployments,infra,workflow" DESCRIPTION="배포 흐름을 줄이면서 생긴 변화 정리"
+make new TEMPLATE=article TITLE="How We Simplified Deployments" CATEGORY=infra SUBCATEGORY=deployment TAGS="deployments,infra,workflow" DESCRIPTION="배포 흐름을 줄이면서 생긴 변화 정리"
 ```
 
 튜토리얼 글 생성:
 
 ```bash
-make new TEMPLATE=tutorial TITLE="Building a Caching Layer" CATEGORY=backend TAGS="go,api,caching" DESCRIPTION="캐시 계층을 설계하고 검증한 과정"
+make new TEMPLATE=tutorial TITLE="Building a Caching Layer" CATEGORY=engineering SUBCATEGORY=backend TAGS="go,api,caching" DESCRIPTION="캐시 계층을 설계하고 검증한 과정"
 ```
 
 레퍼런스 글 생성:
 
 ```bash
-make new TEMPLATE=reference TITLE="HTTP Cache Control Notes" CATEGORY=backend TAGS="reference,http,caching" DESCRIPTION="자주 헷갈리는 Cache-Control 규칙 정리"
+make new TEMPLATE=reference TITLE="HTTP Cache Control Notes" CATEGORY=engineering SUBCATEGORY=backend TAGS="reference,http,caching" DESCRIPTION="자주 헷갈리는 Cache-Control 규칙 정리"
 ```
 
 스터디 노트 생성:
 
 ```bash
-make new TEMPLATE=study-note TITLE="MSA 01 - What Are Microservices?" CATEGORY=engineering TAGS="architecture,microservices,study" SERIES="msa-study" SERIES_ORDER=1 DESCRIPTION="챕터 핵심 개념과 내 해석 정리"
+make new TEMPLATE=study-note TITLE="MSA 01 - What Are Microservices?" CATEGORY=engineering SUBCATEGORY=architecture TAGS="architecture,microservices,study" SERIES="msa-study" SERIES_ORDER=1 DESCRIPTION="챕터 핵심 개념과 내 해석 정리"
 ```
 
 대표 이미지까지 같이 넣는 예시:
 
 ```bash
-make new TEMPLATE=case-study TITLE="Reducing API Tail Latency" CATEGORY=backend TAGS="api,performance,latency" DESCRIPTION="지연 시간 병목을 줄인 과정" IMAGE="cover.png"
+make new TEMPLATE=case-study TITLE="Reducing API Tail Latency" CATEGORY=engineering SUBCATEGORY=backend TAGS="api,performance,latency" DESCRIPTION="지연 시간 병목을 줄인 과정" IMAGE="cover.png"
 ```
 
 ## front matter 규칙
@@ -102,6 +102,7 @@ date: 2026-03-10 17:00:00 +0900
 post_id: "550e8400-e29b-41d4-a716-446655440000"
 type: "article"
 categories: ["engineering"]
+subcategory: "backend"
 tags: ["architecture", "decision"]
 description: "한 줄 요약"
 draft: true
@@ -113,6 +114,7 @@ draft: true
 - `type`: `article`, `tutorial`, `case-study`, `log`, `reference` 중 하나
 - `post_id`: UUID 형식의 불변 식별자. 생성 시 자동 발급되며 수정하지 않는다.
 - `categories`: 정확히 1개, `_data/taxonomies.yml`에 존재해야 함
+- `subcategory`: 선택값. 지정하면 해당 category 아래의 활성 subcategory여야 함
 - `tags`: 1개 이상 5개 이하, 소문자 kebab-case만 허용
 - `description`: 목록/검색/메타 설명에 쓰이는 한 줄 요약
 - `draft`: 초안은 `true`, 발행은 `false`
@@ -124,7 +126,7 @@ draft: true
 
 - 스터디 노트도 일반 포스트와 같은 위치와 규칙으로 관리합니다.
 - 같은 학습 묶음이면 동일한 `series` 값을 사용하고, 순서대로 `series_order`를 증가시킵니다.
-- 카테고리는 스터디 주제에 맞게 `engineering`, `backend`, `frontend` 등에서 선택합니다.
+- 카테고리는 큰 분류, subcategory는 세부 분류로 사용합니다. 예: `engineering` + `backend`
 - `study-note` 템플릿은 생성 시 `SERIES`와 `SERIES_ORDER`가 필수입니다.
 
 ## 본문 작성 규칙
@@ -132,7 +134,7 @@ draft: true
 - 템플릿에 들어 있는 섹션은 시작점이다. 필요 없는 섹션은 삭제하고, 필요한 섹션은 추가한다.
 - 첫 문단은 제목 반복이 아니라 글의 문제와 결론 방향을 보여줘야 한다.
 - 태그는 자유 입력 가능하지만, 먼저 `make tags`에 있는 추천 목록을 재사용하는 편이 좋다.
-- 카테고리는 글의 소속, 태그는 검색/발견용 보조 키워드로 생각한다.
+- 카테고리는 글의 상위 소속, subcategory는 선택적 세부 분류, 태그는 검색/발견용 보조 키워드로 생각한다.
 - 새 글을 만들면 `assets/images/posts/<post_id>/` 디렉터리도 같이 생성된다.
 - 대표 이미지는 전용 디렉터리에 두고 `image: "cover.png"`처럼 상대 파일명으로 적는다.
 - 본문 이미지는 아래 helper로 넣는다.
@@ -180,6 +182,7 @@ bundle exec jekyll build
 ## 실수하기 쉬운 규칙
 
 - `categories`를 문자열 하나로 쓰면 안 되고 배열로 써야 합니다.
+- `subcategory`를 넣는 경우 빈 문자열은 허용되지 않고, 지정한 category 아래에 실제로 존재해야 합니다.
 - `post_id`는 자동 생성되며, 발행 후에도 바꾸지 않는 값입니다.
 - `tags`는 최대 5개입니다.
 - `series`만 넣고 `series_order`를 빼면 validation이 실패합니다.

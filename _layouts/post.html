@@ -6,6 +6,7 @@ layout: default
     <p class="eyebrow">Post</p>
     <h1>{{ page.title }}</h1>
     {% assign primary_category = page.categories | first %}
+    {% assign page_subcategory = page.subcategory | default: "" %}
     {% capture category_label %}{% include category-label.html id=primary_category %}{% endcapture %}
     <div class="post-meta-panel">
       <p class="meta post-meta-date">{{ page.date | date: "%Y-%m-%d %H:%M" }}</p>
@@ -16,6 +17,12 @@ layout: default
             <a class="post-category-badge" href="{{ '/categories/' | append: primary_category | append: '/' | relative_url }}">
               {{ category_label | strip }}
             </a>
+            {% if page_subcategory != "" %}
+              {% capture subcategory_label %}{% include subcategory-label.html category_id=primary_category id=page_subcategory %}{% endcapture %}
+              <a class="post-subcategory-badge" href="{{ '/categories/' | append: primary_category | append: '/' | append: page_subcategory | append: '/' | relative_url }}">
+                {{ subcategory_label | strip }}
+              </a>
+            {% endif %}
           </div>
         {% endif %}
         {% if page.tags and page.tags.size > 0 %}

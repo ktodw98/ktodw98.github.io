@@ -652,6 +652,24 @@ a {
   filter: brightness(0.95);
 }
 
+.post-subcategory-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.21rem 0.66rem;
+  border: 1px solid color-mix(in srgb, var(--brand) 38%, var(--line));
+  background: var(--surface);
+  color: var(--brand);
+  font-size: 0.81rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.post-subcategory-badge:hover {
+  text-decoration: none;
+  background: var(--surface-soft);
+}
+
 .post-tag-chips {
   display: flex;
   align-items: center;
@@ -690,6 +708,52 @@ a {
 
 .active-filter {
   margin-top: 0;
+}
+
+.taxonomy-section {
+  margin-bottom: 1rem;
+}
+
+.taxonomy-section h2 {
+  margin: 0 0 0.55rem;
+  font-size: 1rem;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.taxonomy-chip-list {
+  list-style: none;
+  margin: 0.65rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.taxonomy-chip-list li {
+  margin: 0;
+}
+
+.taxonomy-chip-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.72rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--line) 92%, transparent);
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.taxonomy-chip-list a:hover {
+  text-decoration: none;
+  border-color: color-mix(in srgb, var(--brand) 34%, var(--line));
+  color: var(--brand);
+}
+
+.taxonomy-chip-list span {
+  color: var(--muted);
+  font-size: 0.8rem;
 }
 
 .toc-items {
@@ -922,6 +986,25 @@ a {
   font-size: 0.82rem;
 }
 
+.mobile-drawer-taxonomy {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.mobile-drawer-sublist {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 0.85rem;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.mobile-drawer-sublist a {
+  padding: 0.42rem 0.56rem;
+  font-size: 0.9rem;
+  background: color-mix(in srgb, var(--surface-soft) 88%, transparent);
+}
+
 .series-compact-list {
   margin: 0.45rem 0 0;
   padding-left: 1.1rem;
@@ -1146,6 +1229,11 @@ a {
   }
 
   .post-category-badge {
+    font-size: 0.76rem;
+    padding: 0.18rem 0.56rem;
+  }
+
+  .post-subcategory-badge {
     font-size: 0.76rem;
     padding: 0.18rem 0.56rem;
   }

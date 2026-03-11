@@ -1,0 +1,10 @@
+{% assign category_id = include.category_id | default: include.id | default: "" %}
+{% assign subcategory_id = include.subcategory_id | default: "" %}
+{% assign separator = include.separator | default: " / " %}
+{% capture category_label %}{% include category-label.html id=category_id %}{% endcapture %}
+{% if subcategory_id != "" %}
+  {% capture subcategory_label %}{% include subcategory-label.html category_id=category_id id=subcategory_id %}{% endcapture %}
+  {{ category_label | strip }}{{ separator }}{{ subcategory_label | strip }}
+{% else %}
+  {{ category_label | strip }}
+{% endif %}

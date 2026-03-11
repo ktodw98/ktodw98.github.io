@@ -45,10 +45,23 @@
         <ul class="mobile-drawer-list">
           {% for category in active_categories %}
             {% assign category_posts = site.posts | where_exp: "item", "item.draft != true and item.categories and item.categories contains category.id" %}
-            <li>
+            <li class="mobile-drawer-taxonomy">
               <a href="{{ '/categories/' | append: category.id | append: '/' | relative_url }}">
                 {{ category.label }} <span>{{ category_posts.size }}</span>
               </a>
+              {% assign active_subcategories = category.subcategories | where: "active", true | sort: "order" %}
+              {% if active_subcategories.size > 0 %}
+                <ul class="mobile-drawer-sublist">
+                  {% for subcategory in active_subcategories %}
+                    {% assign subcategory_posts = site.posts | where_exp: "item", "item.draft != true and item.categories and item.categories contains category.id and item.subcategory == subcategory.id" %}
+                    <li>
+                      <a href="{{ '/categories/' | append: category.id | append: '/' | append: subcategory.id | append: '/' | relative_url }}">
+                        {{ subcategory.label }} <span>{{ subcategory_posts.size }}</span>
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
             </li>
           {% endfor %}
         </ul>

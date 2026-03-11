@@ -5,7 +5,10 @@ layout: null
 {% assign visible_posts = site.posts | where_exp: "item", "item.draft != true" %}
 {% for doc in visible_posts %}
   {% assign primary_category = doc.categories | first %}
+  {% assign post_subcategory = doc.subcategory | default: "" %}
   {% assign category_record = site.data.taxonomies.categories | where: "id", primary_category | first %}
+  {% capture subcategory_label %}{% include subcategory-label.html category_id=primary_category id=post_subcategory %}{% endcapture %}
+  {% capture taxonomy_label %}{% include taxonomy-label.html category_id=primary_category subcategory_id=post_subcategory %}{% endcapture %}
   {
     "title": {{ doc.title | jsonify }},
     "url": {{ doc.url | relative_url | jsonify }},
@@ -14,6 +17,9 @@ layout: null
     "tags": {{ doc.tags | jsonify }},
     "category_id": {{ primary_category | jsonify }},
     "category_label": {{ category_record.label | default: primary_category | jsonify }},
+    "subcategory_id": {{ post_subcategory | jsonify }},
+    "subcategory_label": {{ subcategory_label | strip | jsonify }},
+    "taxonomy_label": {{ taxonomy_label | strip | jsonify }},
     "type": {{ doc.type | default: "article" | jsonify }}
   }{% unless forloop.last %},{% endunless %}
 {% endfor %}

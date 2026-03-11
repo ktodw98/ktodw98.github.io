@@ -63,6 +63,7 @@ search:
   load_error: "검색 인덱스를 불러오지 못했습니다."
   filter_prefix: "필터:"
   filter_category_prefix: "카테고리"
+  filter_subcategory_prefix: "서브카테고리"
   type_article: "아티클"
   type_tutorial: "튜토리얼"
   type_case_study: "케이스 스터디"

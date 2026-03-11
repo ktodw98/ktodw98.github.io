@@ -90,6 +90,10 @@ def list_categories
     next unless category["active"] == true
 
     puts("#{category['id']}\t#{category['label']}\t#{category['description']}")
+
+    active_subcategories(category).each do |subcategory|
+      puts("  #{category['id']}/#{subcategory['id']}\t#{subcategory['label']}\t#{subcategory['description']}")
+    end
   end
 end
 
@@ -134,6 +138,13 @@ def image_block(image)
   "image: #{image.to_json}"
 end
 
+def subcategory_block(subcategory)
+  subcategory = subcategory.to_s.strip
+  return "# subcategory: \"backend\"" if subcategory.empty?
+
+  "subcategory: #{subcategory.to_json}"
+end
+
 def generate_post_id
   SecureRandom.uuid
 end
@@ -167,8 +178,30 @@ def parse_series_fields(template_name)
 end
 
 def category_exists?(categories, category_id)
-  categories.any? do |category|
+  !find_category(categories, category_id).nil?
+end
+
+def active_subcategories(category)
+  subcategories = category.fetch("subcategories", [])
+  return [] unless subcategories.is_a?(Array)
+
+  subcategories
+    .select { |item| item.is_a?(Hash) && item["active"] == true }
+    .sort_by { |item| item["order"] || 9999 }
+end
+
+def find_category(categories, category_id)
+  categories.find do |category|
     category.is_a?(Hash) && category["active"] == true && category["id"].to_s == category_id
+  end
+end
+
+def subcategory_exists?(categories, category_id, subcategory_id)
+  category = find_category(categories, category_id)
+  return false unless category
+
+  active_subcategories(category).any? do |subcategory|
+    subcategory["id"].to_s == subcategory_id
   end
 end
 
@@ -180,6 +213,10 @@ def build_post(template_name)
   title = env!("TITLE")
   category = env!("CATEGORY")
   fail_with("Unknown category: #{category}") unless category_exists?(categories, category)
+  subcategory = optional_env("SUBCATEGORY", "")
+  if !subcategory.empty? && !subcategory_exists?(categories, category, subcategory)
+    fail_with("Unknown subcategory for #{category}: #{subcategory}")
+  end
 
   tags = normalize_tags(optional_env("TAGS", ""))
   if tags.empty?
@@ -227,6 +264,8 @@ def build_post(template_name)
     "{{TYPE}}" => TYPE_BY_TEMPLATE.fetch(template_name, "article"),
     "__CATEGORY__" => category,
     "{{CATEGORY}}" => category,
+    "# __SUBCATEGORY_BLOCK__" => subcategory_block(subcategory),
+    "{{SUBCATEGORY_BLOCK}}" => subcategory_block(subcategory),
     "__TAGS__" => yaml_array(tags),
     "{{TAGS}}" => yaml_array(tags),
     "__DESCRIPTION__" => description,

@@ -63,6 +63,7 @@ search:
   load_error: "Không thể tải chỉ mục tìm kiếm."
   filter_prefix: "Lọc theo"
   filter_category_prefix: "danh mục"
+  filter_subcategory_prefix: "danh mục con"
   type_article: "Bài viết"
   type_tutorial: "Hướng dẫn"
   type_case_study: "Case Study"

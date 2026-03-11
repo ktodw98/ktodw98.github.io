@@ -40,7 +40,7 @@ make templates
 ```bash
 touch templates/posts/retrospective.md
 make templates
-make new TEMPLATE=retrospective TITLE="Sprint 12 Review" CATEGORY=career TAGS="retrospective,team" DESCRIPTION="스프린트 회고"
+make new TEMPLATE=retrospective TITLE="Sprint 12 Review" CATEGORY=career SUBCATEGORY=teamwork TAGS="retrospective,team" DESCRIPTION="스프린트 회고"
 ```
 
 주의:
@@ -57,6 +57,7 @@ front matter 안에서는 YAML-safe 토큰을 권장합니다.
 - `__DATE__`
 - `__TYPE__`
 - `__CATEGORY__`
+- `# __SUBCATEGORY_BLOCK__`
 - `__TAGS__`
 - `__DESCRIPTION__`
 - `# __IMAGE_BLOCK__`
@@ -74,6 +75,7 @@ __TITLE__
 __DATE__
 __TYPE__
 __CATEGORY__
+# __SUBCATEGORY_BLOCK__
 __TAGS__
 __DESCRIPTION__
 # __IMAGE_BLOCK__
@@ -107,6 +109,7 @@ title: "__TITLE__"
 date: "__DATE__"
 type: "__TYPE__"
 categories: ["__CATEGORY__"]
+# __SUBCATEGORY_BLOCK__
 tags: __TAGS__
 description: "__DESCRIPTION__"
 # __IMAGE_BLOCK__
@@ -136,8 +139,8 @@ What problem does this post cover?
 
 ```bash
 make templates
-make new TEMPLATE=article TITLE="Template Check" CATEGORY=writing TAGS="writing,workflow" DESCRIPTION="template smoke test"
-make new TEMPLATE=study-note TITLE="MSA 01 - What Are Microservices?" CATEGORY=engineering TAGS="architecture,microservices,study" SERIES="msa-study" SERIES_ORDER=1 DESCRIPTION="template smoke test"
+make new TEMPLATE=article TITLE="Template Check" CATEGORY=essays SUBCATEGORY=writing TAGS="writing,workflow" DESCRIPTION="template smoke test"
+make new TEMPLATE=study-note TITLE="MSA 01 - What Are Microservices?" CATEGORY=engineering SUBCATEGORY=architecture TAGS="architecture,microservices,study" SERIES="msa-study" SERIES_ORDER=1 DESCRIPTION="template smoke test"
 make validate
 ```
 
@@ -147,6 +150,7 @@ make validate
 
 - placeholder 철자가 다르면 치환되지 않고 그대로 남습니다.
 - 새 템플릿을 추가하면서 `TYPE_BY_TEMPLATE`를 안 맞추면 `type` 기본값이 의도와 다를 수 있습니다.
+- `# __SUBCATEGORY_BLOCK__`를 빼면 `SUBCATEGORY=...`를 넘겨도 front matter에 반영되지 않습니다.
 - `# __IMAGE_BLOCK__`를 빼면 생성기에서 `IMAGE=...`를 넘겨도 front matter에 반영되지 않습니다.
 - `__SERIES__`와 `__SERIES_ORDER__`를 사용하는 템플릿은 생성기 입력도 같이 맞춰야 합니다.
 - import 전용 placeholder를 일반 템플릿에 섞으면 빈 문자열로 치환될 수 있습니다.

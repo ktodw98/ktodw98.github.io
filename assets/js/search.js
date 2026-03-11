@@ -56,7 +56,7 @@
       .slice(0, maxResults)
       .map(function (post) {
         var tags = (post.tags || []).join(", ");
-        var category = post.category_label ? String(post.category_label) : "";
+        var taxonomy = post.taxonomy_label ? String(post.taxonomy_label) : "";
         var badgeKey = typeLabels[post.type] || "search.type_article";
         var badge = t(badgeKey);
         return (
@@ -66,7 +66,7 @@
           "<span class=\"search-hit-meta\">" +
           badge +
           (post.date ? " · " + escapeHtml(post.date) : "") +
-          (category ? " · " + escapeHtml(category) : "") +
+          (taxonomy ? " · " + escapeHtml(taxonomy) : "") +
           "</span>" +
           (tags ? "<span class=\"search-hit-tags\">" + escapeHtml(tags) + "</span>" : "") +
           "</a>" +
@@ -93,6 +93,9 @@
         (post.tags || []).join(" "),
         post.category_id || "",
         post.category_label || "",
+        post.subcategory_id || "",
+        post.subcategory_label || "",
+        post.taxonomy_label || "",
         post.type
       ]
         .join(" ")

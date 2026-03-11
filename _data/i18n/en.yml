@@ -63,6 +63,7 @@ search:
   load_error: "Failed to load search index."
   filter_prefix: "Filtered by"
   filter_category_prefix: "category"
+  filter_subcategory_prefix: "subcategory"
   type_article: "Article"
   type_tutorial: "Tutorial"
   type_case_study: "Case Study"

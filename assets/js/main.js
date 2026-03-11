@@ -284,6 +284,40 @@
     }
   }
 
+  function syncPostsSubnav() {
+    var root = document.querySelector("[data-posts-subnav-root]");
+    if (!root) return;
+
+    var params = new URLSearchParams(window.location.search);
+    var currentCategory = (params.get("category") || root.getAttribute("data-current-category") || "").toLowerCase();
+    var currentSubcategory = (params.get("subcategory") || root.getAttribute("data-current-subcategory") || "").toLowerCase();
+    var allPosts = root.querySelector("[data-posts-subnav-all]");
+    var categoryItems = root.querySelectorAll("[data-category-id]");
+    var subcategoryGroups = root.querySelectorAll("[data-subcategory-group]");
+    var subcategoryItems = root.querySelectorAll("[data-subcategory-id]");
+
+    if (allPosts) {
+      allPosts.classList.toggle("is-active", !currentCategory && window.location.pathname === "/posts/");
+    }
+
+    Array.prototype.forEach.call(categoryItems, function (item) {
+      var itemCategory = (item.getAttribute("data-category-id") || "").toLowerCase();
+      item.classList.toggle("is-active", !!currentCategory && itemCategory === currentCategory);
+    });
+
+    Array.prototype.forEach.call(subcategoryGroups, function (group) {
+      var groupCategory = (group.getAttribute("data-subcategory-group") || "").toLowerCase();
+      group.hidden = !currentCategory || groupCategory !== currentCategory;
+    });
+
+    Array.prototype.forEach.call(subcategoryItems, function (item) {
+      var group = item.closest("[data-subcategory-group]");
+      var groupCategory = group ? (group.getAttribute("data-subcategory-group") || "").toLowerCase() : "";
+      var itemSubcategory = (item.getAttribute("data-subcategory-id") || "").toLowerCase();
+      item.classList.toggle("is-active", !!currentSubcategory && groupCategory === currentCategory && itemSubcategory === currentSubcategory);
+    });
+  }
+
   function filterPostsByQuery() {
     var postList = document.getElementById("post-archive-list");
     if (!postList) return;
@@ -324,5 +358,6 @@
   }
 
   buildToc();
+  syncPostsSubnav();
   filterPostsByQuery();
 })();

@@ -235,6 +235,11 @@ a {
   scrollbar-width: none;
 }
 
+.posts-subnav-secondary {
+  padding-top: 0;
+  padding-bottom: 0.68rem;
+}
+
 .posts-subnav::-webkit-scrollbar {
   width: 0;
   height: 0;
@@ -267,6 +272,10 @@ a {
 
 .posts-subnav-item.posts-subnav-item-outline {
   border-style: dashed;
+}
+
+.posts-subnav-item.posts-subnav-item-secondary {
+  background: color-mix(in srgb, var(--surface-soft) 92%, transparent);
 }
 
 .search-hit {

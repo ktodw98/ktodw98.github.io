@@ -13,7 +13,7 @@
   {% if current_subcategory_id == nil or current_subcategory_id == "" %}
     {% assign current_subcategory_id = page.subcategory | default: "" %}
   {% endif %}
-  <div class="posts-subnav-shell" data-posts-subnav-root data-current-category="{{ current_category_id | default: '' }}" data-current-subcategory="{{ current_subcategory_id | default: '' }}">
+  <div class="posts-subnav-shell" data-posts-subnav-root data-posts-url="{{ '/posts/' | relative_url }}" data-current-category="{{ current_category_id | default: '' }}" data-current-subcategory="{{ current_subcategory_id | default: '' }}">
     <div class="container">
       <nav class="posts-subnav" aria-label="포스트 카테고리" data-i18n-aria-label="aria.post_categories">
         <a class="posts-subnav-item {% if page.url == '/posts/' and current_category_id == nil %}is-active{% endif %}" href="{{ '/posts/' | relative_url }}" data-posts-subnav-all data-i18n="posts_subnav.all_posts">전체 포스트</a>
@@ -27,21 +27,8 @@
         {% endfor %}
         <a class="posts-subnav-item posts-subnav-item-outline {% if page.url == '/categories/' or page.url contains '/categories/' %}is-active{% endif %}" href="{{ '/categories/' | relative_url }}" data-i18n="posts_subnav.category_view">카테고리 보기</a>
       </nav>
-      {% for category in active_categories %}
-        {% assign active_subcategories = category.subcategories | where: "active", true | sort: "order" %}
-        {% if active_subcategories.size > 0 %}
-          <nav class="posts-subnav posts-subnav-secondary" aria-label="{{ category.label }} subcategories" data-subcategory-group="{{ category.id }}" {% unless current_category_id == category.id %}hidden{% endunless %}>
-            {% for subcategory in active_subcategories %}
-              <a
-                class="posts-subnav-item posts-subnav-item-secondary {% if current_category_id == category.id and current_subcategory_id == subcategory.id %}is-active{% endif %}"
-                data-subcategory-id="{{ subcategory.id }}"
-                href="{{ '/posts/' | relative_url }}?category={{ category.id | url_encode }}&subcategory={{ subcategory.id | url_encode }}">
-                {{ subcategory.label }}
-              </a>
-            {% endfor %}
-          </nav>
-        {% endif %}
-      {% endfor %}
+      <nav class="posts-subnav posts-subnav-secondary" data-posts-subnav-secondary hidden></nav>
     </div>
+    <script type="application/json" data-posts-subnav-taxonomy>{{ active_categories | jsonify }}</script>
   </div>
 {% endif %}

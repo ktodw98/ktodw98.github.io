@@ -289,15 +289,25 @@
     if (!root) return;
 
     var params = new URLSearchParams(window.location.search);
+    var postsUrl = root.getAttribute("data-posts-url") || "/posts/";
     var currentCategory = (params.get("category") || root.getAttribute("data-current-category") || "").toLowerCase();
     var currentSubcategory = (params.get("subcategory") || root.getAttribute("data-current-subcategory") || "").toLowerCase();
     var allPosts = root.querySelector("[data-posts-subnav-all]");
     var categoryItems = root.querySelectorAll("[data-category-id]");
-    var subcategoryGroups = root.querySelectorAll("[data-subcategory-group]");
-    var subcategoryItems = root.querySelectorAll("[data-subcategory-id]");
+    var secondaryNav = root.querySelector("[data-posts-subnav-secondary]");
+    var taxonomyNode = root.querySelector("[data-posts-subnav-taxonomy]");
+    var taxonomy = [];
+
+    if (taxonomyNode) {
+      try {
+        taxonomy = JSON.parse(taxonomyNode.textContent || "[]");
+      } catch (error) {
+        taxonomy = [];
+      }
+    }
 
     if (allPosts) {
-      allPosts.classList.toggle("is-active", !currentCategory && window.location.pathname === "/posts/");
+      allPosts.classList.toggle("is-active", !currentCategory && window.location.pathname === postsUrl);
     }
 
     Array.prototype.forEach.call(categoryItems, function (item) {
@@ -305,17 +315,44 @@
       item.classList.toggle("is-active", !!currentCategory && itemCategory === currentCategory);
     });
 
-    Array.prototype.forEach.call(subcategoryGroups, function (group) {
-      var groupCategory = (group.getAttribute("data-subcategory-group") || "").toLowerCase();
-      group.hidden = !currentCategory || groupCategory !== currentCategory;
-    });
+    if (!secondaryNav) return;
 
-    Array.prototype.forEach.call(subcategoryItems, function (item) {
-      var group = item.closest("[data-subcategory-group]");
-      var groupCategory = group ? (group.getAttribute("data-subcategory-group") || "").toLowerCase() : "";
-      var itemSubcategory = (item.getAttribute("data-subcategory-id") || "").toLowerCase();
-      item.classList.toggle("is-active", !!currentSubcategory && groupCategory === currentCategory && itemSubcategory === currentSubcategory);
+    if (!currentCategory) {
+      secondaryNav.hidden = true;
+      secondaryNav.innerHTML = "";
+      return;
+    }
+
+    var currentCategoryRecord = taxonomy.find(function (category) {
+      return String(category.id || "").toLowerCase() === currentCategory;
     });
+    var subcategories = currentCategoryRecord && Array.isArray(currentCategoryRecord.subcategories)
+      ? currentCategoryRecord.subcategories.filter(function (subcategory) {
+          return subcategory && subcategory.active === true;
+        })
+      : [];
+
+    if (!subcategories.length) {
+      secondaryNav.hidden = true;
+      secondaryNav.innerHTML = "";
+      return;
+    }
+
+    secondaryNav.innerHTML = subcategories
+      .map(function (subcategory) {
+        var subcategoryId = String(subcategory.id || "");
+        var isActive = currentSubcategory && subcategoryId.toLowerCase() === currentSubcategory;
+        var href = postsUrl + "?category=" + encodeURIComponent(currentCategoryRecord.id) + "&subcategory=" + encodeURIComponent(subcategoryId);
+        return (
+          "<a class=\"posts-subnav-item posts-subnav-item-secondary" +
+          (isActive ? " is-active" : "") +
+          "\" href=\"" + href + "\">" +
+          escapeHtml(subcategory.label || subcategoryId) +
+          "</a>"
+        );
+      })
+      .join("");
+    secondaryNav.hidden = false;
   }
 
   function filterPostsByQuery() {

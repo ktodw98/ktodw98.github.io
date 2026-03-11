@@ -18,6 +18,7 @@ templates/posts/
 - `log`
 - `reference`
 - `study-note`
+- `study-note-msa`
 - `import-summary`
 - `import-repost`
 
@@ -141,6 +142,7 @@ What problem does this post cover?
 make templates
 make new TEMPLATE=article TITLE="Template Check" CATEGORY=essays SUBCATEGORY=writing TAGS="writing,workflow" DESCRIPTION="template smoke test"
 make new TEMPLATE=study-note TITLE="MSA 01 - What Are Microservices?" CATEGORY=engineering SUBCATEGORY=architecture TAGS="architecture,microservices,study" SERIES="msa-study" SERIES_ORDER=1 DESCRIPTION="template smoke test"
+make new TEMPLATE=study-note-msa TITLE="MSA 01 - What Are Microservices?" CATEGORY=engineering SUBCATEGORY=architecture TAGS="architecture,microservices,study" SERIES="msa-study" SERIES_ORDER=1 DESCRIPTION="template smoke test"
 make validate
 ```
 

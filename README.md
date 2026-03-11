@@ -34,6 +34,7 @@ make categories
 make tags
 make new TEMPLATE=tutorial TITLE="Building a Caching Layer" CATEGORY=engineering SUBCATEGORY=backend TAGS="go,api,caching" DESCRIPTION="How the cache design evolved." IMAGE="cover.png"
 make new TEMPLATE=study-note TITLE="MSA 01 - What Are Microservices?" CATEGORY=engineering SUBCATEGORY=architecture TAGS="architecture,microservices,study" SERIES="msa-study" SERIES_ORDER=1 DESCRIPTION="Chapter summary and takeaways."
+make new TEMPLATE=study-note-msa TITLE="MSA 01 - What Are Microservices?" CATEGORY=engineering SUBCATEGORY=architecture TAGS="architecture,microservices,study" SERIES="msa-study" SERIES_ORDER=1 DESCRIPTION="Chapter summary and takeaways."
 make import-summary TITLE="Notes on Example Article" CATEGORY=essays SUBCATEGORY=writing TAGS="reference,writing" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="Summary and takeaways from the source article." IMAGE="cover.png"
 make import-repost TITLE="Repost: Example Article" CATEGORY=essays SUBCATEGORY=writing TAGS="reference" SOURCE_URL="https://example.com/post" SOURCE_NAME="Example Blog" DESCRIPTION="Repost with source attribution." IMAGE="cover.png"
 make validate

@@ -30,6 +30,11 @@ mobile_menu:
 posts_subnav:
   all_posts: "All Posts"
   category_view: "View Categories"
+posts_view:
+  label: "View"
+  text: "Text"
+  card: "Card"
+  compact: "Compact"
 sidebar:
   profile: "Profile"
   tags: "Tags"
@@ -86,3 +91,4 @@ aria:
   table_of_contents: "Table of contents"
   mobile_navigation: "Mobile navigation"
   post_categories: "Post categories"
+  posts_view_mode: "Post view mode"

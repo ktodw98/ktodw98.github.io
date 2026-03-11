@@ -16,24 +16,44 @@ layout: default
   <h2 data-i18n="home.latest_posts">최신 포스트</h2>
   {% assign visible_posts = site.posts | where_exp: "item", "item.draft != true" %}
   {% if visible_posts.size > 0 %}
-    <ul>
-      {% for post in visible_posts limit: 8 %}
-        <li>
-          <article class="card">
-            <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-            {% assign primary_category = post.categories | first %}
-            {% assign post_subcategory = post.subcategory | default: "" %}
-            {% capture taxonomy_label %}{% include taxonomy-label.html category_id=primary_category subcategory_id=post_subcategory %}{% endcapture %}
-            <p class="meta">
-              {{ post.date | date: "%Y-%m-%d" }}
-              {% if primary_category %} · {{ taxonomy_label | strip }}{% endif %}
-              {% if post.tags and post.tags.size > 0 %} · {{ post.tags | join: ", " }}{% endif %}
-            </p>
-            <p>{{ post.description }}</p>
-          </article>
-        </li>
-      {% endfor %}
-    </ul>
+    <div class="posts-view-root is-view-card" data-posts-view-root>
+      <div class="posts-view-toolbar">
+        <div class="posts-view-switcher">
+          <span class="posts-view-label" data-i18n="posts_view.label">View</span>
+          <div class="posts-view-buttons" role="group" aria-label="Post view mode" data-i18n-aria-label="aria.posts_view_mode">
+            <button type="button" class="posts-view-button" data-posts-view-option="text" aria-pressed="false" data-i18n="posts_view.text">Text</button>
+            <button type="button" class="posts-view-button is-active" data-posts-view-option="card" aria-pressed="true" data-i18n="posts_view.card">Card</button>
+            <button type="button" class="posts-view-button" data-posts-view-option="compact" aria-pressed="false" data-i18n="posts_view.compact">Compact</button>
+          </div>
+        </div>
+      </div>
+      <ul>
+        {% for post in visible_posts limit: 8 %}
+          {% assign card_image = post.image | default: "" %}
+          <li>
+            <article class="card post-card{% if card_image != '' and card_image != site.image %} post-card--with-image{% endif %}">
+              {% if card_image != '' and card_image != site.image %}
+                <a class="post-card-media" href="{{ post.url | relative_url }}" aria-hidden="true" tabindex="-1">
+                  <img class="post-card-image" src="{{ card_image }}" alt="" loading="lazy" decoding="async">
+                </a>
+              {% endif %}
+              <div class="post-card-body">
+                <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+                {% assign primary_category = post.categories | first %}
+                {% assign post_subcategory = post.subcategory | default: "" %}
+                {% capture taxonomy_label %}{% include taxonomy-label.html category_id=primary_category subcategory_id=post_subcategory %}{% endcapture %}
+                <p class="meta">
+                  {{ post.date | date: "%Y-%m-%d" }}
+                  {% if primary_category %} · {{ taxonomy_label | strip }}{% endif %}
+                  {% if post.tags and post.tags.size > 0 %} · {{ post.tags | join: ", " }}{% endif %}
+                </p>
+                <p>{{ post.description }}</p>
+              </div>
+            </article>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
   {% else %}
     <p>No posts yet.</p>
   {% endif %}

@@ -403,7 +403,53 @@
     }
   }
 
+  function setupPostsViewSwitcher() {
+    var storageKey = "blog-posts-view";
+    var roots = document.querySelectorAll("[data-posts-view-root]");
+    if (!roots.length) return;
+
+    function normalizeView(view) {
+      return ["text", "card", "compact"].indexOf(view) >= 0 ? view : "card";
+    }
+
+    function readStoredView() {
+      try {
+        return normalizeView(localStorage.getItem(storageKey));
+      } catch (error) {
+        return "card";
+      }
+    }
+
+    function applyView(view) {
+      var normalizedView = normalizeView(view);
+
+      Array.prototype.forEach.call(roots, function (rootNode) {
+        rootNode.classList.remove("is-view-text", "is-view-card", "is-view-compact");
+        rootNode.classList.add("is-view-" + normalizedView);
+
+        Array.prototype.forEach.call(rootNode.querySelectorAll("[data-posts-view-option]"), function (button) {
+          var isActive = button.getAttribute("data-posts-view-option") === normalizedView;
+          button.classList.toggle("is-active", isActive);
+          button.setAttribute("aria-pressed", isActive ? "true" : "false");
+        });
+      });
+    }
+
+    applyView(readStoredView());
+
+    Array.prototype.forEach.call(document.querySelectorAll("[data-posts-view-option]"), function (button) {
+      button.addEventListener("click", function () {
+        var selectedView = normalizeView(button.getAttribute("data-posts-view-option"));
+        try {
+          localStorage.setItem(storageKey, selectedView);
+        } catch (error) {}
+        applyView(selectedView);
+      });
+    });
+  }
+
   buildToc();
   syncPostsSubnav();
   filterPostsByQuery();
+  setupPostsViewSwitcher();
 })();

@@ -30,6 +30,11 @@ mobile_menu:
 posts_subnav:
   all_posts: "すべての投稿"
   category_view: "カテゴリを見る"
+posts_view:
+  label: "表示"
+  text: "テキスト"
+  card: "カード"
+  compact: "コンパクト"
 sidebar:
   profile: "プロフィール"
   tags: "タグ"
@@ -86,3 +91,4 @@ aria:
   table_of_contents: "目次"
   mobile_navigation: "モバイルナビゲーション"
   post_categories: "投稿カテゴリ"
+  posts_view_mode: "投稿表示モード"

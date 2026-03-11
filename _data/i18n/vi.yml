@@ -30,6 +30,11 @@ mobile_menu:
 posts_subnav:
   all_posts: "Tất cả bài viết"
   category_view: "Xem danh mục"
+posts_view:
+  label: "Kiểu xem"
+  text: "Chữ"
+  card: "Thẻ"
+  compact: "Gọn"
 sidebar:
   profile: "Hồ sơ"
   tags: "Thẻ"
@@ -86,3 +91,4 @@ aria:
   table_of_contents: "Mục lục"
   mobile_navigation: "Điều hướng di động"
   post_categories: "Danh mục bài viết"
+  posts_view_mode: "Chế độ xem bài viết"

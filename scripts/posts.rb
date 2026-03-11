@@ -20,6 +20,7 @@ TYPE_BY_TEMPLATE = {
   "log" => "log",
   "reference" => "reference",
   "study-note" => "reference",
+  "study-note-msa" => "reference",
   "import-summary" => "reference",
   "import-repost" => "reference"
 }.freeze
@@ -36,6 +37,7 @@ DEFAULT_DESCRIPTION_BY_TEMPLATE = {
   "log" => "Replace with the change summary and impact.",
   "reference" => "Replace with the definition or lookup summary.",
   "study-note" => "Replace with the chapter summary, key concepts, and your takeaways.",
+  "study-note-msa" => "Replace with the MSA chapter summary, key concepts, and your takeaways.",
   "import-summary" => "Replace with a summary of the source article and your takeaways.",
   "import-repost" => "Replace with a repost summary and source attribution."
 }.freeze
@@ -153,7 +155,7 @@ def parse_series_fields(template_name)
   series = optional_env("SERIES", "")
   series_order = optional_env("SERIES_ORDER", "")
 
-  if template_name == "study-note"
+  if %w[study-note study-note-msa].include?(template_name)
     fail_with("Missing required variable: SERIES") if series.empty?
     fail_with("Missing required variable: SERIES_ORDER") if series_order.empty?
   end

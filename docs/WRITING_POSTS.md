@@ -85,6 +85,12 @@ make new TEMPLATE=reference TITLE="HTTP Cache Control Notes" CATEGORY=engineerin
 make new TEMPLATE=study-note TITLE="MSA 01 - What Are Microservices?" CATEGORY=engineering SUBCATEGORY=architecture TAGS="architecture,microservices,study" SERIES="msa-study" SERIES_ORDER=1 DESCRIPTION="챕터 핵심 개념과 내 해석 정리"
 ```
 
+MSA 전용 스터디 노트 생성:
+
+```bash
+make new TEMPLATE=study-note-msa TITLE="MSA 01 - What Are Microservices?" CATEGORY=engineering SUBCATEGORY=architecture TAGS="architecture,microservices,study" SERIES="msa-study" SERIES_ORDER=1 DESCRIPTION="챕터 핵심 개념과 내 해석 정리"
+```
+
 대표 이미지까지 같이 넣는 예시:
 
 ```bash
